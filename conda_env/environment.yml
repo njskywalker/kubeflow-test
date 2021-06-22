@@ -5,6 +5,8 @@ channels:
 dependencies:
   - biobb_analysis==3.5.0
   - biobb_io==3.5.1
+  - biobb_structure_utils==3.5.3
+  - biobb_chemistry==3.5.0
   - biobb_amber==3.5.0
   - nb_conda_kernels
   - plotly

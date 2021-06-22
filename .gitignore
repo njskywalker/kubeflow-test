@@ -16,6 +16,7 @@ guidelines.md
 *.parmtop
 *.top
 *.txt
+*.mol2
 *.pdb4amber_sslink
 log*.*
 mdout

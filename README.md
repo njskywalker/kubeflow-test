@@ -17,6 +17,8 @@ This tutorials aim to illustrate the process of **setting up a simulation** syst
 * [biobb_io](https://github.com/bioexcel/biobb_io): Tools to fetch biomolecular data from public databases.
 * [biobb_amber](https://github.com/bioexcel/biobb_amber): Tools to setup and run Molecular Dynamics simulations using the Ambertools MD package.
 * [biobb_analysis](https://github.com/bioexcel/biobb_analysis): Tools to analyse Molecular Dynamics trajectories.
+* [biobb_structure_utils](https://github.com/bioexcel/biobb_structure_utils): Tools to  modify or extract information from a PDB structure file.
+* [biobb_chemistry](https://github.com/bioexcel/biobb_chemistry): Tools to to perform chemical conversions.
 
 ### Auxiliar libraries used
 
