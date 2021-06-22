@@ -1,0 +1,12 @@
+name: biobb_AMBER_MDsetup_tutorials
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - biobb_analysis==3.5.0
+  - biobb_io==3.5.1
+  - biobb_amber==3.5.0
+  - plotly
+  - nglview
+  - simpletraj
+  - conda
