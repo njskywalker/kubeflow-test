@@ -17,6 +17,10 @@ guidelines.md
 *.top
 *.txt
 *.mol2
+*.frcmod
+*.inpcrd
+*.lib
+*.prmtop
 *.pdb4amber_sslink
 log*.*
 mdout
