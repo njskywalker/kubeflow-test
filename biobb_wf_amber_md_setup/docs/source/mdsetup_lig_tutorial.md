@@ -174,7 +174,7 @@ remove_ligand(input_structure_path=nopo4_pdb,
     properties=prop)
 ```
 
-# Visualizing 3D structure
+## Visualizing 3D structure
 
 
 ```python
