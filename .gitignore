@@ -22,6 +22,10 @@ guidelines.md
 *.lib
 *.prmtop
 *.pdb4amber_sslink
+*.cpout
+*.cprst
+*.mdinfo
+*.cpin
 log*.*
 mdout
 mdinfo
