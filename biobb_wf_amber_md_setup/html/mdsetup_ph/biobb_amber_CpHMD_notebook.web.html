@@ -1,4 +1,4 @@
-#<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
 
@@ -13220,6 +13220,10 @@ Alternatively, a <strong>PDB file</strong> can be used as starting structure. <b
 <span class="n">view</span> <span class="o">=</span> <span class="n">nglview</span><span class="o">.</span><span class="n">show_structure_file</span><span class="p">(</span><span class="n">downloaded_pdb</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">&#39;ball+stick&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">_remote_call</span><span class="p">(</span><span class="s1">&#39;setSize&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Widget&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;600px&#39;</span><span class="p">])</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">render_image</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">download_image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;ngl1.png&#39;</span><span class="p">)</span>
+
 <span class="n">view</span>
 </pre></div>
 
@@ -13298,6 +13302,10 @@ Alternatively, a <strong>PDB file</strong> can be used as starting structure. <b
 <span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">&#39;ball+stick&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">&#39;ball+stick&#39;</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="s1">&#39;0.5&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;GL4 AS4&#39;</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">_remote_call</span><span class="p">(</span><span class="s1">&#39;setSize&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Widget&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;600px&#39;</span><span class="p">])</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">render_image</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">download_image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;ngl2.png&#39;</span><span class="p">)</span>
+
 <span class="n">view</span>
 </pre></div>
 
@@ -13386,6 +13394,10 @@ Alternatively, a <strong>PDB file</strong> can be used as starting structure. <b
 <span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">&#39;ball+stick&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">&#39;ball+stick&#39;</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="s1">&#39;0.3&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;GL4 AS4&#39;</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">_remote_call</span><span class="p">(</span><span class="s1">&#39;setSize&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Widget&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;600px&#39;</span><span class="p">])</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">render_image</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">download_image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;ngl3.png&#39;</span><span class="p">)</span>
+
 <span class="n">view</span>
 </pre></div>
 
@@ -13474,6 +13486,10 @@ The solvent type used is the default <strong>TIP3P</strong> water model, a gener
 <span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">&#39;ball+stick&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;protein&#39;</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;solvent&#39;</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">_remote_call</span><span class="p">(</span><span class="s1">&#39;setSize&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Widget&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;600px&#39;</span><span class="p">])</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">render_image</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">download_image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;ngl4.png&#39;</span><span class="p">)</span>
+
 <span class="n">view</span>
 </pre></div>
 
@@ -13560,6 +13576,10 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 <span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;solvent&#39;</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">&#39;spacefill&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;Cl- Na+&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">_remote_call</span><span class="p">(</span><span class="s1">&#39;setSize&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Widget&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;600px&#39;</span><span class="p">])</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">render_image</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">download_image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;ngl5.png&#39;</span><span class="p">)</span>
+
 <span class="n">view</span>
 </pre></div>
 
