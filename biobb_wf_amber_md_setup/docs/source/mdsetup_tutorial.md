@@ -128,19 +128,19 @@ We invite you to check what the tool does with different, more complex structure
 
 ***
 **Building Blocks** used:
- - [pdb4amber](https://biobb-amber.readthedocs.io/en/latest/pdb4amber.html#module-pdb4amber.pdb4amber) from **biobb_amber.pdb4amber.pdb4amber**
+ - [pdb4amber_run](https://biobb-amber.readthedocs.io/en/latest/pdb4amber.html#pdb4amber-pdb4amber-run-module) from **biobb_amber.pdb4amber.pdb4amber_run**
 ***
 
 
 ```python
 # Import module
-from biobb_amber.pdb4amber.pdb4amber import pdb4amber
+from biobb_amber.pdb4amber.pdb4amber_run import pdb4amber_run
 
 # Create prop dict and inputs/outputs
 output_pdb4amber_path = 'structure.pdb4amber.pdb'
 
 # Create and launch bb
-pdb4amber(  input_pdb_path=downloaded_pdb,
+pdb4amber_run(input_pdb_path=downloaded_pdb,
             output_pdb_path=output_pdb4amber_path)
 ```
 
