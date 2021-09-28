@@ -26,6 +26,10 @@ guidelines.md
 *.cprst
 *.mdinfo
 *.cpin
+*.nc
+*.in
+*.ORIG
+*.ncrst
 log*.*
 mdout
 mdinfo
@@ -37,3 +41,12 @@ biobb_wf_amber_md_setup/notebooks/*/*.docs.ipynb
 biobb_wf_amber_md_setup/notebooks/*/*.png
 biobb_wf_amber_md_setup/notebooks/*/*.gif
 biobb_wf_amber_md_setup/notebooks/*/*.rst
+!biobb_wf_amber_md_setup/notebooks/abcsetup/ABCix_config_files/
+!biobb_wf_amber_md_setup/html/abcsetup/sander.md.nc
+!biobb_wf_amber_md_setup/html/abcsetup/structure.ions.parmtop
+!biobb_wf_amber_md_setup/html/abcsetup/structure.leap.4fs.top
+!biobb_wf_amber_md_setup/html/abcsetup/sander.md.ncrst
+!biobb_wf_amber_md_setup/docs/source/_static/abcsetup/sander.md.nc
+!biobb_wf_amber_md_setup/docs/source/_static/abcsetup/structure.ions.parmtop
+!biobb_wf_amber_md_setup/docs/source/_static/abcsetup/structure.leap.4fs.top
+!biobb_wf_amber_md_setup/docs/source/_static/abcsetup/sander.md.ncrst
