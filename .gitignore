@@ -42,6 +42,8 @@ biobb_wf_amber_md_setup/notebooks/*/*.png
 biobb_wf_amber_md_setup/notebooks/*/*.gif
 biobb_wf_amber_md_setup/notebooks/*/*.rst
 !biobb_wf_amber_md_setup/notebooks/abcsetup/ABCix_config_files/
+!biobb_wf_amber_md_setup/notebooks/abcsetup/ABCix_config_files/*.in
+!biobb_wf_amber_md_setup/notebooks/abcsetup/ABCix_config_files/*.in.ORIG
 !biobb_wf_amber_md_setup/html/abcsetup/sander.md.nc
 !biobb_wf_amber_md_setup/html/abcsetup/structure.ions.parmtop
 !biobb_wf_amber_md_setup/html/abcsetup/structure.leap.4fs.top
