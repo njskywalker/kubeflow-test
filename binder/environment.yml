@@ -8,6 +8,7 @@ dependencies:
   - biobb_structure_utils==3.6.1
   - biobb_chemistry==3.6.0
   - biobb_amber==3.6.2
+  - gfortran_linux-64
   - plotly
   - nglview
   - simpletraj
