@@ -119,7 +119,8 @@ prop = {
     'sequence': seq,
     'helix_type': 'abdna', # Right Handed B-DNA, Arnott 
     'remove_tmp': True,
-    'linker': 'x86_64-conda_cos6-linux-gnu-gfortran'
+    'compiler': 'gcc', # change according to your operating system
+    'linker': 'x86_64-conda_cos6-linux-gnu-gfortran' # change according to your operating system
 }
 
 #Create and launch bb
