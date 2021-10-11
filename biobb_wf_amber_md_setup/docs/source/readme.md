@@ -35,8 +35,7 @@ git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
 conda env create -f conda_env/environment.yml
 conda activate biobb_AMBER_MDsetup_tutorials
-jupyter-nbextension enable --py --user widgetsnbextension
-jupyter-nbextension enable --py --user nglview
+./conda_env/post-link.sh
 ```
 
 ***

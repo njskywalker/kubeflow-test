@@ -40,8 +40,7 @@ The main **steps of the pipeline** are:
  cd biobb_wf_md_setup_amber
  conda env create -f conda_env/environment.yml
  conda activate biobb_MDsetup_tutorials_amber
- jupyter-nbextension enable --py --user widgetsnbextension
- jupyter-nbextension enable --py --user nglview
+ ./conda_env/post-link.sh
  jupyter-notebook biobb_wf_amber_md_setup/notebooks/abcsetup/biobb_amber_ABC_setup.ipynb 
   ``` 
 
@@ -120,7 +119,8 @@ prop = {
     'helix_type': 'abdna', # Right Handed B-DNA, Arnott 
     'remove_tmp': True,
     'compiler': 'gcc', # change according to your operating system
-    'linker': 'x86_64-conda_cos6-linux-gnu-gfortran' # change according to your operating system
+    'linker': 'x86_64-conda_cos6-linux-gnu-gfortran' # gfortran linux version
+    # 'linker': 'gfortran' # gfortran osx version
 }
 
 #Create and launch bb
