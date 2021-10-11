@@ -36,13 +36,13 @@ The main **steps of the pipeline** are:
 ### Conda Installation and Launch
 
 ```console
- git clone https://github.com/bioexcel/biobb_wf_md_setup_amber.git
+ git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
  cd biobb_wf_md_setup_amber
  conda env create -f conda_env/environment.yml
  conda activate biobb_MDsetup_tutorials_amber
  jupyter-nbextension enable --py --user widgetsnbextension
  jupyter-nbextension enable --py --user nglview
- jupyter-notebook biobb_wf_md_setup_amber/notebooks/mdsetup_ABC/biobb_amber_ABC_setup.ipynb
+ jupyter-notebook biobb_wf_amber_md_setup/notebooks/abcsetup/biobb_amber_ABC_setup.ipynb 
   ``` 
 
 ***
