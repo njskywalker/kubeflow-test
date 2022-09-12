@@ -35,7 +35,14 @@ git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
 conda env create -f conda_env/environment.yml
 conda activate biobb_AMBER_MDsetup_tutorials
-./conda_env/post-link.sh
+jupyter nbextension enable python-markdown/main
+```
+
+Please execute the following commands before launching the Jupyter Notebook if you experience some issues with widgets such as NGL View (3D molecular visualization):
+
+```console
+jupyter-nbextension enable --py --user widgetsnbextension
+jupyter-nbextension enable --py --user nglview
 ```
 
 ***
@@ -75,19 +82,20 @@ jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_ph/biobb_amber_CpHMD_
 [![](https://readthedocs.org/projects/biobb-wf-amber-md-setup/badge/?version=latest)](https://biobb-wf-amber-md-setup.readthedocs.io/en/latest/abcsetup_tutorial.html)
 
 ```console
+./conda_env/post-link.sh
 jupyter-notebook biobb_wf_amber_md_setup/notebooks/abcsetup/biobb_amber_ABC_setup.ipynb
 ```
 
 ***
 
 ## Version
-2021.2 Release
+2022.3 Release
 
 ## Copyright & Licensing
 This software has been developed in the [MMB group](http://mmb.irbbarcelona.org) at the [BSC](http://www.bsc.es/) & [IRB](https://www.irbbarcelona.org/) for the [European BioExcel](http://bioexcel.eu/), funded by the European Commission (EU H2020 [823830](http://cordis.europa.eu/projects/823830), EU H2020 [675728](http://cordis.europa.eu/projects/675728)).
 
-* (c) 2015-2021 [Barcelona Supercomputing Center](https://www.bsc.es/)
-* (c) 2015-2021 [Institute for Research in Biomedicine](https://www.irbbarcelona.org/)
+* (c) 2015-2022 [Barcelona Supercomputing Center](https://www.bsc.es/)
+* (c) 2015-2022 [Institute for Research in Biomedicine](https://www.irbbarcelona.org/)
 
 Licensed under the
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0), see the file LICENSE for details.
