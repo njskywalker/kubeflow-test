@@ -9,7 +9,7 @@ dependencies:
   - biobb_chemistry==3.8.0
   - biobb_amber==3.8.0
   - ipywidgets==7.6.6
-  - gfortran_linux-64
+  - gfortran==8.5.0
   - jupyter_contrib_nbextensions
   - plotly
   - nglview
