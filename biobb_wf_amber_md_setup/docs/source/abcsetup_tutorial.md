@@ -134,7 +134,8 @@ Model **DNA 3D structure** from a **nucleotide sequence** using the **nab tool**
 
 ```python
 # uncomment in case of experiencing issues with undefined AMBERHOME variable in the cell below:
-# os.environ[AMBERHOME] = "/path/to/anaconda3/envs/biobb_AMBER_MDsetup_tutorials"
+# import os
+# os.environ['AMBERHOME'] = "/path/to/anaconda3/envs/biobb_AMBER_MDsetup_tutorials"
 ```
 
 ```python
