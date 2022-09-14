@@ -28,13 +28,28 @@ This tutorials aim to illustrate the process of **setting up a simulation** syst
 * [ipywidgets](https://github.com/jupyter-widgets/ipywidgets): Interactive HTML widgets for Jupyter notebooks and the IPython kernel.
 * [plotly](https://plot.ly/python/offline/): Python interactive graphing library integrated in Jupyter notebooks.
 * [simpletraj](https://github.com/arose/simpletraj): Lightweight coordinate-only trajectory reader based on code from GROMACS, MDAnalysis and VMD.
+* [gfortran](https://anaconda.org/conda-forge/gfortran): Fortran 95/2003/2008/2018 compiler for GCC, the GNU Compiler Collection.
 
 ### Conda Installation
+
+Take into account that, for this specific workflow, there are two environment files, one for linux OS and the other for mac OS:
+
+#### linux
 
 ```console
 git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
-conda env create -f conda_env/environment.yml
+conda env create -f conda_env/environment.linux.yml
+conda activate biobb_AMBER_MDsetup_tutorials
+jupyter nbextension enable python-markdown/main
+```
+
+#### macos
+
+```console
+git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
+cd biobb_wf_amber_md_setup
+conda env create -f conda_env/environment.macos.yml
 conda activate biobb_AMBER_MDsetup_tutorials
 jupyter nbextension enable python-markdown/main
 ```
@@ -83,7 +98,6 @@ jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_ph/biobb_amber_CpHMD_
 [![](https://readthedocs.org/projects/biobb-wf-amber-md-setup/badge/?version=latest)](https://biobb-wf-amber-md-setup.readthedocs.io/en/latest/abcsetup_tutorial.html)
 
 ```console
-./conda_env/post-link.sh
 jupyter-notebook biobb_wf_amber_md_setup/notebooks/abcsetup/biobb_amber_ABC_setup.ipynb
 ```
 

@@ -33,18 +33,33 @@ The main **steps of the pipeline** are:
  - [nglview](http://nglviewer.org/#nglview): Jupyter/IPython widget to interactively view molecular structures and trajectories in notebooks.
  - [ipywidgets](https://github.com/jupyter-widgets/ipywidgets): Interactive HTML widgets for Jupyter notebooks and the IPython kernel.
  - [plotly](https://plot.ly/python/offline/): Python interactive graphing library integrated in Jupyter notebooks.
+ - [gfortran](https://anaconda.org/conda-forge/gfortran): Fortran 95/2003/2008/2018 compiler for GCC, the GNU Compiler Collection.
 
 ### Conda Installation and Launch
 
+Take into account that, for this specific workflow, there are two environment files, one for linux OS and the other for mac OS:
+
+#### linux
+
 ```console
- git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
- cd biobb_wf_md_setup_amber
- conda env create -f conda_env/environment.yml
- conda activate biobb_MDsetup_tutorials_amber
- ./conda_env/post-link.sh
- jupyter nbextension enable python-markdown/main
- jupyter-notebook biobb_wf_amber_md_setup/notebooks/abcsetup/biobb_amber_ABC_setup.ipynb 
-  ``` 
+git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
+cd biobb_wf_amber_md_setup
+conda env create -f conda_env/environment.linux.yml
+conda activate biobb_AMBER_MDsetup_tutorials
+jupyter nbextension enable python-markdown/main
+jupyter-notebook biobb_wf_amber_md_setup/notebooks/abcsetup/biobb_amber_ABC_setup.ipynb 
+```
+
+#### macos
+
+```console
+git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
+cd biobb_wf_amber_md_setup
+conda env create -f conda_env/environment.macos.yml
+conda activate biobb_AMBER_MDsetup_tutorials
+jupyter nbextension enable python-markdown/main
+jupyter-notebook biobb_wf_amber_md_setup/notebooks/abcsetup/biobb_amber_ABC_setup.ipynb 
+```
 
 Please execute the following commands before launching the Jupyter Notebook if you experience some issues with widgets such as NGL View (3D molecular visualization):
 
@@ -52,6 +67,7 @@ Please execute the following commands before launching the Jupyter Notebook if y
 jupyter-nbextension enable --py --user widgetsnbextension
 jupyter-nbextension enable --py --user nglview
 ```
+
 
 ***
 ## Pipeline steps
@@ -116,6 +132,10 @@ Model **DNA 3D structure** from a **nucleotide sequence** using the **nab tool**
  - [nab_build_dna_structure](https://biobb-amber.readthedocs.io/en/latest/nab.html#module-nab.nab_build_dna_structure) from **biobb_amber.nab.nab_build_dna_structure**
 ***
 
+```python
+# uncomment in case of experiencing issues with undefined AMBERHOME variable in the cell below:
+# os.environ[AMBERHOME] = "/path/to/anaconda3/envs/biobb_AMBER_MDsetup_tutorials"
+```
 
 ```python
 # Import module

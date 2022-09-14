@@ -1,0 +1,18 @@
+name: biobb_AMBER_MDsetup_tutorials
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - biobb_analysis==3.8.0
+  - biobb_io==3.8.0
+  - biobb_structure_utils==3.8.0
+  - biobb_chemistry==3.8.0
+  - biobb_amber==3.8.0
+  - ipywidgets==7.6.6
+  - gfortran==8.5.0
+  - nb_conda_kernels
+  - jupyter_contrib_nbextensions
+  - plotly
+  - nglview
+  - simpletraj
+  - conda

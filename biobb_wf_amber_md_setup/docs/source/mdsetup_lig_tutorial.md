@@ -27,14 +27,29 @@ This tutorial aims to illustrate the process of **setting up a simulation system
 
 ### Conda Installation and Launch
 
+Take into account that, for this specific workflow, there are two environment files, one for linux OS and the other for mac OS:
+
+#### linux
+
 ```console
 git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
-conda env create -f conda_env/environment.yml
+conda env create -f conda_env/environment.linux.yml
 conda activate biobb_AMBER_MDsetup_tutorials
 jupyter nbextension enable python-markdown/main
 jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_lig/biobb_amber_complex_setup_notebook.ipynb
-``` 
+```
+
+#### macos
+
+```console
+git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
+cd biobb_wf_amber_md_setup
+conda env create -f conda_env/environment.macos.yml
+conda activate biobb_AMBER_MDsetup_tutorials
+jupyter nbextension enable python-markdown/main
+jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_lig/biobb_amber_complex_setup_notebook.ipynb
+```
 
 Please execute the following commands before launching the Jupyter Notebook if you experience some issues with widgets such as NGL View (3D molecular visualization):
 
