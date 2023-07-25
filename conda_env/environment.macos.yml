@@ -13,6 +13,7 @@ dependencies:
   - tornado==6.1
   - gfortran
   - nb_conda_kernels
+  - importlib_metadata
   - jupyter_contrib_nbextensions
   - plotly
   - nglview
