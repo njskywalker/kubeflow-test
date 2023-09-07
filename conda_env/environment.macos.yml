@@ -11,7 +11,8 @@ dependencies:
   - ipywidgets==7.6.6
   - jupyter_client==7.3.2
   - tornado==6.1
-  - gfortran
+  - gfortran==11.3.0
+  - libgfortran5==11.3.0
   - nb_conda_kernels
   - importlib_metadata
   - jupyter_contrib_nbextensions

@@ -12,6 +12,7 @@ dependencies:
   - jupyter_client==7.3.2
   - tornado==6.1
   - gfortran==8.5.0
+  - libgfortran5==8.5.0
   - jupyter_contrib_nbextensions
   - plotly
   - nglview
