@@ -12,7 +12,7 @@ dependencies:
   - gfortran==11.3.0
   - libgfortran5==11.3.0
   - nb_conda_kernels
-  - importlib_metadata
+  - traitlets==5.9.0
   - jupyter_contrib_nbextensions
   - plotly
   - nglview
