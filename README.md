@@ -77,6 +77,11 @@ jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_ph/biobb_amber_CpHMD_
 ```console
 jupyter-notebook biobb_wf_amber_md_setup/notebooks/abcsetup/biobb_amber_ABC_setup.ipynb
 ```
+***
+
+## Tutorials
+
+Click here to [view tutorials in Read the Docs](https://biobb-wf-amber-md-setup.readthedocs.io/en/latest/)
 
 ***
 
