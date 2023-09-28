@@ -1,5 +1,5 @@
 # AMBER Constant pH MD setup tutorial using BioExcel Building Blocks (biobb) 
-#### Partly based on:
+**Partly based on:**
 - AMBER Advanced Tutorial 18: [Constant pH MD Example, Calculating pKas for titratable side chains in HEWL](https://ambermd.org/tutorials/advanced/tutorial18/index.htm) by Jason Swails and T. Dwight McGee Jr.
 - AMBER Advanced Tutorial 33: [Constant pH and Redox Potential MD Example: Predicting pH-dependent standard Redox Potential values](https://ambermd.org/tutorials/advanced/tutorial33/) by Vinícius Wilian D. Cruzeiro.
 - Modeling of pH sensors for CLN025 beta-hairpin by [Jordi Juárez](https://scholar.google.es/citations?user=hUCtxPwAAAAJ&hl=ca), [Barril Lab](http://www.ub.edu/bl/), University of Barcelona. 

@@ -1,5 +1,6 @@
 # Protein-ligand complex MD Setup tutorial using BioExcel Building Blocks (biobb) 
-### --***AmberTools package version***--
+**--AmberTools package version--**
+
 **Based on the [MDWeb](http://mmb.irbbarcelona.org/MDWeb2/) [Amber FULL MD Setup tutorial](https://mmb.irbbarcelona.org/MDWeb2/help.php?id=workflows#AmberWorkflowFULL)**
 
 ***
