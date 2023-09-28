@@ -18,44 +18,21 @@ This tutorial aims to illustrate the process of **setting up a simulation system
  
 ### Auxiliar libraries used
 
- - [nb_conda_kernels](https://github.com/Anaconda-Platform/nb_conda_kernels): Enables a Jupyter Notebook or JupyterLab application in one conda environment to access kernels for Python, R, and other languages found in other environments.
- - [jupyter_contrib_nbextensions](https://github.com/ipython-contrib/jupyter_contrib_nbextensions): Contains a collection of community-contributed unofficial extensions that add functionality to the Jupyter notebook. 
- - [nglview](http://nglviewer.org/#nglview): Jupyter/IPython widget to interactively view molecular structures and trajectories in notebooks.
- - [ipywidgets](https://github.com/jupyter-widgets/ipywidgets): Interactive HTML widgets for Jupyter notebooks and the IPython kernel.
- - [plotly](https://plot.ly/python/offline/): Python interactive graphing library integrated in Jupyter notebooks.
- - [simpletraj](https://github.com/arose/simpletraj): Lightweight coordinate-only trajectory reader based on code from GROMACS, MDAnalysis and VMD.
+* [jupyter](https://jupyter.org/): Free software, open standards, and web services for interactive computing across all programming languages.
+* [plotly](https://plot.ly/python/offline/): Python interactive graphing library integrated in Jupyter notebooks.
+* [nglview](https://nglviewer.org/#nglview): Jupyter/IPython widget to interactively view molecular structures and trajectories in notebooks.
+* [simpletraj](https://github.com/arose/simpletraj): Lightweight coordinate-only trajectory reader based on code from GROMACS, MDAnalysis and VMD.
+* [gfortran](https://anaconda.org/conda-forge/gfortran): Fortran 95/2003/2008/2018 compiler for GCC, the GNU Compiler Collection.
+* [libgfortran5](https://anaconda.org/conda-forge/libgfortran5): Fortran compiler and libraries from the GNU Compiler Collection.
 
-### Conda Installation and Launch
-
-Take into account that, for this specific workflow, there are two environment files, one for linux OS and the other for mac OS:
-
-#### linux
+### Conda Installation
 
 ```console
 git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
-conda env create -f conda_env/environment.linux.yml
+conda env create -f conda_env/environment.yml
 conda activate biobb_AMBER_MDsetup_tutorials
-jupyter nbextension enable python-markdown/main
 jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_lig/biobb_amber_complex_setup_notebook.ipynb
-```
-
-#### macos
-
-```console
-git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
-cd biobb_wf_amber_md_setup
-conda env create -f conda_env/environment.macos.yml
-conda activate biobb_AMBER_MDsetup_tutorials
-jupyter nbextension enable python-markdown/main
-jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_lig/biobb_amber_complex_setup_notebook.ipynb
-```
-
-Please execute the following commands before launching the Jupyter Notebook if you experience some issues with widgets such as NGL View (3D molecular visualization):
-
-```console
-jupyter-nbextension enable --py --user widgetsnbextension
-jupyter-nbextension enable --py --user nglview
 ```
 
 ***
