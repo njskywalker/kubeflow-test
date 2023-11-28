@@ -36,6 +36,7 @@ log*.*
 mdout
 mdinfo
 !logo.png
+!requirements.txt
 .ipynb_checkpoints/
 biobb_wf_amber_md_setup/notebooks/*/*/
 biobb_wf_amber_md_setup/notebooks/*/*.web.ipynb
