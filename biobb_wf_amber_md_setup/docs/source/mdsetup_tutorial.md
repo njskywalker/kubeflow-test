@@ -411,7 +411,7 @@ output_ambpdb_path = 'structure.ambpdb.pdb'
 
 # Create and launch bb
 amber_to_pdb(input_top_path=output_top_path,
-            input_crd_path=output_h_min_rst_path,
+            input_crd_path=output_n_min_rst_path,
             output_pdb_path=output_ambpdb_path
             )
 ```
