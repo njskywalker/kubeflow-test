@@ -5,7 +5,7 @@
 - Modeling of pH sensors for CLN025 beta-hairpin by [Jordi Juárez](https://scholar.google.es/citations?user=hUCtxPwAAAAJ&hl=ca), [Barril Lab](http://www.ub.edu/bl/), University of Barcelona. 
 - [Constant pH MD simulation tutorial of BPTI protein in implicit solvent](https://jialuyu.com/constant-ph-md-simulation-of-bpti/) by Wei Zhang, University of the Pacific Stockton.
 ***
-This tutorial aims to illustrate the process of **setting up a simulation system** to run **constant pH** Molecular Dynamics simulations with **AMBER**, step by step, using the **BioExcel Building Blocks library (biobb)** wrapping the **AmberTools** utility from the **AMBER package**. The particular example used is the **Bovine Pancreatic Trypsin Inhibitor (BPTI)** protein (PDB code [6PTI](https://www.rcsb.org/structure/6PTI)). 
+This tutorial aims to illustrate the process of **setting up a simulation system** to run **constant pH** Molecular Dynamics simulations with **AMBER**, step by step, using the **BioExcel Building Blocks library (biobb)** wrapping the **AmberTools** utility from the **AMBER package**. The particular example used is the **Bovine Pancreatic Trypsin Inhibitor (BPTI)** protein (PDB code [6PTI](https://www.rcsb.org/structure/6PTI), [https://doi.org/10.2210/pdb6PTI/pdb](https://doi.org/10.2210/pdb6PTI/pdb)). 
 ***
 
 ## Settings
@@ -60,7 +60,7 @@ jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_ph/biobb_amber_CpHMD_
 <a id="input"></a>
 ## Input parameters
 **Input parameters** needed:
- - **pdbCode**: PDB code of the protein structure (e.g. 6PTI)
+ - **pdbCode**: PDB code of the protein structure (e.g. 6PTI, [https://doi.org/10.2210/pdb6PTI/pdb](https://doi.org/10.2210/pdb6PTI/pdb))
 
 
 ```python
@@ -427,7 +427,6 @@ process_minout(input_log_path=output_min_log_path,
 
 
 ```python
-# Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_h_min_dat_path,'r') as energy_file:
     x,y = map(
         list,
@@ -545,7 +544,6 @@ process_mdout(input_log_path=output_heat_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_dat_heat_path,'r') as energy_file:
     x,y = map(
         list,
@@ -661,7 +659,6 @@ process_mdout(input_log_path=output_nvt_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_dat_nvt_path,'r') as energy_file:
     x,y = map(
         list,

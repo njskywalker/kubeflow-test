@@ -55,3 +55,8 @@ biobb_wf_amber_md_setup/notebooks/*/*.rst
 !biobb_wf_amber_md_setup/docs/source/_static/abcsetup/structure.ions.parmtop
 !biobb_wf_amber_md_setup/docs/source/_static/abcsetup/structure.leap.4fs.top
 !biobb_wf_amber_md_setup/docs/source/_static/abcsetup/sander.md.ncrst
+biobb_wf_amber_md_setup/docs/notebooks/
+biobb_wf_amber_md_setup/html/abcsetup/biobb_amber_ABC_setup.web.ipynb
+biobb_wf_amber_md_setup/html/mdsetup/biobb_amber_setup_notebook.web.ipynb
+biobb_wf_amber_md_setup/html/mdsetup_lig/biobb_amber_complex_setup_notebook.web.ipynb
+biobb_wf_amber_md_setup/html/mdsetup_ph/biobb_amber_CpHMD_notebook.web.ipynb

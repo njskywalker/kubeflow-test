@@ -4,7 +4,7 @@
 **Based on the [MDWeb](http://mmb.irbbarcelona.org/MDWeb2/) [Amber FULL MD Setup tutorial](https://mmb.irbbarcelona.org/MDWeb2/help.php?id=workflows#AmberWorkflowFULL)**
 
 ***
-This tutorial aims to illustrate the process of **setting up a simulation system** containing a **protein in complex with a ligand**, step by step, using the **BioExcel Building Blocks library (biobb)** wrapping the **AmberTools** utility from the **AMBER package**. The particular example used is the **T4 lysozyme** protein (PDB code [3HTB](https://www.rcsb.org/structure/3HTB)) with two residue modifications ***L99A/M102Q*** complexed with the small ligand **2-propylphenol** (3-letter code [JZ4](https://www.rcsb.org/ligand/JZ4)). 
+This tutorial aims to illustrate the process of **setting up a simulation system** containing a **protein in complex with a ligand**, step by step, using the **BioExcel Building Blocks library (biobb)** wrapping the **AmberTools** utility from the **AMBER package**. The particular example used is the **T4 lysozyme** protein (PDB code [3HTB](https://www.rcsb.org/structure/3HTB), [https://doi.org/10.2210/pdb3HTB/pdb](https://doi.org/10.2210/pdb3HTB/pdb)) with two residue modifications ***L99A/M102Q*** complexed with the small ligand **2-propylphenol** (3-letter code [JZ4](https://www.rcsb.org/ligand/JZ4), [https://www.rcsb.org/ligand/JZ4](https://www.rcsb.org/ligand/JZ4)). 
 ***
 
 ## Settings
@@ -64,8 +64,8 @@ jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_lig/biobb_amber_compl
 <a id="input"></a>
 ## Input parameters
 **Input parameters** needed:
- - **pdbCode**: PDB code of the protein structure (e.g. 3HTB)
- - **ligandCode**: 3-letter code of the ligand (e.g. JZ4)
+ - **pdbCode**: PDB code of the protein structure (e.g. 3HTB, [https://doi.org/10.2210/pdb3HTB/pdb](https://doi.org/10.2210/pdb3HTB/pdb))
+ - **ligandCode**: 3-letter code of the ligand (e.g. JZ4, [https://www.rcsb.org/ligand/JZ4](https://www.rcsb.org/ligand/JZ4))
  - **mol_charge**: Charge of the ligand (e.g. 0)
 
 
@@ -506,7 +506,6 @@ process_minout(input_log_path=output_h_min_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_h_min_dat_path,'r') as energy_file:
     x,y = map(
         list,
@@ -589,7 +588,6 @@ process_minout(input_log_path=output_n_min_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_n_min_dat_path,'r') as energy_file:
     x,y = map(
         list,
@@ -810,7 +808,6 @@ process_minout(input_log_path=output_min_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_dat_path,'r') as energy_file:
     x,y = map(
         list,
@@ -928,7 +925,6 @@ process_mdout(input_log_path=output_heat_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_dat_heat_path,'r') as energy_file:
     x,y = map(
         list,
@@ -1044,7 +1040,6 @@ process_mdout(input_log_path=output_nvt_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_dat_nvt_path,'r') as energy_file:
     x,y = map(
         list,

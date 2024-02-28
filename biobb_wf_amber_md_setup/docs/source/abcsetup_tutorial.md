@@ -478,7 +478,6 @@ process_minout(input_log_path=output_eq1_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_dat_eq1_path,'r') as energy_file:
     x,y = map(
         list,
@@ -599,7 +598,6 @@ process_mdout(input_log_path=output_eq2_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_dat_eq2_path,'r') as energy_file:
     x,y = map(
         list,
@@ -711,7 +709,6 @@ process_minout(input_log_path=output_eq3_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_dat_eq3_path,'r') as energy_file:
     x,y = map(
         list,
@@ -823,7 +820,6 @@ process_minout(input_log_path=output_eq4_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_dat_eq4_path,'r') as energy_file:
     x,y = map(
         list,
@@ -932,7 +928,6 @@ process_minout(input_log_path=output_eq5_log_path,
 
 
 ```python
-#Read data from file and filter energy values higher than 1000 Kj/mol^-1
 with open(output_dat_eq5_path,'r') as energy_file:
     x,y = map(
         list,
