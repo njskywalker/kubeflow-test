@@ -26,7 +26,7 @@ The main **steps of the pipeline** are:
 
  - [biobb_amber](https://github.com/bioexcel/biobb_amber): Tools to setup and run Molecular Dynamics simulations using the AMBER MD package.
  
-### Auxiliar libraries used
+### Auxiliary libraries used
 
 * [jupyter](https://jupyter.org/): Free software, open standards, and web services for interactive computing across all programming languages.
 * [plotly](https://plot.ly/python/offline/): Python interactive graphing library integrated in Jupyter notebooks.
@@ -68,7 +68,7 @@ jupyter-notebook biobb_wf_amber_md_setup/notebooks/abcsetup/biobb_amber_ABC_setu
 
 ***
 
-## Auxiliar libraries
+## Auxiliary libraries
 
 
 ```python

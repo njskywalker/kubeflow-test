@@ -17,7 +17,7 @@ This tutorial aims to illustrate the process of **setting up a simulation system
  - [biobb_analysis](https://github.com/bioexcel/biobb_analysis): Tools to analyse Molecular Dynamics trajectories.
  - [biobb_chemistry](https://github.com/bioexcel/biobb_chemistry): Tools to to perform chemical conversions.
  
-### Auxiliar libraries used
+### Auxiliary libraries used
 
 * [jupyter](https://jupyter.org/): Free software, open standards, and web services for interactive computing across all programming languages.
 * [plotly](https://plot.ly/python/offline/): Python interactive graphing library integrated in Jupyter notebooks.
