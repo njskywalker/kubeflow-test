@@ -1,8 +1,9 @@
 
 {
 	"@context": "http://schema.org",
-	"name": "AMBER Protein MD Setup workflows",
+	"@id": "https://github.com/bioexcel/biobb_wf_amber_md_setup",
 	"@type": "ItemList",
+	"name": "AMBER Protein MD Setup workflows",
 	"itemListElement": [
 		{
 			"@type": "SoftwareApplication",
