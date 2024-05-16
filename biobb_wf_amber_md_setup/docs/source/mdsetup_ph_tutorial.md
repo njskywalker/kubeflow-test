@@ -1,5 +1,5 @@
 # AMBER Constant pH MD setup tutorial using BioExcel Building Blocks (biobb) 
-**Partly based on:**
+#### Partly based on:
 - AMBER Advanced Tutorial 18: [Constant pH MD Example, Calculating pKas for titratable side chains in HEWL](https://ambermd.org/tutorials/advanced/tutorial18/index.htm) by Jason Swails and T. Dwight McGee Jr.
 - AMBER Advanced Tutorial 33: [Constant pH and Redox Potential MD Example: Predicting pH-dependent standard Redox Potential values](https://ambermd.org/tutorials/advanced/tutorial33/) by Vinícius Wilian D. Cruzeiro.
 - Modeling of pH sensors for CLN025 beta-hairpin by [Jordi Juárez](https://scholar.google.es/citations?user=hUCtxPwAAAAJ&hl=ca), [Barril Lab](http://www.ub.edu/bl/), University of Barcelona. 
@@ -56,6 +56,50 @@ jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_ph/biobb_amber_CpHMD_
 	title="Bioexcel2 logo" width="400" />
 ***
 
+
+## Initializing colab
+The two cells below are used only in case this notebook is executed via **Google Colab**. Take into account that, for running conda on **Google Colab**, the **condacolab** library must be installed. As [explained here](https://pypi.org/project/condacolab/), the installation requires a **kernel restart**, so when running this notebook in **Google Colab**, don't run all cells until this **installation** is properly **finished** and the **kernel** has **restarted**.
+
+
+```python
+# Only executed when using google colab
+import sys
+if 'google.colab' in sys.modules:
+  import subprocess
+  from pathlib import Path
+  try:
+    subprocess.run(["conda", "-V"], check=True)
+  except FileNotFoundError:
+    subprocess.run([sys.executable, "-m", "pip", "install", "condacolab"], check=True)
+    import condacolab
+    condacolab.install()
+    # Clone repository
+    repo_URL = "https://github.com/bioexcel/biobb_wf_amber_md_setup.git"
+    repo_name = Path(repo_URL).name.split('.')[0]
+    if not Path(repo_name).exists():
+      subprocess.run(["mamba", "install", "-y", "git"], check=True)
+      subprocess.run(["git", "clone", repo_URL], check=True)
+      print("⏬ Repository properly cloned.")
+    # Install environment
+    print("⏳ Creating environment...")
+    env_file_path = f"{repo_name}/conda_env/environment.yml"
+    subprocess.run(["mamba", "env", "update", "-n", "base", "-f", env_file_path], check=True)
+    print("🎨 Install NGLView dependencies...")
+    subprocess.run(["mamba", "install", "-y", "-c", "conda-forge", "nglview==3.0.8", "ipywidgets=7.7.2"], check=True)
+    print("👍 Conda environment successfully created and updated.")
+```
+
+
+```python
+# Enable widgets for colab
+if 'google.colab' in sys.modules:
+  from google.colab import output
+  output.enable_custom_widget_manager()
+  # Change working dir
+  import os
+  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/mdsetup_ph")
+  print(f"📂 New working directory: {os.getcwd()}")
+```
 
 <a id="input"></a>
 ## Input parameters
@@ -125,7 +169,7 @@ For the particular **BPTI** example, the most important features that are going 
 
 ***
 **Building Blocks** used:
- - [pdb4amber_run](https://biobb-amber.readthedocs.io/en/latest/pdb4amber.html#module-pdb4amber.pdb4amber_run) from **biobb_amber.pdb4amber.pdb4amber_run**
+ - [pdb4amber_run](https://biobb-amber.readthedocs.io/en/latest/pdb4amber.html#pdb4amber-pdb4amber-run-module) from **biobb_amber.pdb4amber.pdb4amber_run**
 ***
 
 
@@ -427,28 +471,28 @@ process_minout(input_log_path=output_min_log_path,
 
 
 ```python
-with open(output_h_min_dat_path,'r') as energy_file:
-    x,y = map(
-        list,
-        zip(*[
-            (float(line.split()[0]),float(line.split()[1]))
-            for line in energy_file 
-            if not line.startswith(("#","@")) 
-            if float(line.split()[1]) < 1000 
-        ])
-    )
+import plotly.graph_objs as go
 
-plotly.offline.init_notebook_mode(connected=True)
+with open(output_h_min_dat_path, 'r') as energy_file:
+    x, y = zip(*[
+        (float(line.split()[0]), float(line.split()[1]))
+        for line in energy_file
+        if not line.startswith(("#", "@"))
+        if float(line.split()[1]) < 1000
+    ])
 
-fig = {
-    "data": [go.Scatter(x=x, y=y)],
-    "layout": go.Layout(title="Energy Minimization",
-                        xaxis=dict(title = "Energy Minimization Step"),
-                        yaxis=dict(title = "Potential Energy kcal/mol")
-                       )
-}
+# Create a scatter plot
+fig = go.Figure(data=go.Scatter(x=x, y=y, mode='lines'))
 
-plotly.offline.iplot(fig)
+# Update layout
+fig.update_layout(title="Energy Minimization",
+                  xaxis_title="Energy Minimization Step",
+                  yaxis_title="Potential Energy kcal/mol",
+                  height=600)
+
+# Show the figure (renderer changes for colab and jupyter)
+rend = 'colab' if 'google.colab' in sys.modules else ''
+fig.show(renderer=rend)
 ```
 
 <img src='_static/mdsetup_ph/plot01.png'></img>
@@ -544,28 +588,28 @@ process_mdout(input_log_path=output_heat_log_path,
 
 
 ```python
-with open(output_dat_heat_path,'r') as energy_file:
-    x,y = map(
-        list,
-        zip(*[
-            (float(line.split()[0]),float(line.split()[1]))
-            for line in energy_file 
-            if not line.startswith(("#","@")) 
-            if float(line.split()[1]) < 1000 
-        ])
-    )
+import plotly.graph_objs as go
 
-plotly.offline.init_notebook_mode(connected=True)
+with open(output_dat_heat_path, 'r') as energy_file:
+    x, y = zip(*[
+        (float(line.split()[0]), float(line.split()[1]))
+        for line in energy_file
+        if not line.startswith(("#", "@"))
+        if float(line.split()[1]) < 1000
+    ])
 
-fig = {
-    "data": [go.Scatter(x=x, y=y)],
-    "layout": go.Layout(title="Heating process",
-                        xaxis=dict(title = "Heating Step (ps)"),
-                        yaxis=dict(title = "Temperature (K)")
-                       )
-}
+# Create a scatter plot
+fig = go.Figure(data=go.Scatter(x=x, y=y, mode='lines'))
 
-plotly.offline.iplot(fig)
+# Update layout
+fig.update_layout(title="Heating process",
+                  xaxis_title="Heating Step (ps)",
+                  yaxis_title="Temperature (K)",
+                  height=600)
+
+# Show the figure (renderer changes for colab and jupyter)
+rend = 'colab' if 'google.colab' in sys.modules else ''
+fig.show(renderer=rend)
 ```
 
 <img src='_static/mdsetup_ph/plot02.png'></img>
@@ -659,28 +703,28 @@ process_mdout(input_log_path=output_nvt_log_path,
 
 
 ```python
-with open(output_dat_nvt_path,'r') as energy_file:
-    x,y = map(
-        list,
-        zip(*[
-            (float(line.split()[0]),float(line.split()[1]))
-            for line in energy_file 
-            if not line.startswith(("#","@")) 
-            if float(line.split()[1]) < 1000 
-        ])
-    )
+import plotly.graph_objs as go
 
-plotly.offline.init_notebook_mode(connected=True)
+with open(output_dat_nvt_path, 'r') as energy_file:
+    x, y = zip(*[
+        (float(line.split()[0]), float(line.split()[1]))
+        for line in energy_file
+        if not line.startswith(("#", "@"))
+        if float(line.split()[1]) < 1000
+    ])
 
-fig = {
-    "data": [go.Scatter(x=x, y=y)],
-    "layout": go.Layout(title="NVT equilibration",
-                        xaxis=dict(title = "Equilibration Step (ps)"),
-                        yaxis=dict(title = "Temperature (K)")
-                       )
-}
+# Create a scatter plot
+fig = go.Figure(data=go.Scatter(x=x, y=y, mode='lines'))
 
-plotly.offline.iplot(fig)
+# Update layout
+fig.update_layout(title="NVT equilibration",
+                  xaxis_title="Equilibration Step (ps)",
+                  yaxis_title="Temperature (K)",
+                  height=600)
+
+# Show the figure (renderer changes for colab and jupyter)
+rend = 'colab' if 'google.colab' in sys.modules else ''
+fig.show(renderer=rend)
 ```
 
 <img src='_static/mdsetup_ph/plot03.png'></img>
@@ -776,19 +820,18 @@ process_mdout(input_log_path=output_npt_log_path,
 
 
 ```python
+import plotly.graph_objs as go
+
 # Read pressure and density data from file 
-with open(output_dat_npt_path,'r') as pd_file:
-    x,y,z = map(
-        list,
-        zip(*[
-            (float(line.split()[0]),float(line.split()[1]),float(line.split()[2]))
-            for line in pd_file 
-            if not line.startswith(("#","@")) 
-        ])
-    )
+with open(output_dat_npt_path, 'r') as pd_file:
+    x, y, z = zip(*[
+        (float(line.split()[0]), float(line.split()[1]), float(line.split()[2]))
+        for line in pd_file
+        if not line.startswith(("#", "@"))
+        if float(line.split()[1]) < 1000
+    ])
 
-plotly.offline.init_notebook_mode(connected=True)
-
+# Create a scatter plot
 trace1 = go.Scatter(
     x=x,y=y
 )
@@ -808,8 +851,11 @@ fig['layout']['yaxis2'].update(title='Density (Kg*m^-3)')
 
 fig['layout'].update(title='Pressure and Density during NPT Equilibration')
 fig['layout'].update(showlegend=False)
+fig['layout'].update(height=500)
 
-plotly.offline.iplot(fig)
+# Show the figure (renderer changes for colab and jupyter)
+rend = 'colab' if 'google.colab' in sys.modules else ''
+fig.show(renderer=rend)
 ```
 
 <img src='_static/mdsetup_ph/plot04.png'></img>
