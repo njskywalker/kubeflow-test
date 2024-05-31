@@ -41,7 +41,7 @@ The main **steps of the pipeline** are:
 git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
 conda env create -f conda_env/environment.yml
-conda activate biobb_AMBER_MDsetup_tutorials
+conda activate biobb_wf_amber_md_setup
 jupyter-notebook biobb_wf_amber_md_setup/notebooks/abcsetup/biobb_amber_ABC_setup.ipynb
 ```
 
@@ -155,7 +155,7 @@ Model **DNA 3D structure** from a **nucleotide sequence** using the **nab tool**
 ```python
 # uncomment in case of experiencing issues with undefined AMBERHOME variable in the cell below:
 # import os
-# os.environ['AMBERHOME'] = "/path/to/anaconda3/envs/biobb_AMBER_MDsetup_tutorials" # when running in Jupyter Notebook / Lab
+# os.environ['AMBERHOME'] = "/path/to/anaconda3/envs/biobb_wf_amber_md_setup" # when running in Jupyter Notebook / Lab
 # os.environ['AMBERHOME'] = "/usr/local" # when running in Google Colab
 ```
 

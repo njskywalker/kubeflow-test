@@ -35,7 +35,7 @@ This tutorials aim to illustrate the process of **setting up a simulation** syst
 git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
 conda env create -f conda_env/environment.yml
-conda activate biobb_AMBER_MDsetup_tutorials
+conda activate biobb_wf_amber_md_setup
 ```
 
 ***

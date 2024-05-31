@@ -31,7 +31,7 @@ This tutorial aims to illustrate the process of **setting up a simulation system
 git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
 conda env create -f conda_env/environment.yml
-conda activate biobb_AMBER_MDsetup_tutorials
+conda activate biobb_wf_amber_md_setup
 jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_lig/biobb_amber_complex_setup_notebook.ipynb
 ```
 

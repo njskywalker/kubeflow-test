@@ -1,4 +1,4 @@
-name: biobb_AMBER_MDsetup_tutorials
+name: biobb_wf_amber_md_setup
 channels:
   - conda-forge
   - bioconda
