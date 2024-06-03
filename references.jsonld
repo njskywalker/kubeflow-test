@@ -1,6 +1,6 @@
 {
 	"@context": "http://schema.org",
-	"@id": "https://github.com/bioexcel/biobb_wf_amber_md_setup",
+	"@id": "https://github.com/bioexcel/biobb_wf_amber",
 	"@type": "ItemList",
 	"name": "AMBER Protein MD Setup workflows",
 	"itemListElement": [

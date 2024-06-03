@@ -30,7 +30,7 @@ git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
 conda env create -f conda_env/environment.yml
 conda activate biobb_wf_amber_md_setup
-jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup/biobb_amber_setup_notebook.ipynb
+jupyter-notebook biobb_wf_amber_md_setup/notebooks/md_setup/biobb_wf_amber_md_setup.ipynb
 ```
 
 ***
@@ -97,7 +97,7 @@ if 'google.colab' in sys.modules:
   output.enable_custom_widget_manager()
   # Change working dir
   import os
-  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/mdsetup")
+  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/md_setup")
   print(f"📂 New working directory: {os.getcwd()}")
 ```
 
@@ -157,7 +157,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup/ngl1.png'></img>
+<img src='_static/md_setup/ngl1.png'></img>
 
 <a id="pdb4amber"></a>
 ***
@@ -241,7 +241,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup/ngl2.png'></img>
+<img src='_static/md_setup/ngl2.png'></img>
 
 <a id="minv"></a>
 ## Energetically minimize the structure
@@ -339,7 +339,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup/plot01.png'></img>
+<img src='_static/md_setup/plot01.png'></img>
 
 <a id="minv_2"></a>
 ### Step 2: Minimize the system
@@ -423,7 +423,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup/plot02.png'></img>
+<img src='_static/md_setup/plot02.png'></img>
 
 <a id="box"></a>
 ***
@@ -535,7 +535,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup/ngl3.png'></img>
+<img src='_static/md_setup/ngl3.png'></img>
 
 <a id="min"></a>
 ## Energetically minimize the system
@@ -640,7 +640,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup/plot03.png'></img>
+<img src='_static/md_setup/plot03.png'></img>
 
 <a id="heating"></a>
 ## Heating the system
@@ -757,7 +757,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup/plot04.png'></img>
+<img src='_static/md_setup/plot04.png'></img>
 
 <a id="nvt"></a>
 ***
@@ -872,7 +872,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup/plot05.png'></img>
+<img src='_static/md_setup/plot05.png'></img>
 
 <a id="npt"></a>
 ***
@@ -1004,7 +1004,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup/plot06.png'></img>
+<img src='_static/md_setup/plot06.png'></img>
 
 <a id="free"></a>
 ***
@@ -1156,7 +1156,7 @@ fig.show(renderer=rend)
 
 ```
 
-<img src='_static/mdsetup/plot07.png'></img>
+<img src='_static/md_setup/plot07.png'></img>
 
 
 ```python
@@ -1207,7 +1207,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup/plot08.png'></img>
+<img src='_static/md_setup/plot08.png'></img>
 
 <a id="post"></a>
 ***
@@ -1258,7 +1258,7 @@ view = nglview.show_simpletraj(nglview.SimpletrajTrajectory(output_imaged_traj, 
 view
 ```
 
-<img src='_static/mdsetup/traj.gif'></img>
+<img src='_static/md_setup/traj.gif'></img>
 
 <a id="output"></a>
 ## Output files

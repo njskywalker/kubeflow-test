@@ -11,12 +11,12 @@ Contents
    :maxdepth: 1
 
    Introduction & installation <readme>
-   MD Setup tutorial <mdsetup_tutorial>
-   Protein-ligand complex MD Setup tutorial <mdsetup_lig_tutorial>
-   Constant pH MD Setup tutorial <mdsetup_ph_tutorial>
-   ABC MD Setup pipeline <abcsetup_tutorial>
+   MD Setup tutorial <md_setup_tutorial>
+   Protein-ligand complex MD Setup tutorial <md_setup_lig_tutorial>
+   Constant pH MD Setup tutorial <md_setup_ph_tutorial>
+   ABC MD Setup pipeline <abc_setup_tutorial>
 
-`Github repository <https://github.com/bioexcel/biobb_wf_amber_md_setup>`_.
+`Github repository <https://github.com/bioexcel/biobb_wf_amber>`_.
 ============================================================================
    
    

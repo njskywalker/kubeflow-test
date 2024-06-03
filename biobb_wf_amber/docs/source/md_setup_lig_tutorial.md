@@ -32,7 +32,7 @@ git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
 conda env create -f conda_env/environment.yml
 conda activate biobb_wf_amber_md_setup
-jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_lig/biobb_amber_complex_setup_notebook.ipynb
+jupyter-notebook biobb_wf_amber_md_setup/notebooks/md_setup_lig/biobb_wf_amber_md_setup_lig.ipynb
 ```
 
 ***
@@ -100,7 +100,7 @@ if 'google.colab' in sys.modules:
   output.enable_custom_widget_manager()
   # Change working dir
   import os
-  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/mdsetup_lig")
+  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/md_setup_lig")
   print(f"📂 New working directory: {os.getcwd()}")
 ```
 
@@ -168,7 +168,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup_lig/ngl1.png'></img>
+<img src='_static/md_setup_lig/ngl1.png'></img>
 
 
 ```python
@@ -230,7 +230,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup_lig/ngl2.png'></img>
+<img src='_static/md_setup_lig/ngl2.png'></img>
 
 <a id="pdb4amber"></a>
 ***
@@ -376,7 +376,7 @@ view3
 ipywidgets.HBox([view1, view2, view3])
 ```
 
-<img src='_static/mdsetup_lig/ngl3.png' style='float:left; width:33%;'></img><img src='_static/mdsetup_lig/ngl4.png' style='float:left; width:33%;'></img><img src='_static/mdsetup_lig/ngl5.png' style='float:left; width:33%;'></img>
+<img src='_static/md_setup_lig/ngl3.png' style='float:left; width:33%;'></img><img src='_static/md_setup_lig/ngl4.png' style='float:left; width:33%;'></img><img src='_static/md_setup_lig/ngl5.png' style='float:left; width:33%;'></img>
 
 <a id="ligandTopologyStep4"></a>
 ### Step 4: Generate **ligand topology** (parameters).
@@ -473,7 +473,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup_lig/ngl6.png'></img>
+<img src='_static/md_setup_lig/ngl6.png'></img>
 
 <a id="minv"></a>
 ## Energetically minimize the structure
@@ -571,7 +571,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup_lig/plot01.png'></img>
+<img src='_static/md_setup_lig/plot01.png'></img>
 
 <a id="minv_2"></a>
 ### Step 2: Minimize the system
@@ -653,7 +653,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup_lig/plot02.png'></img>
+<img src='_static/md_setup_lig/plot02.png'></img>
 
 <a id="box"></a>
 ***
@@ -768,7 +768,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup_lig/ngl7.png'></img>
+<img src='_static/md_setup_lig/ngl7.png'></img>
 
 <a id="min"></a>
 ## Energetically minimize the system
@@ -873,7 +873,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup_lig/plot03.png'></img>
+<img src='_static/md_setup_lig/plot03.png'></img>
 
 <a id="heating"></a>
 ## Heating the system
@@ -990,7 +990,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup_lig/plot04.png'></img>
+<img src='_static/md_setup_lig/plot04.png'></img>
 
 <a id="nvt"></a>
 ***
@@ -1105,7 +1105,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup_lig/plot05.png'></img>
+<img src='_static/md_setup_lig/plot05.png'></img>
 
 <a id="npt"></a>
 ***
@@ -1237,7 +1237,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup_lig/plot06.png'></img>
+<img src='_static/md_setup_lig/plot06.png'></img>
 
 <a id="free"></a>
 ***
@@ -1390,7 +1390,7 @@ fig.show(renderer=rend)
 
 ```
 
-<img src='_static/mdsetup_lig/plot07.png'></img>
+<img src='_static/md_setup_lig/plot07.png'></img>
 
 
 ```python
@@ -1441,7 +1441,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup_lig/plot08.png'></img>
+<img src='_static/md_setup_lig/plot08.png'></img>
 
 <a id="post"></a>
 ***
@@ -1495,7 +1495,7 @@ view.add_representation('licorice', selection='JZ4', color='element', radius=1)
 view
 ```
 
-<img src='_static/mdsetup_lig/traj.gif'></img>
+<img src='_static/md_setup_lig/traj.gif'></img>
 
 <a id="output"></a>
 ## Output files

@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>biobb_amber_complex_setup_notebook.web</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>biobb_wf_amber_md_setup.web</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7516,16 +7516,14 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Protein-ligand-complex-MD-Setup-tutorial-using-BioExcel-Building-Blocks-(biobb)">Protein-ligand complex MD Setup tutorial using BioExcel Building Blocks (biobb)<a class="anchor-link" href="#Protein-ligand-complex-MD-Setup-tutorial-using-BioExcel-Building-Blocks-(biobb)">¶</a></h1><h3 id="--AmberTools-package-version--">--<em><strong>AmberTools package version</strong></em>--<a class="anchor-link" href="#--AmberTools-package-version--">¶</a></h3><p><strong>Based on the <a href="http://mmb.irbbarcelona.org/MDWeb2/">MDWeb</a> <a href="https://mmb.irbbarcelona.org/MDWeb2/help.php?id=workflows#AmberWorkflowFULL">Amber FULL MD Setup tutorial</a></strong></p>
+<h1 id="Protein-MD-Setup-tutorial-using-BioExcel-Building-Blocks-(biobb)">Protein MD Setup tutorial using BioExcel Building Blocks (biobb)<a class="anchor-link" href="#Protein-MD-Setup-tutorial-using-BioExcel-Building-Blocks-(biobb)">¶</a></h1><h3 id="--AmberTools-package-version--">--<em><strong>AmberTools package version</strong></em>--<a class="anchor-link" href="#--AmberTools-package-version--">¶</a></h3><p><strong>Based on the <a href="http://mmb.irbbarcelona.org/MDWeb2/">MDWeb</a> <a href="https://mmb.irbbarcelona.org/MDWeb2/help.php?id=workflows#AmberWorkflowFULL">Amber FULL MD Setup tutorial</a></strong></p>
 <hr/>
-<p>This tutorial aims to illustrate the process of <strong>setting up a simulation system</strong> containing a <strong>protein in complex with a ligand</strong>, step by step, using the <strong>BioExcel Building Blocks library (biobb)</strong> wrapping the <strong>AmberTools</strong> utility from the <strong>AMBER package</strong>. The particular example used is the <strong>T4 lysozyme</strong> protein (PDB code <a href="https://www.rcsb.org/structure/3HTB">3HTB</a>, <a href="https://doi.org/10.2210/pdb3HTB/pdb">https://doi.org/10.2210/pdb3HTB/pdb</a>) with two residue modifications <em><strong>L99A/M102Q</strong></em> complexed with the small ligand <strong>2-propylphenol</strong> (3-letter code <a href="https://www.rcsb.org/ligand/JZ4">JZ4</a>, <a href="https://www.rcsb.org/ligand/JZ4">https://www.rcsb.org/ligand/JZ4</a>).</p>
+<p>This tutorial aims to illustrate the process of <strong>setting up a simulation system</strong> containing a <strong>protein</strong>, step by step, using the <strong>BioExcel Building Blocks library (biobb)</strong> wrapping the <strong>AmberTools</strong> utility from the <strong>AMBER package</strong>. The particular example used is the <strong>Lysozyme</strong> protein (PDB code 1AKI, <a href="https://doi.org/10.2210/pdb1AKI/pdb">https://doi.org/10.2210/pdb1AKI/pdb</a>).</p>
 <hr/>
 <h2 id="Settings">Settings<a class="anchor-link" href="#Settings">¶</a></h2><h3 id="Biobb-modules-used">Biobb modules used<a class="anchor-link" href="#Biobb-modules-used">¶</a></h3><ul>
 <li><a href="https://github.com/bioexcel/biobb_io">biobb_io</a>: Tools to fetch biomolecular data from public databases.</li>
 <li><a href="https://github.com/bioexcel/biobb_amber">biobb_amber</a>: Tools to setup and run Molecular Dynamics simulations with AmberTools.</li>
-<li><a href="https://github.com/bioexcel/biobb_structure_utils">biobb_structure_utils</a>: Tools to modify or extract information from a PDB structure file.</li>
 <li><a href="https://github.com/bioexcel/biobb_analysis">biobb_analysis</a>: Tools to analyse Molecular Dynamics trajectories.</li>
-<li><a href="https://github.com/bioexcel/biobb_chemistry">biobb_chemistry</a>: Tools to to perform chemical conversions.</li>
 </ul>
 <h3 id="Auxiliary-libraries-used">Auxiliary libraries used<a class="anchor-link" href="#Auxiliary-libraries-used">¶</a></h3><ul>
 <li><a href="https://jupyter.org/">jupyter</a>: Free software, open standards, and web services for interactive computing across all programming languages.</li>
@@ -7539,15 +7537,14 @@ a.anchor-link {
 <span class="go">cd biobb_wf_amber_md_setup</span>
 <span class="go">conda env create -f conda_env/environment.yml</span>
 <span class="go">conda activate biobb_wf_amber_md_setup</span>
-<span class="go">jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_lig/biobb_amber_complex_setup_notebook.ipynb</span>
+<span class="go">jupyter-notebook biobb_wf_amber_md_setup/notebooks/md_setup/biobb_wf_amber_md_setup.ipynb</span>
 </pre></div>
 <hr/>
 <h2 id="Pipeline-steps">Pipeline steps<a class="anchor-link" href="#Pipeline-steps">¶</a></h2><ol>
 <li><a href="#input">Input Parameters</a></li>
 <li><a href="#fetch">Fetching PDB Structure</a></li>
 <li><a href="#pdb4amber">Preparing PDB file for AMBER</a></li>
-<li><a href="#ligtop">Create ligand system topology</a></li>
-<li><a href="#top">Create Protein-Ligand Complex System Topology</a></li>
+<li><a href="#top">Create Protein System Topology</a></li>
 <li><a href="#minv">Energetically Minimize the Structure</a></li>
 <li><a href="#box">Create Solvent Box and Solvating the System</a></li>
 <li><a href="#ions">Adding Ions</a></li>
@@ -7629,7 +7626,7 @@ a.anchor-link {
   <span class="n">output</span><span class="o">.</span><span class="n">enable_custom_widget_manager</span><span class="p">()</span>
   <span class="c1"># Change working dir</span>
   <span class="kn">import</span> <span class="nn">os</span>
-  <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">"biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/mdsetup_lig"</span><span class="p">)</span>
+  <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">"biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/md_setup"</span><span class="p">)</span>
   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"📂 New working directory: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -7646,9 +7643,7 @@ a.anchor-link {
 <p><a id="input"></a></p>
 <h2 id="Input-parameters">Input parameters<a class="anchor-link" href="#Input-parameters">¶</a></h2><p><strong>Input parameters</strong> needed:</p>
 <ul>
-<li><strong>pdbCode</strong>: PDB code of the protein structure (e.g. 3HTB, <a href="https://doi.org/10.2210/pdb3HTB/pdb">https://doi.org/10.2210/pdb3HTB/pdb</a>)</li>
-<li><strong>ligandCode</strong>: 3-letter code of the ligand (e.g. JZ4, <a href="https://www.rcsb.org/ligand/JZ4">https://www.rcsb.org/ligand/JZ4</a>)</li>
-<li><strong>mol_charge</strong>: Charge of the ligand (e.g. 0)</li>
+<li><strong>pdbCode</strong>: PDB code of the protein structure (e.g. 1AKI, <a href="https://doi.org/10.2210/pdb1AKI/pdb">https://doi.org/10.2210/pdb1AKI/pdb</a>)</li>
 </ul>
 </div>
 </div>
@@ -7667,9 +7662,7 @@ a.anchor-link {
 <span class="kn">from</span> <span class="nn">plotly</span> <span class="kn">import</span> <span class="n">subplots</span>
 <span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
 
-<span class="n">pdbCode</span> <span class="o">=</span> <span class="s2">"3htb"</span>
-<span class="n">ligandCode</span> <span class="o">=</span> <span class="s2">"JZ4"</span>
-<span class="n">mol_charge</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">pdbCode</span> <span class="o">=</span> <span class="s2">"1aki"</span>
 </pre></div>
 </div>
 </div>
@@ -7685,14 +7678,11 @@ a.anchor-link {
 <p><a id="fetch"></a></p>
 <hr/>
 <h2 id="Fetching-PDB-structure">Fetching PDB structure<a class="anchor-link" href="#Fetching-PDB-structure">¶</a></h2><p>Downloading <strong>PDB structure</strong> with the <strong>protein molecule</strong> from the RCSB PDB database.<br/>
-Alternatively, a <strong>PDB file</strong> can be used as starting structure. <br/>
-Stripping from the <strong>downloaded structure</strong> any <strong>crystallographic water</strong> molecule or <strong>heteroatom</strong>. <br/></p>
+Alternatively, a <strong>PDB file</strong> can be used as starting structure. <br/></p>
 <hr/>
 <p><strong>Building Blocks</strong> used:</p>
 <ul>
 <li><a href="https://biobb-io.readthedocs.io/en/latest/api.html#module-api.pdb">pdb</a> from <strong>biobb_io.api.pdb</strong></li>
-<li><a href="https://biobb-structure-utils.readthedocs.io/en/latest/utils.html#module-utils.remove_pdb_water">remove_pdb_water</a> from <strong>biobb_structure_utils.utils.remove_pdb_water</strong></li>
-<li><a href="https://biobb-structure-utils.readthedocs.io/en/latest/utils.html#module-utils.remove_ligand">remove_ligand</a> from <strong>biobb_structure_utils.utils.remove_ligand</strong></li>
 </ul>
 <hr/>
 </div>
@@ -7713,8 +7703,7 @@ Stripping from the <strong>downloaded structure</strong> any <strong>crystallogr
 <span class="n">downloaded_pdb</span> <span class="o">=</span> <span class="n">pdbCode</span><span class="o">+</span><span class="s1">'.pdb'</span>
 
 <span class="n">prop</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">'pdb_code'</span><span class="p">:</span> <span class="n">pdbCode</span><span class="p">,</span>
-    <span class="s1">'filter'</span><span class="p">:</span> <span class="kc">False</span>
+    <span class="s1">'pdb_code'</span><span class="p">:</span> <span class="n">pdbCode</span>
 <span class="p">}</span>
 
 <span class="c1">#Create and launch bb</span>
@@ -7722,6 +7711,18 @@ Stripping from the <strong>downloaded structure</strong> any <strong>crystallogr
     <span class="n">properties</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><a id="vis3D"></a></p>
+<h3 id="Visualizing-3D-structure">Visualizing 3D structure<a class="anchor-link" href="#Visualizing-3D-structure">¶</a></h3><p>Visualizing the downloaded/given <strong>PDB structure</strong> using <strong>NGL</strong>:</p>
 </div>
 </div>
 </div>
@@ -7735,11 +7736,7 @@ Stripping from the <strong>downloaded structure</strong> any <strong>crystallogr
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Show protein</span>
 <span class="n">view</span> <span class="o">=</span> <span class="n">nglview</span><span class="o">.</span><span class="n">show_structure_file</span><span class="p">(</span><span class="n">downloaded_pdb</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">clear_representations</span><span class="p">()</span>
-<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'cartoon'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'protein'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'sstruc'</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'ball+stick'</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="s1">'0.1'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'water'</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'ball+stick'</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="s1">'0.5'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'ligand'</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'ball+stick'</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="s1">'0.5'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'ion'</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'ball+stick'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'all'</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">_remote_call</span><span class="p">(</span><span class="s1">'setSize'</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">'Widget'</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">''</span><span class="p">,</span><span class="s1">'600px'</span><span class="p">])</span>
 <span class="n">view</span>
 </pre></div>
@@ -7758,113 +7755,6 @@ Stripping from the <strong>downloaded structure</strong> any <strong>crystallogr
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Import module</span>
-<span class="kn">from</span> <span class="nn">biobb_structure_utils.utils.remove_pdb_water</span> <span class="kn">import</span> <span class="n">remove_pdb_water</span>
-
-<span class="c1"># Create properties dict and inputs/outputs</span>
-<span class="n">nowat_pdb</span> <span class="o">=</span> <span class="n">pdbCode</span><span class="o">+</span><span class="s1">'.nowat.pdb'</span>
-
-<span class="c1">#Create and launch bb</span>
-<span class="n">remove_pdb_water</span><span class="p">(</span><span class="n">input_pdb_path</span><span class="o">=</span><span class="n">downloaded_pdb</span><span class="p">,</span>
-    <span class="n">output_pdb_path</span><span class="o">=</span><span class="n">nowat_pdb</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Import module</span>
-<span class="kn">from</span> <span class="nn">biobb_structure_utils.utils.remove_ligand</span> <span class="kn">import</span> <span class="n">remove_ligand</span>
-
-<span class="c1"># Removing PO4 ligands:</span>
-
-<span class="c1"># Create properties dict and inputs/outputs</span>
-<span class="n">nopo4_pdb</span> <span class="o">=</span> <span class="n">pdbCode</span><span class="o">+</span><span class="s1">'.noPO4.pdb'</span>
-
-<span class="n">prop</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">'ligand'</span> <span class="p">:</span> <span class="s1">'PO4'</span>
-<span class="p">}</span>
-
-<span class="c1">#Create and launch bb</span>
-<span class="n">remove_ligand</span><span class="p">(</span><span class="n">input_structure_path</span><span class="o">=</span><span class="n">nowat_pdb</span><span class="p">,</span>
-    <span class="n">output_structure_path</span><span class="o">=</span><span class="n">nopo4_pdb</span><span class="p">,</span>
-    <span class="n">properties</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
-
-<span class="c1"># Removing BME ligand:</span>
-
-<span class="c1"># Create properties dict and inputs/outputs</span>
-<span class="n">nobme_pdb</span> <span class="o">=</span> <span class="n">pdbCode</span><span class="o">+</span><span class="s1">'.noBME.pdb'</span>
-
-<span class="n">prop</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">'ligand'</span> <span class="p">:</span> <span class="s1">'BME'</span>
-<span class="p">}</span>
-
-<span class="c1">#Create and launch bb</span>
-<span class="n">remove_ligand</span><span class="p">(</span><span class="n">input_structure_path</span><span class="o">=</span><span class="n">nopo4_pdb</span><span class="p">,</span>
-    <span class="n">output_structure_path</span><span class="o">=</span><span class="n">nobme_pdb</span><span class="p">,</span>
-    <span class="n">properties</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Visualizing-3D-structure">Visualizing 3D structure<a class="anchor-link" href="#Visualizing-3D-structure">¶</a></h2>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Show protein</span>
-<span class="n">view</span> <span class="o">=</span> <span class="n">nglview</span><span class="o">.</span><span class="n">show_structure_file</span><span class="p">(</span><span class="n">nobme_pdb</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">clear_representations</span><span class="p">()</span>
-<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'cartoon'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'protein'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'sstruc'</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'ball+stick'</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="s1">'0.5'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'hetero'</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">_remote_call</span><span class="p">(</span><span class="s1">'setSize'</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">'Widget'</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">''</span><span class="p">,</span><span class="s1">'600px'</span><span class="p">])</span>
-<span class="n">view</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="No description has been provided for this image" src="ngl2.png"/></p>
-</div>
-</div>
-</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7875,7 +7765,7 @@ Stripping from the <strong>downloaded structure</strong> any <strong>crystallogr
 <p><a id="pdb4amber"></a></p>
 <hr/>
 <h2 id="Preparing-PDB-file-for-AMBER">Preparing PDB file for AMBER<a class="anchor-link" href="#Preparing-PDB-file-for-AMBER">¶</a></h2><p>Before starting a <strong>protein MD setup</strong>, it is always strongly recommended to take a look at the initial structure and try to identify important <strong>properties</strong> and also possible <strong>issues</strong>. These properties and issues can be serious, as for example the definition of <strong>disulfide bridges</strong>, the presence of a <strong>non-standard aminoacids</strong> or <strong>ligands</strong>, or <strong>missing residues</strong>. Other <strong>properties</strong> and <strong>issues</strong> might not be so serious, but they still need to be addressed before starting the <strong>MD setup process</strong>. <strong>Missing hydrogen atoms</strong>, presence of <strong>alternate atomic location indicators</strong> or <strong>inserted residue codes</strong> (see <a href="https://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ATOM">PDB file format specification</a>) are examples of these not so crucial characteristics. Please visit the <a href="http://ambermd.org/tutorials/basic/tutorial7/index.php">AMBER tutorial: Building Protein Systems in Explicit Solvent</a> for more examples. <strong>AmberTools</strong> utilities from <strong>AMBER MD package</strong> contain a tool able to analyse <strong>PDB files</strong> and clean them for further usage, especially with the <strong>AmberTools LEaP program</strong>: the <strong>pdb4amber tool</strong>. The next step of the workflow is running this tool to analyse our <strong>input PDB structure</strong>.<br/></p>
-<p>For the particular <strong>T4 Lysosyme</strong> example, the most important property that is identified by the <strong>pdb4amber</strong> utility is the presence of <strong>disulfide bridges</strong> in the structure. Those are marked changing the residue names <strong>from CYS to CYX</strong>, which is the code that <strong>AMBER force fields</strong> use to distinguish between cysteines forming or not forming <strong>disulfide bridges</strong>. This will be used in the following step to correctly form a <strong>bond</strong> between these cysteine residues.</p>
+<p>For the particular <strong>Lysosyme</strong> example, the most important property that is identified by the <strong>pdb4amber</strong> utility is the presence of <strong>disulfide bridges</strong> in the structure. Those are marked changing the residue names <strong>from CYS to CYX</strong>, which is the code that <strong>AMBER force fields</strong> use to distinguish between cysteines forming or not forming <strong>disulfide bridges</strong>. This will be used in the following step to correctly form a <strong>bond</strong> between these cysteine residues.</p>
 <p>We invite you to check what the tool does with different, more complex structures (e.g. PDB code <a href="https://www.rcsb.org/structure/6N3V">6N3V</a>).</p>
 <hr/>
 <p><strong>Building Blocks</strong> used:</p>
@@ -7901,270 +7791,8 @@ Stripping from the <strong>downloaded structure</strong> any <strong>crystallogr
 <span class="n">output_pdb4amber_path</span> <span class="o">=</span> <span class="s1">'structure.pdb4amber.pdb'</span>
 
 <span class="c1"># Create and launch bb</span>
-<span class="n">pdb4amber_run</span><span class="p">(</span><span class="n">input_pdb_path</span><span class="o">=</span><span class="n">nobme_pdb</span><span class="p">,</span>
-            <span class="n">output_pdb_path</span><span class="o">=</span><span class="n">output_pdb4amber_path</span><span class="p">,</span>
-            <span class="n">properties</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><a id="ligtop"></a></p>
-<hr/>
-<h2 id="Create-ligand-system-topology">Create ligand system topology<a class="anchor-link" href="#Create-ligand-system-topology">¶</a></h2><p><strong>Building AMBER topology</strong> corresponding to the ligand structure.<br/>
-Force field used in this tutorial step is <strong>amberGAFF</strong>: <a href="http://ambermd.org/antechamber/gaff.html">General AMBER Force Field</a>, designed for rational drug design.<br/></p>
-<ul>
-<li><a href="#ligandTopologyStep1">Step 1</a>: Extract <strong>ligand structure</strong>.</li>
-<li><a href="#ligandTopologyStep2">Step 2</a>: Add <strong>hydrogen atoms</strong> if missing.</li>
-<li><a href="#ligandTopologyStep3">Step 3</a>: <strong>Energetically minimize the system</strong> with the new hydrogen atoms.</li>
-<li><a href="#ligandTopologyStep4">Step 4</a>: Generate <strong>ligand topology</strong> (parameters).</li>
-</ul>
-<hr/>
-<p><strong>Building Blocks</strong> used:</p>
-<ul>
-<li><a href="https://biobb-structure-utils.readthedocs.io/en/latest/utils.html#module-utils.extract_heteroatoms">ExtractHeteroAtoms</a> from <strong>biobb_structure_utils.utils.extract_heteroatoms</strong></li>
-<li><a href="https://biobb-chemistry.readthedocs.io/en/latest/ambertools.html#module-ambertools.reduce_add_hydrogens">ReduceAddHydrogens</a> from <strong>biobb_chemistry.ambertools.reduce_add_hydrogens</strong></li>
-<li><a href="https://biobb-chemistry.readthedocs.io/en/latest/babelm.html#module-babelm.babel_minimize">BabelMinimize</a> from <strong>biobb_chemistry.babelm.babel_minimize</strong></li>
-<li><a href="https://biobb-chemistry.readthedocs.io/en/latest/acpype.html#module-acpype.acpype_params_ac">AcpypeParamsAC</a> from <strong>biobb_chemistry.acpype.acpype_params_ac</strong></li>
-</ul>
-<hr/>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><a id="ligandTopologyStep1"></a></p>
-<h3 id="Step-1:-Extract-Ligand-structure">Step 1: Extract <strong>Ligand structure</strong><a class="anchor-link" href="#Step-1:-Extract-Ligand-structure">¶</a></h3>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create Ligand system topology, STEP 1</span>
-<span class="c1"># Extracting Ligand JZ4</span>
-<span class="c1"># Import module</span>
-<span class="kn">from</span> <span class="nn">biobb_structure_utils.utils.extract_heteroatoms</span> <span class="kn">import</span> <span class="n">extract_heteroatoms</span>
-
-<span class="c1"># Create properties dict and inputs/outputs</span>
-<span class="n">ligandFile</span> <span class="o">=</span> <span class="n">ligandCode</span><span class="o">+</span><span class="s1">'.pdb'</span>
-
-<span class="n">prop</span> <span class="o">=</span> <span class="p">{</span>
-     <span class="s1">'heteroatoms'</span> <span class="p">:</span> <span class="p">[{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"JZ4"</span><span class="p">}]</span>
-<span class="p">}</span>
-
-<span class="n">extract_heteroatoms</span><span class="p">(</span><span class="n">input_structure_path</span><span class="o">=</span><span class="n">output_pdb4amber_path</span><span class="p">,</span>
-     <span class="n">output_heteroatom_path</span><span class="o">=</span><span class="n">ligandFile</span><span class="p">,</span>
-     <span class="n">properties</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><a id="ligandTopologyStep2"></a></p>
-<h3 id="Step-2:-Add-hydrogen-atoms">Step 2: Add <strong>hydrogen atoms</strong><a class="anchor-link" href="#Step-2:-Add-hydrogen-atoms">¶</a></h3>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create Ligand system topology, STEP 2</span>
-<span class="c1"># Reduce_add_hydrogens: add Hydrogen atoms to a small molecule (using Reduce tool from Ambertools package)</span>
-<span class="c1"># Import module</span>
-<span class="kn">from</span> <span class="nn">biobb_chemistry.ambertools.reduce_add_hydrogens</span> <span class="kn">import</span> <span class="n">reduce_add_hydrogens</span>
-
-<span class="c1"># Create prop dict and inputs/outputs</span>
-<span class="n">output_reduce_h</span> <span class="o">=</span> <span class="n">ligandCode</span><span class="o">+</span><span class="s1">'.reduce.H.pdb'</span> 
-
-<span class="n">prop</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">'nuclear'</span> <span class="p">:</span> <span class="s1">'true'</span>
-<span class="p">}</span>
-
-<span class="c1"># Create and launch bb</span>
-<span class="n">reduce_add_hydrogens</span><span class="p">(</span><span class="n">input_path</span><span class="o">=</span><span class="n">ligandFile</span><span class="p">,</span>
-                   <span class="n">output_path</span><span class="o">=</span><span class="n">output_reduce_h</span><span class="p">,</span>
-                   <span class="n">properties</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><a id="ligandTopologyStep3"></a></p>
-<h3 id="Step-3:-Energetically-minimize-the-system-with-the-new-hydrogen-atoms.">Step 3: <strong>Energetically minimize the system</strong> with the new hydrogen atoms.<a class="anchor-link" href="#Step-3:-Energetically-minimize-the-system-with-the-new-hydrogen-atoms.">¶</a></h3>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create Ligand system topology, STEP 3</span>
-<span class="c1"># Babel_minimize: Structure energy minimization of a small molecule after being modified adding hydrogen atoms</span>
-<span class="c1"># Import module</span>
-<span class="kn">from</span> <span class="nn">biobb_chemistry.babelm.babel_minimize</span> <span class="kn">import</span> <span class="n">babel_minimize</span>
-
-<span class="c1"># Create prop dict and inputs/outputs</span>
-<span class="n">output_babel_min</span> <span class="o">=</span> <span class="n">ligandCode</span><span class="o">+</span><span class="s1">'.H.min.mol2'</span>   
-
-<span class="n">prop</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">'method'</span> <span class="p">:</span> <span class="s1">'sd'</span><span class="p">,</span>
-    <span class="s1">'criteria'</span> <span class="p">:</span> <span class="s1">'1e-10'</span><span class="p">,</span>
-    <span class="s1">'force_field'</span> <span class="p">:</span> <span class="s1">'GAFF'</span>
-<span class="p">}</span>
-
-
-<span class="c1"># Create and launch bb</span>
-<span class="n">babel_minimize</span><span class="p">(</span><span class="n">input_path</span><span class="o">=</span><span class="n">output_reduce_h</span><span class="p">,</span>
-              <span class="n">output_path</span><span class="o">=</span><span class="n">output_babel_min</span><span class="p">,</span>
-              <span class="n">properties</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Visualizing-3D-structures">Visualizing 3D structures<a class="anchor-link" href="#Visualizing-3D-structures">¶</a></h3><p>Visualizing the small molecule generated <strong>PDB structures</strong> using <strong>NGL</strong>:</p>
-<ul>
-<li><strong>Original Ligand Structure</strong> (Left)</li>
-<li><strong>Ligand Structure with hydrogen atoms added</strong> (with Reduce program) (Center)</li>
-<li><strong>Ligand Structure with hydrogen atoms added</strong> (with Reduce program), <strong>energy minimized</strong> (with Open Babel) (Right)</li>
-</ul>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Show different structures generated (for comparison)</span>
-
-<span class="n">view1</span> <span class="o">=</span> <span class="n">nglview</span><span class="o">.</span><span class="n">show_structure_file</span><span class="p">(</span><span class="n">ligandFile</span><span class="p">)</span>
-<span class="n">view1</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'ball+stick'</span><span class="p">)</span>
-<span class="n">view1</span><span class="o">.</span><span class="n">_remote_call</span><span class="p">(</span><span class="s1">'setSize'</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">'Widget'</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">'350px'</span><span class="p">,</span><span class="s1">'400px'</span><span class="p">])</span>
-<span class="n">view1</span><span class="o">.</span><span class="n">camera</span><span class="o">=</span><span class="s1">'orthographic'</span>
-<span class="n">view1</span>
-<span class="n">view2</span> <span class="o">=</span> <span class="n">nglview</span><span class="o">.</span><span class="n">show_structure_file</span><span class="p">(</span><span class="n">output_reduce_h</span><span class="p">)</span>
-<span class="n">view2</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'ball+stick'</span><span class="p">)</span>
-<span class="n">view2</span><span class="o">.</span><span class="n">_remote_call</span><span class="p">(</span><span class="s1">'setSize'</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">'Widget'</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">'350px'</span><span class="p">,</span><span class="s1">'400px'</span><span class="p">])</span>
-<span class="n">view2</span><span class="o">.</span><span class="n">camera</span><span class="o">=</span><span class="s1">'orthographic'</span>
-<span class="n">view2</span>
-<span class="n">view3</span> <span class="o">=</span> <span class="n">nglview</span><span class="o">.</span><span class="n">show_structure_file</span><span class="p">(</span><span class="n">output_babel_min</span><span class="p">)</span>
-<span class="n">view3</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'ball+stick'</span><span class="p">)</span>
-<span class="n">view3</span><span class="o">.</span><span class="n">_remote_call</span><span class="p">(</span><span class="s1">'setSize'</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">'Widget'</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">'350px'</span><span class="p">,</span><span class="s1">'400px'</span><span class="p">])</span>
-<span class="n">view3</span><span class="o">.</span><span class="n">camera</span><span class="o">=</span><span class="s1">'orthographic'</span>
-<span class="n">view3</span>
-<span class="n">ipywidgets</span><span class="o">.</span><span class="n">HBox</span><span class="p">([</span><span class="n">view1</span><span class="p">,</span> <span class="n">view2</span><span class="p">,</span> <span class="n">view3</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="No description has been provided for this image" src="ngl3.png" style="float:left; width:33%;"/><img alt="No description has been provided for this image" src="ngl4.png" style="float:left; width:33%;"/><img alt="No description has been provided for this image" src="ngl5.png" style="float:left; width:33%;"/></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><a id="ligandTopologyStep4"></a></p>
-<h3 id="Step-4:-Generate-ligand-topology-(parameters).">Step 4: Generate <strong>ligand topology</strong> (parameters).<a class="anchor-link" href="#Step-4:-Generate-ligand-topology-(parameters).">¶</a></h3>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create Ligand system topology, STEP 4</span>
-<span class="c1"># Acpype_params_gmx: Generation of topologies for AMBER with ACPype</span>
-<span class="c1"># Import module</span>
-<span class="kn">from</span> <span class="nn">biobb_chemistry.acpype.acpype_params_ac</span> <span class="kn">import</span> <span class="n">acpype_params_ac</span>
-
-<span class="c1"># Create prop dict and inputs/outputs</span>
-<span class="n">output_acpype_inpcrd</span> <span class="o">=</span> <span class="n">ligandCode</span><span class="o">+</span><span class="s1">'params.inpcrd'</span>
-<span class="n">output_acpype_frcmod</span> <span class="o">=</span> <span class="n">ligandCode</span><span class="o">+</span><span class="s1">'params.frcmod'</span>
-<span class="n">output_acpype_lib</span> <span class="o">=</span> <span class="n">ligandCode</span><span class="o">+</span><span class="s1">'params.lib'</span>
-<span class="n">output_acpype_prmtop</span> <span class="o">=</span> <span class="n">ligandCode</span><span class="o">+</span><span class="s1">'params.prmtop'</span>
-<span class="n">output_acpype</span> <span class="o">=</span> <span class="n">ligandCode</span><span class="o">+</span><span class="s1">'params'</span>
-
-<span class="n">prop</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">'basename'</span> <span class="p">:</span> <span class="n">output_acpype</span><span class="p">,</span>
-    <span class="s1">'charge'</span> <span class="p">:</span> <span class="n">mol_charge</span>
-<span class="p">}</span>
-
-<span class="c1"># Create and launch bb</span>
-<span class="n">acpype_params_ac</span><span class="p">(</span><span class="n">input_path</span><span class="o">=</span><span class="n">output_babel_min</span><span class="p">,</span> 
-                <span class="n">output_path_inpcrd</span><span class="o">=</span><span class="n">output_acpype_inpcrd</span><span class="p">,</span>
-                <span class="n">output_path_frcmod</span><span class="o">=</span><span class="n">output_acpype_frcmod</span><span class="p">,</span>
-                <span class="n">output_path_lib</span><span class="o">=</span><span class="n">output_acpype_lib</span><span class="p">,</span>
-                <span class="n">output_path_prmtop</span><span class="o">=</span><span class="n">output_acpype_prmtop</span><span class="p">,</span>
-                <span class="n">properties</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
+<span class="n">pdb4amber_run</span><span class="p">(</span>  <span class="n">input_pdb_path</span><span class="o">=</span><span class="n">downloaded_pdb</span><span class="p">,</span>
+            <span class="n">output_pdb_path</span><span class="o">=</span><span class="n">output_pdb4amber_path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8179,11 +7807,10 @@ Force field used in this tutorial step is <strong>amberGAFF</strong>: <a href="h
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><a id="top"></a></p>
 <hr/>
-<h2 id="Create-protein-ligand-complex-system-topology">Create protein-ligand complex system topology<a class="anchor-link" href="#Create-protein-ligand-complex-system-topology">¶</a></h2><p><strong>Building AMBER topology</strong> corresponding to the protein-ligand complex structure.<br/></p>
+<h2 id="Create-protein-system-topology">Create protein system topology<a class="anchor-link" href="#Create-protein-system-topology">¶</a></h2><p><strong>Building AMBER topology</strong> corresponding to the protein structure.<br/></p>
 <p><em>IMPORTANT: the previous pdb4amber building block is changing the proper cysteines residue naming in the PDB file from CYS to CYX so that this step can automatically identify and add the disulfide bonds to the system topology.</em><br/></p>
-<p>The <strong>force field</strong> used in this tutorial is <a href="https://doi.org/10.1021/acs.jctc.5b00255"><strong>ff14SB</strong></a> for the <strong>protein</strong>, an evolution of the <strong>ff99SB</strong> force field with improved accuracy of protein side chains and backbone parameters; and the <a href="https://doi.org/10.1002/jcc.20035"><strong>gaff</strong></a> force field for the small molecule. <strong>Water</strong> molecules type used in this tutorial is <a href="https://doi.org/10.1021/jp003020w"><strong>tip3p</strong></a>.<br/>
+<p>The <strong>force field</strong> used in this tutorial is <a href="https://doi.org/10.1021/acs.jctc.5b00255"><strong>ff14SB</strong></a>, an evolution of the <strong>ff99SB</strong> force field with improved accuracy of protein side chains and backbone parameters. <strong>Water</strong> molecules type used in this tutorial is <a href="https://doi.org/10.1021/jp003020w"><strong>tip3p</strong></a>.<br/>
 Adding <strong>side chain atoms</strong> and <strong>hydrogen atoms</strong> if missing. Forming <strong>disulfide bridges</strong> according to the info added in the previous step. <br/></p>
-<p><em>NOTE: From this point on, the <strong>protein-ligand complex structure and topology</strong> generated can be used in a regular MD setup.</em></p>
 <p>Generating three output files:</p>
 <ul>
 <li><strong>AMBER structure</strong> (PDB file)</li>
@@ -8216,13 +7843,12 @@ Adding <strong>side chain atoms</strong> and <strong>hydrogen atoms</strong> if 
 <span class="n">output_crd_path</span> <span class="o">=</span> <span class="s1">'structure.leap.crd'</span>
 
 <span class="n">prop</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"forcefield"</span> <span class="p">:</span> <span class="p">[</span><span class="s2">"protein.ff14SB"</span><span class="p">,</span><span class="s2">"gaff"</span><span class="p">]</span>
+    <span class="s2">"forcefield"</span> <span class="p">:</span> <span class="p">[</span><span class="s2">"protein.ff14SB"</span><span class="p">]</span>
 <span class="p">}</span>
 
 <span class="c1"># Create and launch bb</span>
 <span class="n">leap_gen_top</span><span class="p">(</span><span class="n">input_pdb_path</span><span class="o">=</span><span class="n">output_pdb4amber_path</span><span class="p">,</span>
-           <span class="n">input_lib_path</span><span class="o">=</span><span class="n">output_acpype_lib</span><span class="p">,</span>
-           <span class="n">input_frcmod_path</span><span class="o">=</span><span class="n">output_acpype_frcmod</span><span class="p">,</span>
+           <span class="c1">#input_pdb_path=downloaded_pdb,</span>
            <span class="n">output_pdb_path</span><span class="o">=</span><span class="n">output_pdb_path</span><span class="p">,</span>
            <span class="n">output_top_path</span><span class="o">=</span><span class="n">output_top_path</span><span class="p">,</span>
            <span class="n">output_crd_path</span><span class="o">=</span><span class="n">output_crd_path</span><span class="p">,</span>
@@ -8252,15 +7878,9 @@ Try to identify the differences between the structure generated for the <strong>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">nglview</span>
-<span class="kn">import</span> <span class="nn">ipywidgets</span>
-
-<span class="c1"># Show protein</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Show protein</span>
 <span class="n">view</span> <span class="o">=</span> <span class="n">nglview</span><span class="o">.</span><span class="n">show_structure_file</span><span class="p">(</span><span class="n">output_pdb_path</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">clear_representations</span><span class="p">()</span>
-<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'cartoon'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'protein'</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="s1">'0.4'</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'ball+stick'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'protein'</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'ball+stick'</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="s1">'0.5'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'JZ4'</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="n">repr_type</span><span class="o">=</span><span class="s1">'ball+stick'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'all'</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">_remote_call</span><span class="p">(</span><span class="s1">'setSize'</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">'Widget'</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">''</span><span class="p">,</span><span class="s1">'600px'</span><span class="p">])</span>
 <span class="n">view</span>
 </pre></div>
@@ -8275,7 +7895,7 @@ Try to identify the differences between the structure generated for the <strong>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="No description has been provided for this image" src="ngl6.png"/></p>
+<p><img alt="No description has been provided for this image" src="ngl2.png"/></p>
 </div>
 </div>
 </div>
@@ -8287,11 +7907,11 @@ Try to identify the differences between the structure generated for the <strong>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><a id="minv"></a></p>
-<h2 id="Energetically-minimize-the-structure">Energetically minimize the structure<a class="anchor-link" href="#Energetically-minimize-the-structure">¶</a></h2><p><strong>Energetically minimize</strong> the <strong>protein-ligand complex structure</strong> (in vacuo) using the <strong>sander tool</strong> from the <strong>AMBER MD package</strong>. This step is <strong>relaxing the structure</strong>, usually <strong>constrained</strong>, especially when coming from an X-ray <strong>crystal structure</strong>. <br/></p>
+<h2 id="Energetically-minimize-the-structure">Energetically minimize the structure<a class="anchor-link" href="#Energetically-minimize-the-structure">¶</a></h2><p><strong>Energetically minimize</strong> the <strong>protein structure</strong> (in vacuo) using the <strong>sander tool</strong> from the <strong>AMBER MD package</strong>. This step is <strong>relaxing the structure</strong>, usually <strong>constrained</strong>, especially when coming from an X-ray <strong>crystal structure</strong>. <br/></p>
 <p>The <strong>miminization process</strong> is done in two steps:</p>
 <ul>
 <li><a href="#minv_1">Step 1</a>: <strong>Hydrogen</strong> minimization, applying <strong>position restraints</strong> (50 Kcal/mol.$Å^{2}$) to the <strong>protein heavy atoms</strong>.</li>
-<li><a href="#minv_2">Step 2</a>: <strong>System</strong> minimization, with <strong>no restraints</strong>.</li>
+<li><a href="#minv_2">Step 2</a>: <strong>System</strong> minimization, applying <strong>position restraints</strong> (50 Kcal/mol.$Å^{2}$) to the <strong>protein heavy atoms</strong>.</li>
 </ul>
 <hr/>
 <p><strong>Building Blocks</strong> used:</p>
@@ -8447,7 +8067,7 @@ Try to identify the differences between the structure generated for the <strong>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><a id="minv_2"></a></p>
-<h3 id="Step-2:-Minimize-the-system">Step 2: Minimize the system<a class="anchor-link" href="#Step-2:-Minimize-the-system">¶</a></h3><p><strong>System</strong> minimization, with <strong>restraints</strong> only on the <strong>small molecule</strong>, to avoid a possible change in position due to <strong>protein repulsion</strong>.</p>
+<h3 id="Step-2:-Minimize-the-system">Step 2: Minimize the system<a class="anchor-link" href="#Step-2:-Minimize-the-system">¶</a></h3><p><strong>System</strong> minimization, applying <strong>position restraints</strong> (50 Kcal/mol.$Å^{2}$) to the <strong>protein heavy atoms</strong>.</p>
 </div>
 </div>
 </div>
@@ -8472,14 +8092,16 @@ Try to identify the differences between the structure generated for the <strong>
     <span class="s2">"mdin"</span> <span class="p">:</span> <span class="p">{</span> 
         <span class="s1">'maxcyc'</span> <span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
         <span class="s1">'ntpr'</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-        <span class="s1">'restraintmask'</span> <span class="p">:</span> <span class="s1">'</span><span class="se">\"</span><span class="s1">:'</span> <span class="o">+</span> <span class="n">ligandCode</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\"</span><span class="s1">'</span><span class="p">,</span>
-        <span class="s1">'restraint_wt'</span> <span class="p">:</span> <span class="mf">500.0</span>
+        <span class="s1">'ntr'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">'restraintmask'</span> <span class="p">:</span> <span class="s1">'</span><span class="se">\"</span><span class="s1">:*&amp;!@H=</span><span class="se">\"</span><span class="s1">'</span><span class="p">,</span>
+        <span class="s1">'restraint_wt'</span> <span class="p">:</span> <span class="mf">50.0</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1"># Create and launch bb</span>
 <span class="n">sander_mdrun</span><span class="p">(</span><span class="n">input_top_path</span><span class="o">=</span><span class="n">output_top_path</span><span class="p">,</span>
             <span class="n">input_crd_path</span><span class="o">=</span><span class="n">output_h_min_rst_path</span><span class="p">,</span>
+            <span class="n">input_ref_path</span><span class="o">=</span><span class="n">output_h_min_rst_path</span><span class="p">,</span>
             <span class="n">output_traj_path</span><span class="o">=</span><span class="n">output_n_min_traj_path</span><span class="p">,</span>
             <span class="n">output_rst_path</span><span class="o">=</span><span class="n">output_n_min_rst_path</span><span class="p">,</span>
             <span class="n">output_log_path</span><span class="o">=</span><span class="n">output_n_min_log_path</span><span class="p">,</span>
@@ -8623,7 +8245,8 @@ The solvent type used is the default <strong>TIP3P</strong> water model, a gener
 <span class="c1"># Create and launch bb</span>
 <span class="n">amber_to_pdb</span><span class="p">(</span><span class="n">input_top_path</span><span class="o">=</span><span class="n">output_top_path</span><span class="p">,</span>
             <span class="n">input_crd_path</span><span class="o">=</span><span class="n">output_n_min_rst_path</span><span class="p">,</span>
-            <span class="n">output_pdb_path</span><span class="o">=</span><span class="n">output_ambpdb_path</span><span class="p">)</span>
+            <span class="n">output_pdb_path</span><span class="o">=</span><span class="n">output_ambpdb_path</span>
+            <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8636,7 +8259,7 @@ The solvent type used is the default <strong>TIP3P</strong> water model, a gener
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Create-water-box">Create water box<a class="anchor-link" href="#Create-water-box">¶</a></h3><p>Define the <strong>unit cell</strong> for the <strong>protein-ligand complex structure MD system</strong> and fill it with <strong>water molecules</strong>.<br/></p>
+<h3 id="Create-water-box">Create water box<a class="anchor-link" href="#Create-water-box">¶</a></h3><p>Define the <strong>unit cell</strong> for the <strong>protein structure MD system</strong> and fill it with <strong>water molecules</strong>.<br/></p>
 </div>
 </div>
 </div>
@@ -8657,7 +8280,7 @@ The solvent type used is the default <strong>TIP3P</strong> water model, a gener
 <span class="n">output_solv_crd_path</span> <span class="o">=</span> <span class="s1">'structure.solv.crd'</span>
 
 <span class="n">prop</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"forcefield"</span> <span class="p">:</span> <span class="p">[</span><span class="s2">"protein.ff14SB"</span><span class="p">,</span><span class="s2">"gaff"</span><span class="p">],</span>
+    <span class="s2">"forcefield"</span> <span class="p">:</span> <span class="p">[</span><span class="s2">"protein.ff14SB"</span><span class="p">],</span>
     <span class="s2">"water_type"</span><span class="p">:</span> <span class="s2">"TIP3PBOX"</span><span class="p">,</span>
     <span class="s2">"distance_to_molecule"</span><span class="p">:</span> <span class="s2">"9.0"</span><span class="p">,</span>   
     <span class="s2">"box_type"</span><span class="p">:</span> <span class="s2">"truncated_octahedron"</span>
@@ -8665,12 +8288,10 @@ The solvent type used is the default <strong>TIP3P</strong> water model, a gener
 
 <span class="c1"># Create and launch bb</span>
 <span class="n">leap_solvate</span><span class="p">(</span><span class="n">input_pdb_path</span><span class="o">=</span><span class="n">output_ambpdb_path</span><span class="p">,</span>
-             <span class="n">input_lib_path</span><span class="o">=</span><span class="n">output_acpype_lib</span><span class="p">,</span>
-             <span class="n">input_frcmod_path</span><span class="o">=</span><span class="n">output_acpype_frcmod</span><span class="p">,</span>
-             <span class="n">output_pdb_path</span><span class="o">=</span><span class="n">output_solv_pdb_path</span><span class="p">,</span>
-             <span class="n">output_top_path</span><span class="o">=</span><span class="n">output_solv_top_path</span><span class="p">,</span>
-             <span class="n">output_crd_path</span><span class="o">=</span><span class="n">output_solv_crd_path</span><span class="p">,</span>
-             <span class="n">properties</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
+           <span class="n">output_pdb_path</span><span class="o">=</span><span class="n">output_solv_pdb_path</span><span class="p">,</span>
+           <span class="n">output_top_path</span><span class="o">=</span><span class="n">output_solv_top_path</span><span class="p">,</span>
+           <span class="n">output_crd_path</span><span class="o">=</span><span class="n">output_solv_crd_path</span><span class="p">,</span>
+           <span class="n">properties</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8712,7 +8333,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 <span class="n">output_ions_crd_path</span> <span class="o">=</span> <span class="s1">'structure.ions.crd'</span>
 
 <span class="n">prop</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"forcefield"</span> <span class="p">:</span> <span class="p">[</span><span class="s2">"protein.ff14SB"</span><span class="p">,</span><span class="s2">"gaff"</span><span class="p">],</span>
+    <span class="s2">"forcefield"</span> <span class="p">:</span> <span class="p">[</span><span class="s2">"protein.ff14SB"</span><span class="p">],</span>
     <span class="s2">"neutralise"</span> <span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="s2">"positive_ions_type"</span><span class="p">:</span> <span class="s2">"Na+"</span><span class="p">,</span>
     <span class="s2">"negative_ions_type"</span><span class="p">:</span> <span class="s2">"Cl-"</span><span class="p">,</span>
@@ -8722,8 +8343,6 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 
 <span class="c1"># Create and launch bb</span>
 <span class="n">leap_add_ions</span><span class="p">(</span><span class="n">input_pdb_path</span><span class="o">=</span><span class="n">output_solv_pdb_path</span><span class="p">,</span>
-            <span class="n">input_lib_path</span><span class="o">=</span><span class="n">output_acpype_lib</span><span class="p">,</span>
-            <span class="n">input_frcmod_path</span><span class="o">=</span><span class="n">output_acpype_frcmod</span><span class="p">,</span>
            <span class="n">output_pdb_path</span><span class="o">=</span><span class="n">output_ions_pdb_path</span><span class="p">,</span>
            <span class="n">output_top_path</span><span class="o">=</span><span class="n">output_ions_top_path</span><span class="p">,</span>
            <span class="n">output_crd_path</span><span class="o">=</span><span class="n">output_ions_crd_path</span><span class="p">,</span>
@@ -8740,7 +8359,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Visualizing-3D-structure">Visualizing 3D structure<a class="anchor-link" href="#Visualizing-3D-structure">¶</a></h3><p>Visualizing the <strong>protein-ligand complex system</strong> with the newly added <strong>solvent box</strong> and <strong>counterions</strong> using <strong>NGL</strong>.<br/> Note the <strong>truncated octahedron box</strong> filled with <strong>water molecules</strong> surrounding the <strong>protein structure</strong>, as well as the randomly placed <strong>positive</strong> (Na+, blue) and <strong>negative</strong> (Cl-, gray) <strong>counterions</strong>.</p>
+<h3 id="Visualizing-3D-structure">Visualizing 3D structure<a class="anchor-link" href="#Visualizing-3D-structure">¶</a></h3><p>Visualizing the <strong>protein system</strong> with the newly added <strong>solvent box</strong> and <strong>counterions</strong> using <strong>NGL</strong>.<br/> Note the <strong>truncated octahedron box</strong> filled with <strong>water molecules</strong> surrounding the <strong>protein structure</strong>, as well as the randomly placed <strong>positive</strong> (Na+, blue) and <strong>negative</strong> (Cl-, gray) <strong>counterions</strong>.</p>
 </div>
 </div>
 </div>
@@ -8772,7 +8391,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><img alt="No description has been provided for this image" src="ngl7.png"/></p>
+<p><img alt="No description has been provided for this image" src="ngl3.png"/></p>
 </div>
 </div>
 </div>
@@ -8784,7 +8403,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><a id="min"></a></p>
-<h2 id="Energetically-minimize-the-system">Energetically minimize the system<a class="anchor-link" href="#Energetically-minimize-the-system">¶</a></h2><p><strong>Energetically minimize</strong> the <strong>system</strong> (protein structure + ligand + solvent + ions) using the <strong>sander tool</strong> from the <strong>AMBER MD package</strong>. <strong>Restraining heavy atoms</strong> with a force constant of 15 15 Kcal/mol.$Å^{2}$ to their initial positions.</p>
+<h2 id="Energetically-minimize-the-system">Energetically minimize the system<a class="anchor-link" href="#Energetically-minimize-the-system">¶</a></h2><p><strong>Energetically minimize</strong> the <strong>system</strong> (protein structure + solvent + ions) using the <strong>sander tool</strong> from the <strong>AMBER MD package</strong>. <strong>Restraining heavy atoms</strong> with a force constant of 15 Kcal/mol.$Å^{2}$ to their initial positions.</p>
 <ul>
 <li><a href="#emStep1">Step 1</a>: Energetically minimize the <strong>system</strong> through 500 minimization cycles.</li>
 <li><a href="#emStep2">Step 2</a>: Checking <strong>energy minimization</strong> results. Plotting energy by time during the <strong>minimization</strong> process.</li>
@@ -8840,7 +8459,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
         <span class="s1">'maxcyc'</span> <span class="p">:</span> <span class="mi">300</span><span class="p">,</span> <span class="c1"># Reducing the number of minimization steps for the sake of time</span>
         <span class="s1">'ntr'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># Overwritting restrain parameter</span>
         <span class="s1">'restraintmask'</span> <span class="p">:</span> <span class="s1">'</span><span class="se">\"</span><span class="s1">!:WAT,Cl-,Na+</span><span class="se">\"</span><span class="s1">'</span><span class="p">,</span>      <span class="c1"># Restraining solute</span>
-        <span class="s1">'restraint_wt'</span> <span class="p">:</span> <span class="mf">15.0</span>                       <span class="c1"># With a force constant of 50 Kcal/mol*A2</span>
+        <span class="s1">'restraint_wt'</span> <span class="p">:</span> <span class="mf">50.0</span>                       <span class="c1"># With a force constant of 50 Kcal/mol*A2</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
@@ -9018,7 +8637,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
     <span class="s2">"simulation_type"</span> <span class="p">:</span> <span class="s2">"heat"</span><span class="p">,</span>
     <span class="s2">"mdin"</span> <span class="p">:</span> <span class="p">{</span> 
         <span class="s1">'nstlim'</span> <span class="p">:</span> <span class="mi">2500</span><span class="p">,</span> <span class="c1"># Reducing the number of steps for the sake of time (5ps)</span>
-        <span class="s1">'ntr'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>     <span class="c1"># Overwritting restrain parameter</span>
+        <span class="s1">'ntr'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>       <span class="c1"># Overwritting restrain parameter</span>
         <span class="s1">'restraintmask'</span> <span class="p">:</span> <span class="s1">'</span><span class="se">\"</span><span class="s1">!:WAT,Cl-,Na+</span><span class="se">\"</span><span class="s1">'</span><span class="p">,</span>      <span class="c1"># Restraining solute</span>
         <span class="s1">'restraint_wt'</span> <span class="p">:</span> <span class="mf">10.0</span>                       <span class="c1"># With a force constant of 10 Kcal/mol*A2</span>
     <span class="p">}</span>
@@ -9131,7 +8750,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><a id="nvt"></a></p>
 <hr/>
-<h2 id="Equilibrate-the-system-(NVT)">Equilibrate the system (NVT)<a class="anchor-link" href="#Equilibrate-the-system-(NVT)">¶</a></h2><p>Equilibrate the <strong>protein-ligand complex system</strong> in <strong>NVT ensemble</strong> (constant Number of particles, Volume and Temperature). Protein <strong>heavy atoms</strong> will be restrained using position restraining forces: movement is permitted, but only after overcoming a substantial energy penalty. The utility of position restraints is that they allow us to equilibrate our solvent around our protein, without the added variable of structural changes in the protein.</p>
+<h2 id="Equilibrate-the-system-(NVT)">Equilibrate the system (NVT)<a class="anchor-link" href="#Equilibrate-the-system-(NVT)">¶</a></h2><p>Equilibrate the <strong>protein system</strong> in <strong>NVT ensemble</strong> (constant Number of particles, Volume and Temperature). Protein <strong>heavy atoms</strong> will be restrained using position restraining forces: movement is permitted, but only after overcoming a substantial energy penalty. The utility of position restraints is that they allow us to equilibrate our solvent around our protein, without the added variable of structural changes in the protein.</p>
 <ul>
 <li><a href="#eqNVTStep1">Step 1</a>: Equilibrate the <strong>protein system</strong> with <strong>NVT</strong> ensemble.</li>
 <li><a href="#eqNVTStep2">Step 2</a>: Checking <strong>NVT Equilibration</strong> results. Plotting <strong>system temperature</strong> by time during the <strong>NVT equilibration</strong> process.</li>
@@ -9196,9 +8815,9 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
     <span class="s2">"simulation_type"</span> <span class="p">:</span> <span class="s1">'nvt'</span><span class="p">,</span>
     <span class="s2">"mdin"</span> <span class="p">:</span> <span class="p">{</span> 
         <span class="s1">'nstlim'</span> <span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="c1"># Reducing the number of steps for the sake of time (1ps)</span>
-        <span class="s1">'ntr'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>     <span class="c1"># Overwritting restrain parameter</span>
+        <span class="s1">'ntr'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># Overwritting restrain parameter</span>
         <span class="s1">'restraintmask'</span> <span class="p">:</span> <span class="s1">'</span><span class="se">\"</span><span class="s1">!:WAT,Cl-,Na+ &amp; !@H=</span><span class="se">\"</span><span class="s1">'</span><span class="p">,</span>      <span class="c1"># Restraining solute heavy atoms</span>
-        <span class="s1">'restraint_wt'</span> <span class="p">:</span> <span class="mf">5.0</span>                              <span class="c1"># With a force constant of 5 Kcal/mol*A2</span>
+        <span class="s1">'restraint_wt'</span> <span class="p">:</span> <span class="mf">5.0</span>                               <span class="c1"># With a force constant of 5 Kcal/mol*A2</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
@@ -9309,7 +8928,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><a id="npt"></a></p>
 <hr/>
-<h2 id="Equilibrate-the-system-(NPT)">Equilibrate the system (NPT)<a class="anchor-link" href="#Equilibrate-the-system-(NPT)">¶</a></h2><p>Equilibrate the <strong>protein-ligand complex system</strong> in <strong>NPT ensemble</strong> (constant Number of particles, Pressure and Temperature). Protein <strong>heavy atoms</strong> will be restrained using position restraining forces: movement is permitted, but only after overcoming a substantial energy penalty. The utility of position restraints is that they allow us to equilibrate our solvent around our protein, without the added variable of structural changes in the protein.</p>
+<h2 id="Equilibrate-the-system-(NPT)">Equilibrate the system (NPT)<a class="anchor-link" href="#Equilibrate-the-system-(NPT)">¶</a></h2><p>Equilibrate the <strong>protein system</strong> in <strong>NPT ensemble</strong> (constant Number of particles, Pressure and Temperature). Protein <strong>heavy atoms</strong> will be restrained using position restraining forces: movement is permitted, but only after overcoming a substantial energy penalty. The utility of position restraints is that they allow us to equilibrate our solvent around our protein, without the added variable of structural changes in the protein.</p>
 <ul>
 <li><a href="#eqNPTStep1">Step 1</a>: Equilibrate the <strong>protein system</strong> with <strong>NPT</strong> ensemble.</li>
 <li><a href="#eqNPTStep2">Step 2</a>: Checking <strong>NPT Equilibration</strong> results. Plotting <strong>system pressure and density</strong> by time during the <strong>NVT equilibration</strong> process.</li>
@@ -9376,7 +8995,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
     <span class="s2">"simulation_type"</span> <span class="p">:</span> <span class="s1">'npt'</span><span class="p">,</span>
     <span class="s2">"mdin"</span> <span class="p">:</span> <span class="p">{</span> 
         <span class="s1">'nstlim'</span> <span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="c1"># Reducing the number of steps for the sake of time (1ps)</span>
-        <span class="s1">'ntr'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>     <span class="c1"># Overwritting restrain parameter</span>
+        <span class="s1">'ntr'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># Overwritting restrain parameter</span>
         <span class="s1">'restraintmask'</span> <span class="p">:</span> <span class="s1">'</span><span class="se">\"</span><span class="s1">!:WAT,Cl-,Na+ &amp; !@H=</span><span class="se">\"</span><span class="s1">'</span><span class="p">,</span>      <span class="c1"># Restraining solute heavy atoms</span>
         <span class="s1">'restraint_wt'</span> <span class="p">:</span> <span class="mf">2.5</span>                               <span class="c1"># With a force constant of 2.5 Kcal/mol*A2</span>
     <span class="p">}</span>
@@ -9654,7 +9273,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 <span class="n">cpptraj_rms</span><span class="p">(</span><span class="n">input_top_path</span><span class="o">=</span><span class="n">output_ions_top_path</span><span class="p">,</span>
             <span class="n">input_traj_path</span><span class="o">=</span><span class="n">output_free_traj_path</span><span class="p">,</span>
             <span class="n">output_cpptraj_path</span><span class="o">=</span><span class="n">output_rms_exp</span><span class="p">,</span>
-            <span class="n">input_exp_path</span><span class="o">=</span><span class="n">output_pdb_path</span><span class="p">,</span> 
+            <span class="n">input_exp_path</span><span class="o">=</span><span class="n">downloaded_pdb</span><span class="p">,</span> 
             <span class="n">properties</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -9669,8 +9288,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Read RMS vs first snapshot data from file </span>
-<span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
 
 <span class="c1"># Read RMS vs first snapshot data from file </span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_rms_first</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">rms_first_file</span><span class="p">:</span>
@@ -9870,7 +9488,7 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><a id="ppStep2"></a></p>
-<h3 id="Step-2:-Visualizing-the-generated-dehydrated-trajectory.">Step 2: Visualizing the generated dehydrated trajectory.<a class="anchor-link" href="#Step-2:-Visualizing-the-generated-dehydrated-trajectory.">¶</a></h3><p>Using the <strong>imaged trajectory</strong> (output of the <a href="#ppStep1">Post-processing step 1</a>) with the <strong>dry structure</strong> (output of</p>
+<h3 id="Step-2:-Visualizing-the-generated-dehydrated-trajectory.">Step 2: Visualizing the generated dehydrated trajectory.<a class="anchor-link" href="#Step-2:-Visualizing-the-generated-dehydrated-trajectory.">¶</a></h3><p>Using the <strong>imaged trajectory</strong> (output of the <a href="#ppStep1">Post-processing step 1</a>) with the <strong>dry structure</strong> (output of the <a href="#minv">Structure energy minimization - step 5</a>) as a topology.</p>
 </div>
 </div>
 </div>
@@ -9884,9 +9502,6 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Show trajectory</span>
 <span class="n">view</span> <span class="o">=</span> <span class="n">nglview</span><span class="o">.</span><span class="n">show_simpletraj</span><span class="p">(</span><span class="n">nglview</span><span class="o">.</span><span class="n">SimpletrajTrajectory</span><span class="p">(</span><span class="n">output_imaged_traj</span><span class="p">,</span> <span class="n">output_ambpdb_path</span><span class="p">),</span> <span class="n">gui</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">clear_representations</span><span class="p">()</span>
-<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="s1">'cartoon'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'sstruc'</span><span class="p">)</span>
-<span class="n">view</span><span class="o">.</span><span class="n">add_representation</span><span class="p">(</span><span class="s1">'licorice'</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'JZ4'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'element'</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">view</span>
 </pre></div>
 </div>
@@ -9921,9 +9536,9 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 </ul>
 <p><strong>Analysis</strong> (MD setup check) output files generated:</p>
 <ul>
-<li>3htb_rms_first.dat: <strong>Root Mean Square deviation (RMSd)</strong> against <strong>minimized and equilibrated structure</strong> of the final <strong>free MD run step</strong>.</li>
-<li>3htb_rms_exp.dat: <strong>Root Mean Square deviation (RMSd)</strong> against <strong>experimental structure</strong> of the final <strong>free MD run step</strong>.</li>
-<li>3htb_rgyr.dat: <strong>Radius of Gyration</strong> of the final <strong>free MD run step</strong> of the <strong>setup pipeline</strong>.</li>
+<li>1aki_rms_first.dat: <strong>Root Mean Square deviation (RMSd)</strong> against <strong>minimized and equilibrated structure</strong> of the final <strong>free MD run step</strong>.</li>
+<li>1aki_rms_exp.dat: <strong>Root Mean Square deviation (RMSd)</strong> against <strong>experimental structure</strong> of the final <strong>free MD run step</strong>.</li>
+<li>1aki_rgyr.dat: <strong>Radius of Gyration</strong> of the final <strong>free MD run step</strong> of the <strong>setup pipeline</strong>.</li>
 </ul>
 </div>
 </div>

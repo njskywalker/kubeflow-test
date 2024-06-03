@@ -42,7 +42,7 @@ git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
 conda env create -f conda_env/environment.yml
 conda activate biobb_wf_amber_md_setup
-jupyter-notebook biobb_wf_amber_md_setup/notebooks/abcsetup/biobb_amber_ABC_setup.ipynb
+jupyter-notebook biobb_wf_amber_md_setup/notebooks/abc_setup/biobb_wf_amber_abc_setup.ipynb
 ```
 
 ***
@@ -107,7 +107,7 @@ if 'google.colab' in sys.modules:
   output.enable_custom_widget_manager()
   # Change working dir
   import os
-  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/abcsetup")
+  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/abc_setup")
   print(f"📂 New working directory: {os.getcwd()}")
 ```
 
@@ -191,7 +191,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/abcsetup/ngl1.png'></img>
+<img src='_static/abc_setup/ngl1.png'></img>
 
 <a id="top"></a>
 ## Generate Topology
@@ -233,7 +233,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/abcsetup/ngl2.png'></img>
+<img src='_static/abc_setup/ngl2.png'></img>
 
 <a id="water"></a>
 ## Adding Water Box
@@ -292,7 +292,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/abcsetup/ngl3.png'></img>
+<img src='_static/abc_setup/ngl3.png'></img>
 
 <a id="ions"></a>
 ## Adding additional ionic concentration
@@ -344,7 +344,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/abcsetup/ngl4.png'></img>
+<img src='_static/abc_setup/ngl4.png'></img>
 
 <a id="random"></a>
 ## Randomize ions
@@ -390,7 +390,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/abcsetup/ngl5.png'></img>
+<img src='_static/abc_setup/ngl5.png'></img>
 
 <a id="top4fs"></a>
 ## Generate Topology with Hydrogen Mass Partitioning (4fs)
@@ -547,7 +547,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/abcsetup/plot01.png'></img>
+<img src='_static/abc_setup/plot01.png'></img>
 
 <a id="eq2"></a>
 ### Equilibration Step 2: NVT equilibration
@@ -667,7 +667,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/abcsetup/plot02.png'></img>
+<img src='_static/abc_setup/plot02.png'></img>
 
 <a id="eq3"></a>
 ### Equilibration Step 3: System energetic minimization
@@ -778,7 +778,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/abcsetup/plot03.png'></img>
+<img src='_static/abc_setup/plot03.png'></img>
 
 <a id="eq4"></a>
 ### Equilibration Step 4: System energetic minimization
@@ -889,7 +889,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/abcsetup/plot04.png'></img>
+<img src='_static/abc_setup/plot04.png'></img>
 
 <a id="eq5"></a>
 ### Equilibration Step 5: System energetic minimization
@@ -997,7 +997,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/abcsetup/plot05.png'></img>
+<img src='_static/abc_setup/plot05.png'></img>
 
 <a id="eq6"></a>
 ### Equilibration Step 6: NPT equilibration
@@ -1136,7 +1136,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/abcsetup/plot06.png'></img>
+<img src='_static/abc_setup/plot06.png'></img>
 
 <a id="eq7"></a>
 ### Equilibration Step 7: NPT equilibration
@@ -1276,7 +1276,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/abcsetup/plot07.png'></img>
+<img src='_static/abc_setup/plot07.png'></img>
 
 <a id="eq8"></a>
 ### Equilibration Step 8: NPT equilibration
@@ -1416,7 +1416,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/abcsetup/plot08.png'></img>
+<img src='_static/abc_setup/plot08.png'></img>
 
 <a id="eq9"></a>
 ### Equilibration Step 9: NPT equilibration
@@ -1554,7 +1554,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/abcsetup/plot09.png'></img>
+<img src='_static/abc_setup/plot09.png'></img>
 
 <a id="eq10"></a>
 ### Equilibration Step 10: NPT equilibration
@@ -1693,7 +1693,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/abcsetup/plot10.png'></img>
+<img src='_static/abc_setup/plot10.png'></img>
 
 <a id="free"></a>
 ***
@@ -1787,10 +1787,10 @@ display(FileLink(dna_leap_top_4fs_path))
 display(FileLink(output_md_rst_path))
 ```
 
-<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abcsetup/sander.md.nc' target='_blank'>sander.md.nc</a><br>
-<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abcsetup/structure.ions.parmtop' target='_blank'>structure.ions.parmtop</a><br>
-<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abcsetup/structure.leap.4fs.top' target='_blank'>structure.leap.4fs.top</a><br>
-<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abcsetup/sander.md.ncrst' target='_blank'>sander.md.ncrst</a>
+<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abc_setup/sander.md.nc' target='_blank'>sander.md.nc</a><br>
+<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abc_setup/structure.ions.parmtop' target='_blank'>structure.ions.parmtop</a><br>
+<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abc_setup/structure.leap.4fs.top' target='_blank'>structure.leap.4fs.top</a><br>
+<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abc_setup/sander.md.ncrst' target='_blank'>sander.md.ncrst</a>
 
 ***
 <a id="questions"></a>

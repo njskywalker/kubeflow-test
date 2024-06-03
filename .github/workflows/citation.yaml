@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          repository: bioexcel/biobb_wf_amber_md_setup
+          repository: bioexcel/biobb_wf_amber
           path: ./
 
       - name: Download file using wget

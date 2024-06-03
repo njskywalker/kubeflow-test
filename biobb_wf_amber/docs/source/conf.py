@@ -66,7 +66,7 @@ source_suffix = ['.rst', '.md']
 master_doc = 'index'
 
 # General information about the project.
-project = u'biobb_wf_amber_md_setup'
+project = u'biobb_wf_amber'
 copyright = u'2021, Bioexcel Project'
 author = u'Bioexcel Project'
 
@@ -224,7 +224,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'biobb_wf_amber_md_setup_doc'
+htmlhelp_basename = 'biobb_wf_amber_doc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -246,7 +246,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'biobb_wf_amber_md_setup.tex', u'biobb_wf_amber_md_setup Documentation',
+    (master_doc, 'biobb_wf_amber.tex', u'biobb_wf_amber Documentation',
      u'Bioexcel Project', 'manual'),
 ]
 
@@ -276,7 +276,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'biobb_wf_amber_md_setup', u'biobb_wf_amber_md_setup Documentation',
+    (master_doc, 'biobb_wf_amber', u'biobb_wf_amber Documentation',
      [author], 1)
 ]
 
@@ -290,8 +290,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'biobb_wf_amber_md_setup', u'biobb_wf_amber_md_setup Documentation',
-     author, 'biobb_wf_amber_md_setup', 'biobb_wf_amber_md_setup molecular dynamics analysis building blocks',
+    (master_doc, 'biobb_wf_amber', u'biobb_wf_amber Documentation',
+     author, 'biobb_wf_amber', 'biobb_wf_amber molecular dynamics analysis building blocks',
      'Miscellaneous'),
 ]
 

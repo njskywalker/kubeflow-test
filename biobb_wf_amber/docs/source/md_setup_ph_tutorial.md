@@ -31,7 +31,7 @@ git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
 cd biobb_wf_amber_md_setup
 conda env create -f conda_env/environment.yml
 conda activate biobb_wf_amber_md_setup
-jupyter-notebook biobb_wf_amber_md_setup/notebooks/mdsetup_ph/biobb_amber_CpHMD_notebook.ipynb
+jupyter-notebook biobb_wf_amber_md_setup/notebooks/md_setup_ph/biobb_wf_amber_md_setup_ph.ipynb
 ```
 
 ***
@@ -97,7 +97,7 @@ if 'google.colab' in sys.modules:
   output.enable_custom_widget_manager()
   # Change working dir
   import os
-  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/mdsetup_ph")
+  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/md_setup_ph")
   print(f"📂 New working directory: {os.getcwd()}")
 ```
 
@@ -157,7 +157,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup_ph/ngl1.png'></img>
+<img src='_static/md_setup_ph/ngl1.png'></img>
 
 <a id="pdb4amber"></a>
 ***
@@ -204,7 +204,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup_ph/ngl2.png'></img>
+<img src='_static/md_setup_ph/ngl2.png'></img>
 
 <a id="top"></a>
 ***
@@ -258,7 +258,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup_ph/ngl3.png'></img>
+<img src='_static/md_setup_ph/ngl3.png'></img>
 
 <a id="box"></a>
 ***
@@ -312,7 +312,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup_ph/ngl4.png'></img>
+<img src='_static/md_setup_ph/ngl4.png'></img>
 
 <a id="ions"></a>
 ## Adding ions
@@ -365,7 +365,7 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
-<img src='_static/mdsetup_ph/ngl5.png'></img>
+<img src='_static/md_setup_ph/ngl5.png'></img>
 
 <a id="cpinutil1"></a>
 ## Generating the constant pH input file
@@ -495,7 +495,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup_ph/plot01.png'></img>
+<img src='_static/md_setup_ph/plot01.png'></img>
 
 <a id="heating"></a>
 ## Heating the system
@@ -612,7 +612,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup_ph/plot02.png'></img>
+<img src='_static/md_setup_ph/plot02.png'></img>
 
 <a id="nvt"></a>
 ***
@@ -727,7 +727,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup_ph/plot03.png'></img>
+<img src='_static/md_setup_ph/plot03.png'></img>
 
 <a id="npt"></a>
 ***
@@ -858,7 +858,7 @@ rend = 'colab' if 'google.colab' in sys.modules else ''
 fig.show(renderer=rend)
 ```
 
-<img src='_static/mdsetup_ph/plot04.png'></img>
+<img src='_static/md_setup_ph/plot04.png'></img>
 
 <a id="free"></a>
 ***
