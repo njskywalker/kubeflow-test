@@ -27,11 +27,11 @@ This tutorial aims to illustrate the process of **setting up a simulation system
 ### Conda Installation
 
 ```console
-git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
-cd biobb_wf_amber_md_setup
+git clone https://github.com/bioexcel/biobb_wf_amber.git
+cd biobb_wf_amber
 conda env create -f conda_env/environment.yml
-conda activate biobb_wf_amber_md_setup
-jupyter-notebook biobb_wf_amber_md_setup/notebooks/md_setup_ph/biobb_wf_amber_md_setup_ph.ipynb
+conda activate biobb_wf_amber
+jupyter-notebook biobb_wf_amber/notebooks/md_setup_ph/biobb_wf_amber_md_setup_ph.ipynb
 ```
 
 ***
@@ -97,7 +97,7 @@ if 'google.colab' in sys.modules:
   output.enable_custom_widget_manager()
   # Change working dir
   import os
-  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/md_setup_ph")
+  os.chdir("biobb_wf_amber/biobb_wf_amber/notebooks/md_setup_ph")
   print(f"📂 New working directory: {os.getcwd()}")
 ```
 

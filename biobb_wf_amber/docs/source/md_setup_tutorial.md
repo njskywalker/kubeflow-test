@@ -26,11 +26,11 @@ This tutorial aims to illustrate the process of **setting up a simulation system
 ### Conda Installation
 
 ```console
-git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
-cd biobb_wf_amber_md_setup
+git clone https://github.com/bioexcel/biobb_wf_amber.git
+cd biobb_wf_amber
 conda env create -f conda_env/environment.yml
-conda activate biobb_wf_amber_md_setup
-jupyter-notebook biobb_wf_amber_md_setup/notebooks/md_setup/biobb_wf_amber_md_setup.ipynb
+conda activate biobb_wf_amber
+jupyter-notebook biobb_wf_amber/notebooks/md_setup/biobb_wf_amber_md_setup.ipynb
 ```
 
 ***
@@ -74,7 +74,7 @@ if 'google.colab' in sys.modules:
     import condacolab
     condacolab.install()
     # Clone repository
-    repo_URL = "https://github.com/bioexcel/biobb_wf_amber_md_setup.git"
+    repo_URL = "https://github.com/bioexcel/biobb_wf_amber.git"
     repo_name = Path(repo_URL).name.split('.')[0]
     if not Path(repo_name).exists():
       subprocess.run(["mamba", "install", "-y", "git"], check=True)
@@ -97,7 +97,7 @@ if 'google.colab' in sys.modules:
   output.enable_custom_widget_manager()
   # Change working dir
   import os
-  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/md_setup")
+  os.chdir("biobb_wf_amber/biobb_wf_amber/notebooks/md_setup")
   print(f"📂 New working directory: {os.getcwd()}")
 ```
 

@@ -38,11 +38,11 @@ The main **steps of the pipeline** are:
 ### Conda Installation
 
 ```console
-git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git
-cd biobb_wf_amber_md_setup
+git clone https://github.com/bioexcel/biobb_wf_amber.git
+cd biobb_wf_amber
 conda env create -f conda_env/environment.yml
-conda activate biobb_wf_amber_md_setup
-jupyter-notebook biobb_wf_amber_md_setup/notebooks/abc_setup/biobb_wf_amber_abc_setup.ipynb
+conda activate biobb_wf_amber
+jupyter-notebook biobb_wf_amber/notebooks/abc_setup/biobb_wf_amber_abc_setup.ipynb
 ```
 
 ***
@@ -84,7 +84,7 @@ if 'google.colab' in sys.modules:
     import condacolab
     condacolab.install()
     # Clone repository
-    repo_URL = "https://github.com/bioexcel/biobb_wf_amber_md_setup.git"
+    repo_URL = "https://github.com/bioexcel/biobb_wf_amber.git"
     repo_name = Path(repo_URL).name.split('.')[0]
     if not Path(repo_name).exists():
       subprocess.run(["mamba", "install", "-y", "git"], check=True)
@@ -107,7 +107,7 @@ if 'google.colab' in sys.modules:
   output.enable_custom_widget_manager()
   # Change working dir
   import os
-  os.chdir("biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/abc_setup")
+  os.chdir("biobb_wf_amber/biobb_wf_amber/notebooks/abc_setup")
   print(f"📂 New working directory: {os.getcwd()}")
 ```
 
@@ -155,7 +155,7 @@ Model **DNA 3D structure** from a **nucleotide sequence** using the **nab tool**
 ```python
 # uncomment in case of experiencing issues with undefined AMBERHOME variable in the cell below:
 # import os
-# os.environ['AMBERHOME'] = "/path/to/anaconda3/envs/biobb_wf_amber_md_setup" # when running in Jupyter Notebook / Lab
+# os.environ['AMBERHOME'] = "/path/to/anaconda3/envs/biobb_wf_amber" # when running in Jupyter Notebook / Lab
 # os.environ['AMBERHOME'] = "/usr/local" # when running in Google Colab
 ```
 
@@ -1787,10 +1787,10 @@ display(FileLink(dna_leap_top_4fs_path))
 display(FileLink(output_md_rst_path))
 ```
 
-<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abc_setup/sander.md.nc' target='_blank'>sander.md.nc</a><br>
-<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abc_setup/structure.ions.parmtop' target='_blank'>structure.ions.parmtop</a><br>
-<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abc_setup/structure.leap.4fs.top' target='_blank'>structure.leap.4fs.top</a><br>
-<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber_md_setup/master/biobb_wf_amber_md_setup/html/abc_setup/sander.md.ncrst' target='_blank'>sander.md.ncrst</a>
+<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber/main/biobb_wf_amber/html/abc_setup/sander.md.nc' target='_blank'>sander.md.nc</a><br>
+<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber/main/biobb_wf_amber/html/abc_setup/structure.ions.parmtop' target='_blank'>structure.ions.parmtop</a><br>
+<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber/main/biobb_wf_amber/html/abc_setup/structure.leap.4fs.top' target='_blank'>structure.leap.4fs.top</a><br>
+<a href='https://raw.githubusercontent.com/bioexcel/biobb_wf_amber/main/biobb_wf_amber/html/abc_setup/sander.md.ncrst' target='_blank'>sander.md.ncrst</a>
 
 ***
 <a id="questions"></a>

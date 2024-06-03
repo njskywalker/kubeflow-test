@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>biobb_wf_amber_md_setup.web</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>biobb_wf_amber.web</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7533,11 +7533,11 @@ a.anchor-link {
 <li><a href="https://anaconda.org/conda-forge/gfortran">gfortran</a>: Fortran 95/2003/2008/2018 compiler for GCC, the GNU Compiler Collection.</li>
 <li><a href="https://anaconda.org/conda-forge/libgfortran5">libgfortran5</a>: Fortran compiler and libraries from the GNU Compiler Collection.</li>
 </ul>
-<h3 id="Conda-Installation">Conda Installation<a class="anchor-link" href="#Conda-Installation">¶</a></h3><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/bioexcel/biobb_wf_amber_md_setup.git</span>
-<span class="go">cd biobb_wf_amber_md_setup</span>
+<h3 id="Conda-Installation">Conda Installation<a class="anchor-link" href="#Conda-Installation">¶</a></h3><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/bioexcel/biobb_wf_amber.git</span>
+<span class="go">cd biobb_wf_amber</span>
 <span class="go">conda env create -f conda_env/environment.yml</span>
-<span class="go">conda activate biobb_wf_amber_md_setup</span>
-<span class="go">jupyter-notebook biobb_wf_amber_md_setup/notebooks/md_setup/biobb_wf_amber_md_setup.ipynb</span>
+<span class="go">conda activate biobb_wf_amber</span>
+<span class="go">jupyter-notebook biobb_wf_amber/notebooks/md_setup/biobb_wf_amber_md_setup.ipynb</span>
 </pre></div>
 <hr/>
 <h2 id="Pipeline-steps">Pipeline steps<a class="anchor-link" href="#Pipeline-steps">¶</a></h2><ol>
@@ -7594,7 +7594,7 @@ a.anchor-link {
     <span class="kn">import</span> <span class="nn">condacolab</span>
     <span class="n">condacolab</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
     <span class="c1"># Clone repository</span>
-    <span class="n">repo_URL</span> <span class="o">=</span> <span class="s2">"https://github.com/bioexcel/biobb_wf_amber_md_setup.git"</span>
+    <span class="n">repo_URL</span> <span class="o">=</span> <span class="s2">"https://github.com/bioexcel/biobb_wf_amber.git"</span>
     <span class="n">repo_name</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">repo_URL</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">repo_name</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
       <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">"mamba"</span><span class="p">,</span> <span class="s2">"install"</span><span class="p">,</span> <span class="s2">"-y"</span><span class="p">,</span> <span class="s2">"git"</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -7626,7 +7626,7 @@ a.anchor-link {
   <span class="n">output</span><span class="o">.</span><span class="n">enable_custom_widget_manager</span><span class="p">()</span>
   <span class="c1"># Change working dir</span>
   <span class="kn">import</span> <span class="nn">os</span>
-  <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">"biobb_wf_amber_md_setup/biobb_wf_amber_md_setup/notebooks/md_setup"</span><span class="p">)</span>
+  <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">"biobb_wf_amber/biobb_wf_amber/notebooks/md_setup"</span><span class="p">)</span>
   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"📂 New working directory: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
