@@ -116,6 +116,7 @@ if 'google.colab' in sys.modules:
 import nglview
 import ipywidgets
 import plotly
+import sys
 from plotly import subplots
 import plotly.graph_objs as go
 
@@ -1501,16 +1502,15 @@ view
 ## Output files
 
 Important **Output files** generated:
- - structure.ions.pdb: **System structure** of the MD setup protocol. Structure generated during the MD setup and used in the MD simulation. With hydrogen atoms, solvent box and counterions.  
- - sander.free.netcdf: **Final trajectory** of the MD setup protocol.
- - sander.free.rst: **Final checkpoint file**, with information about the state of the simulation. It can be used to **restart** or **continue** a MD simulation.
- - structure.ions.parmtop: **Final topology** of the MD system in AMBER Parm7 format.
+ - **output_ions_pdb_path** (structure.ions.pdb): **System structure** of the MD setup protocol. Structure generated during the MD setup and used in the MD simulation. With hydrogen atoms, solvent box and counterions.  
+ - **output_free_traj_path** (sander.free.netcdf): **Final trajectory** of the MD setup protocol.
+ - **output_free_rst_path** (sander.free.rst): **Final checkpoint file**, with information about the state of the simulation. It can be used to **restart** or **continue** a MD simulation.
+ - **output_ions_top_path** (structure.ions.parmtop): **Final topology** of the MD system in AMBER Parm7 format.
 
 **Analysis** (MD setup check) output files generated:
- - 3htb_rms_first.dat: **Root Mean Square deviation (RMSd)** against **minimized and equilibrated structure** of the final **free MD run step**.
- - 3htb_rms_exp.dat: **Root Mean Square deviation (RMSd)** against **experimental structure** of the final **free MD run step**.
- - 3htb_rgyr.dat: **Radius of Gyration** of the final **free MD run step** of the **setup pipeline**.
- 
+ - **output_rms_first** (3htb_rms_first.dat): **Root Mean Square deviation (RMSd)** against **minimized and equilibrated structure** of the final **free MD run step**.
+ - **output_rms_exp** (3htb_rms_exp.dat): **Root Mean Square deviation (RMSd)** against **experimental structure** of the final **free MD run step**.
+ - **output_rgyr** (3htb_rgyr.dat): **Radius of Gyration** of the final **free MD run step** of the **setup pipeline**.
 
 ***
 <a id="questions"></a>

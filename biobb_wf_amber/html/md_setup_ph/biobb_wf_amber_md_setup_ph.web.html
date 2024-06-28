@@ -7662,6 +7662,7 @@ a.anchor-link {
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">nglview</span>
 <span class="kn">import</span> <span class="nn">ipywidgets</span>
 <span class="kn">import</span> <span class="nn">plotly</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">plotly</span> <span class="kn">import</span> <span class="n">subplots</span>
 <span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
 
@@ -9087,8 +9088,8 @@ In this particular example, the residues we are interested in <strong>titrating<
 <p><a id="output"></a></p>
 <h2 id="Output-files">Output files<a class="anchor-link" href="#Output-files">¶</a></h2><p>Important <strong>Output files</strong> generated:</p>
 <ul>
-<li>cphstats.pH.dat: <strong>Predicted pKa values</strong> extracted from the constant pH MD simulation.</li>
-<li>cphstats.pH.pop.dat: <strong>Populations</strong> of every state for every <strong>titratable residue</strong>, fraction of snapshots that the system spent in each state for each residue.</li>
+<li><strong>output_pH_dat_path</strong> (cphstats.pH.dat): <strong>Predicted pKa values</strong> extracted from the constant pH MD simulation.</li>
+<li><strong>output_pH_pop_path</strong> (cphstats.pH.pop.dat): <strong>Populations</strong> of every state for every <strong>titratable residue</strong>, fraction of snapshots that the system spent in each state for each residue.</li>
 </ul>
 </div>
 </div>

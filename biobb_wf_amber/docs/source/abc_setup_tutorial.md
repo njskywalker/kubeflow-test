@@ -118,6 +118,7 @@ if 'google.colab' in sys.modules:
 import nglview
 import ipywidgets
 import plotly
+import sys
 import plotly.graph_objs as go
 ```
 
@@ -1773,10 +1774,10 @@ sander_mdrun(input_top_path=dna_leap_top_4fs_path,
 ## Output files
 
 Important **Output files** generated:
- - sander.md.nc: **Final trajectory** of the MD setup protocol (netcdf).
- - structure.ions.parmtop: **Final topology** of the MD system.
- - structure.leap.4fs.top: **Final topology** of the MD system with **hydrogen mass repartition** (allowing 4fs timestep).
- - sander.md.ncrst: **Final restart file** of the MD setup protocol (ncrst).
+ - **output_md_traj_path** (sander.md.nc): **Final trajectory** of the MD setup protocol (netcdf).
+ - **output_ions_top_path** (structure.ions.parmtop): **Final topology** of the MD system.
+ - **dna_leap_top_4fs_path** (structure.leap.4fs.top): **Final topology** of the MD system with **hydrogen mass repartition** (allowing 4fs timestep).
+ - **output_md_rst_path** (sander.md.ncrst): **Final restart file** of the MD setup protocol (ncrst).
 
 
 ```python

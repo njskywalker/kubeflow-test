@@ -7664,6 +7664,7 @@ a.anchor-link {
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">nglview</span>
 <span class="kn">import</span> <span class="nn">ipywidgets</span>
 <span class="kn">import</span> <span class="nn">plotly</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">plotly</span> <span class="kn">import</span> <span class="n">subplots</span>
 <span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
 
@@ -9914,16 +9915,16 @@ Using <strong>Sodium (Na+)</strong> and <strong>Chloride (Cl-)</strong> counteri
 <p><a id="output"></a></p>
 <h2 id="Output-files">Output files<a class="anchor-link" href="#Output-files">¶</a></h2><p>Important <strong>Output files</strong> generated:</p>
 <ul>
-<li>structure.ions.pdb: <strong>System structure</strong> of the MD setup protocol. Structure generated during the MD setup and used in the MD simulation. With hydrogen atoms, solvent box and counterions.  </li>
-<li>sander.free.netcdf: <strong>Final trajectory</strong> of the MD setup protocol.</li>
-<li>sander.free.rst: <strong>Final checkpoint file</strong>, with information about the state of the simulation. It can be used to <strong>restart</strong> or <strong>continue</strong> a MD simulation.</li>
-<li>structure.ions.parmtop: <strong>Final topology</strong> of the MD system in AMBER Parm7 format.</li>
+<li>output_ions_pdb_path (structure.ions.pdb): <strong>System structure</strong> of the MD setup protocol. Structure generated during the MD setup and used in the MD simulation. With hydrogen atoms, solvent box and counterions.  </li>
+<li>output_free_traj_path (sander.free.netcdf): <strong>Final trajectory</strong> of the MD setup protocol.</li>
+<li>output_free_rst_path (sander.free.rst): <strong>Final checkpoint file</strong>, with information about the state of the simulation. It can be used to <strong>restart</strong> or <strong>continue</strong> a MD simulation.</li>
+<li>output_ions_top_path (structure.ions.parmtop): <strong>Final topology</strong> of the MD system in AMBER Parm7 format.</li>
 </ul>
 <p><strong>Analysis</strong> (MD setup check) output files generated:</p>
 <ul>
-<li>3htb_rms_first.dat: <strong>Root Mean Square deviation (RMSd)</strong> against <strong>minimized and equilibrated structure</strong> of the final <strong>free MD run step</strong>.</li>
-<li>3htb_rms_exp.dat: <strong>Root Mean Square deviation (RMSd)</strong> against <strong>experimental structure</strong> of the final <strong>free MD run step</strong>.</li>
-<li>3htb_rgyr.dat: <strong>Radius of Gyration</strong> of the final <strong>free MD run step</strong> of the <strong>setup pipeline</strong>.</li>
+<li>output_rms_first (3htb_rms_first.dat): <strong>Root Mean Square deviation (RMSd)</strong> against <strong>minimized and equilibrated structure</strong> of the final <strong>free MD run step</strong>.</li>
+<li>output_rms_exp (3htb_rms_exp.dat): <strong>Root Mean Square deviation (RMSd)</strong> against <strong>experimental structure</strong> of the final <strong>free MD run step</strong>.</li>
+<li>output_rgyr (3htb_rgyr.dat): <strong>Radius of Gyration</strong> of the final <strong>free MD run step</strong> of the <strong>setup pipeline</strong>.</li>
 </ul>
 </div>
 </div>

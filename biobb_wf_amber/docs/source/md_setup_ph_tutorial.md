@@ -111,6 +111,7 @@ if 'google.colab' in sys.modules:
 import nglview
 import ipywidgets
 import plotly
+import sys
 from plotly import subplots
 import plotly.graph_objs as go
 
@@ -989,8 +990,8 @@ An additional recommended and useful study is to repeat the **constant pH** simu
 ## Output files
 
 Important **Output files** generated:
- - cphstats.pH.dat: **Predicted pKa values** extracted from the constant pH MD simulation.   
- - cphstats.pH.pop.dat: **Populations** of every state for every **titratable residue**, fraction of snapshots that the system spent in each state for each residue.
+ - **output_pH_dat_path** (cphstats.pH.dat): **Predicted pKa values** extracted from the constant pH MD simulation.   
+ - **output_pH_pop_path** (cphstats.pH.pop.dat): **Populations** of every state for every **titratable residue**, fraction of snapshots that the system spent in each state for each residue.
 
 ***
 <a id="questions"></a>
