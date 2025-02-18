@@ -1,0 +1,76 @@
+# PIPELINE DEFINITION
+# Name: isomorphic-md-pipeline
+# Description: General pipeline for MD setup given PDB ID.
+# Inputs:
+#    pdb_code: str
+components:
+  comp-fetch-pdb-protein:
+    executorLabel: exec-fetch-pdb-protein
+    inputDefinitions:
+      parameters:
+        pdb_code:
+          parameterType: STRING
+    outputDefinitions:
+      parameters:
+        Output:
+          parameterType: STRING
+deploymentSpec:
+  executors:
+    exec-fetch-pdb-protein:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - fetch_pdb_protein
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_io' &&\
+          \ \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef fetch_pdb_protein(pdb_code: str) -> str:\n    \"\"\"Fetches a\
+          \ PDB protein using its code.\n\n    Returns path to downloaded PDB file.\"\
+          \"\"\n\n    # Import module\n    from biobb_io.api.pdb import pdb\n\n  \
+          \  # Create properties dict and inputs/outputs\n    downloaded_pdb_filename\
+          \ = pdb_code +'.pdb'\n\n    prop = {\n        'pdb_code': pdb_code\n   \
+          \ }\n\n    # Create and launch bb\n    pdb(output_pdb_path=downloaded_pdb_filename,\n\
+          \        properties=prop)\n\n    return downloaded_pdb_filename\n\n"
+        image: python:3.9
+pipelineInfo:
+  description: General pipeline for MD setup given PDB ID.
+  name: isomorphic-md-pipeline
+root:
+  dag:
+    tasks:
+      fetch-pdb-protein:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-fetch-pdb-protein
+        inputs:
+          parameters:
+            pdb_code:
+              componentInputParameter: pdb_code
+        taskInfo:
+          name: fetch-pdb-protein
+  inputDefinitions:
+    parameters:
+      pdb_code:
+        parameterType: STRING
+schemaVersion: 2.1.0
+sdkVersion: kfp-2.11.0
