@@ -2,6 +2,17 @@
 
 SHELL := /bin/bash
 export PIPELINE_VERSION:=2.3.0
+export MINIKUBE_IP:=$(shell minikube ip):8080
+
+build-base:
+	docker build -f docker/base.Dockerfile -t pipeline:latest .
+
+run-base:
+	docker run -it \
+		--rm --network host \
+		-e MINIKUBE_IP=$(MINIKUBE_IP) \
+		-v ./outputs:/src/outputs \
+		pipeline:latest
 
 start-kf:
 	kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-scoped-resources?ref=$(PIPELINE_VERSION)"

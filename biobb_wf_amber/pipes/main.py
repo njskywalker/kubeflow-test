@@ -1,8 +1,9 @@
+import os
 import kfp.dsl as dsl
 # from kfp import Client
 from kfp.compiler import Compiler
 
-from fetch import fetch_pdb_protein
+from stages.fetch import fetch_pdb_protein
 
 @dsl.pipeline(
     name='Isomorphic MD Pipeline',
@@ -24,7 +25,9 @@ if __name__ == '__main__':
 
     from kfp.client import Client
 
-    client = Client(host='http://localhost:8080')
+    minikube_ip = os.getenv('MINIKUBE_IP', 'localhost:8080')
+
+    client = Client(host=minikube_ip)
     run = client.create_run_from_pipeline_package(
         'iso_task_pipeline.yaml',  # NB Using YAML instead of passing pipe object directly
         arguments={

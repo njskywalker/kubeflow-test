@@ -1,0 +1,20 @@
+name: biobb_wf_amber
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python==3.10
+  - biobb_analysis==4.2.0
+  - biobb_io==4.2.0
+  - biobb_structure_utils==4.2.0
+  - biobb_chemistry==4.2.0
+  - biobb_amber==4.2.0
+  - jupyter
+  - gfortran==11.3.0
+  - libgfortran5==11.3.0
+  - plotly
+  - nglview
+  - simpletraj
+  - pip
+  - pip:
+    - kfp

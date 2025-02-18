@@ -12,7 +12,7 @@ def fetch_pdb_protein(pdb_code: str) -> str:
     from biobb_io.api.pdb import pdb
 
     # Create properties dict and inputs/outputs
-    downloaded_pdb_filename = pdb_code +'.pdb'
+    downloaded_pdb_filename = '/src/outputs/' + pdb_code + '.pdb'
 
     prop = {
         'pdb_code': pdb_code
