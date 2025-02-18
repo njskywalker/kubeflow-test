@@ -1,5 +1,7 @@
 ## Setup
 
+Testing commit.
+
 ```bash
 # Install Docker, minikube, kubectx
 sudo snap install kubectx --classic
