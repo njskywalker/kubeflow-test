@@ -22,4 +22,3 @@ if __name__ == '__main__':
     """Only compiles the pipeline. To run, look at `execute.py`."""
 
     Compiler().compile(pipeline, 'pipeline.yaml')
-g

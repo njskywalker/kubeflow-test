@@ -26,7 +26,7 @@ WORKDIR /src
 FROM base AS final
 
 # copy main code (multistage build to avoid dep installation all the time?)
-COPY main.py /src/main.py
+COPY compile.py /src/compile.py
 
 # entrypoint so I can check the conda environment
 ENTRYPOINT [ "/bin/bash" ]
