@@ -20,6 +20,27 @@ kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/env/dev?ref=
 
 ```
 
+## Usage
+
+The repo is split into two parts: a compiler and a kfp client wrapper.
+The "compiler" creates a Docker container to output the pipeline Argo YAML.
+The wrapper is merely a script which pushes the pipeline YAML onto a
+local (minikube-based) KFlow Pipelines UI.
+
+First, build and run the compiler:
+```bash
+make build
+make compile
+```
+
+This should output a `pipeline.yaml` in your local `outputs/` folder.
+
+Then, push the pipeline onto KFlow (make sure you have a running, not pending,
+minikube KF Pipelines setup):
+```bash
+make run
+```
+
 ## Experience
 
 ### MinIO

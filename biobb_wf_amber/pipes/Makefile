@@ -2,15 +2,14 @@
 
 SHELL := /bin/bash
 export PIPELINE_VERSION:=2.3.0
-export MINIKUBE_IP:=$(shell minikube ip):8080
+export MINIKUBE_IP:=http://$(shell minikube ip):8080
 
-build-base:
+build:
 	docker build -f docker/base.Dockerfile -t pipeline:latest .
 
-run-base:
+compile:
 	docker run -it \
 		--rm --network host \
-		-e MINIKUBE_IP=$(MINIKUBE_IP) \
 		-v ./outputs:/src/outputs \
 		pipeline:latest
 
