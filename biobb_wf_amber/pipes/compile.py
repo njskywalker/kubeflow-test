@@ -9,7 +9,7 @@ from stages.fetch import fetch_pdb_protein
     name='Isomorphic MD Pipeline',
     description='General pipeline for MD setup given PDB ID.'
 )
-def iso_task_pipeline(pdb_code: str):
+def pipeline(pdb_code: str):
     fetch_pdb_protein_task = fetch_pdb_protein(pdb_code=pdb_code)
     # fetch_task = fetch_molecular_data_op(molecule_id)
     # prepare_task = prepare_structure_op(fetch_task.output)
@@ -19,18 +19,7 @@ def iso_task_pipeline(pdb_code: str):
 
 
 if __name__ == '__main__':
-    Compiler().compile(iso_task_pipeline, 'iso_task_pipeline.yaml')
-    # client = Client()
-    # client.create_run_from_pipeline_func(iso_task_pipeline, arguments={'pdb_code': None})
+    """Only compiles the pipeline. To run, look at `execute.py`."""
 
-    from kfp.client import Client
-
-    minikube_ip = os.getenv('MINIKUBE_IP', 'localhost:8080')
-
-    client = Client(host=minikube_ip)
-    run = client.create_run_from_pipeline_package(
-        'iso_task_pipeline.yaml',  # NB Using YAML instead of passing pipe object directly
-        arguments={
-            'pdb_code': '1aki',
-        },
-    )
+    Compiler().compile(pipeline, 'pipeline.yaml')
+g
