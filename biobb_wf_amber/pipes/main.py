@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
     from kfp.client import Client
 
-    client = Client(host='<MY-KFP-ENDPOINT>')
+    client = Client(host='http://localhost:8080')
     run = client.create_run_from_pipeline_package(
         'iso_task_pipeline.yaml',  # NB Using YAML instead of passing pipe object directly
         arguments={
