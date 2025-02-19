@@ -1,4 +1,4 @@
-.PHONY: start-kf
+.PHONY: start-kf package build compile compile-only run pf-kf pf-minio
 
 SHELL := /bin/bash
 export PIPELINE_VERSION:=2.3.0
@@ -10,6 +10,11 @@ setup-kf:
 	kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-scoped-resources?ref=$(PIPELINE_VERSION)"
 	kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
 	kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/env/$(KFP_PLATFORM)?ref=$(PIPELINE_VERSION)"
+
+package:
+	pip install --upgrade setuptools wheel
+	python setup.py sdist bdist_wheel
+	pip install dist/pipelinelib-1.0.0.tar.gz
 
 build:
 	docker build -f docker/base.Dockerfile -t pipeline:latest .
@@ -23,7 +28,7 @@ compile-only:
 compile: build compile-only
 
 run:
-	uv run python execute.py
+	uv run python src/execute.py
 
 pf-kf:
 	kubectl port-forward -n kubeflow svc/ml-pipeline-ui 8080:80

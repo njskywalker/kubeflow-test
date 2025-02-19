@@ -1,5 +1,3 @@
-# start from ubuntu 20.04 image
-# specify architecture of host machine
 FROM --platform=linux/amd64 ubuntu:20.04 AS base
 
 # Run as root to make sure we can install everything
@@ -24,5 +22,11 @@ COPY ./src /src
 WORKDIR /src
 
 FROM base AS final
+
+# copy custom package
+# need classes so Kubeflow can find them
+COPY dist/ /src/dist/
+RUN pip install /src/dist/pipelinelib-1.0.0-py3-none-any.whl
+
 COPY ./src/compile.py compile.py
 ENTRYPOINT [ "/bin/bash", "-c", "source activate biobb_wf_amber && exec python compile.py" ]
