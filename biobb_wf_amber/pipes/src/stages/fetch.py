@@ -4,7 +4,7 @@ import subprocess
 
 @dsl.component(
         packages_to_install=['biobb_io'],
-        base_image='pipeline:latest',
+        base_image='localhost:5000/pipeline:latest',
 )
 def fetch_pdb_protein(pdb_code: str, output_path: dsl.Output[PDBFile]) -> None:
     """Fetches a PDB protein using its code.
