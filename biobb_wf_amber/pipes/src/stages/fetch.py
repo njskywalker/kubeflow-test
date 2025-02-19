@@ -1,8 +1,10 @@
 from kfp import dsl
-from pipelinelib.src.common.artifacts import PDBFile
+from src.common.artifacts import PDBFile
+import subprocess
 
 @dsl.component(
-        packages_to_install=['biobb_io']
+        packages_to_install=['biobb_io'],
+        base_image='pipeline:latest',
 )
 def fetch_pdb_protein(pdb_code: str, output_path: dsl.Output[PDBFile]) -> None:
     """Fetches a PDB protein using its code.

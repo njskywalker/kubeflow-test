@@ -1,4 +1,5 @@
 FROM --platform=linux/amd64 ubuntu:20.04 AS base
+SHELL ["/bin/bash", "-c"]
 
 # Run as root to make sure we can install everything
 # NB not for production use! :)
@@ -26,7 +27,8 @@ FROM base AS final
 # copy custom package
 # need classes so Kubeflow can find them
 COPY dist/ /src/dist/
-RUN pip install /src/dist/pipelinelib-1.0.0-py3-none-any.whl
+SHELL ["/bin/bash", "-c"]
+RUN source activate biobb_wf_amber && pip install /src/dist/pipelinelib-1.0.0-py3-none-any.whl
 
 COPY ./src/compile.py compile.py
 ENTRYPOINT [ "/bin/bash", "-c", "source activate biobb_wf_amber && exec python compile.py" ]

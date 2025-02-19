@@ -3,7 +3,7 @@ import kfp.dsl as dsl
 # from kfp import Client
 from kfp.compiler import Compiler
 
-from stages.fetch import fetch_pdb_protein
+from src.stages.fetch import fetch_pdb_protein
 
 @dsl.pipeline(
     name='Test Kubeflow Pipeline',

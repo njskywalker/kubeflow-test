@@ -308,7 +308,7 @@ wheels = [
 ]
 
 [[package]]
-name = "pipes"
+name = "pipelinelib"
 version = "1.0.0"
 source = { editable = "." }
 dependencies = [

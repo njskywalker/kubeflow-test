@@ -7,6 +7,7 @@ export KFP_PLATFORM:=platform-agnostic-emissary
 
 
 setup-kf:
+	minikube addons enable registry  # For Dockerimages 
 	kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-scoped-resources?ref=$(PIPELINE_VERSION)"
 	kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
 	kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/env/$(KFP_PLATFORM)?ref=$(PIPELINE_VERSION)"
@@ -17,7 +18,8 @@ package:
 	pip install dist/pipelinelib-1.0.0.tar.gz
 
 build:
-	docker build -f docker/base.Dockerfile -t pipeline:latest .
+	docker build -f docker/base.Dockerfile -t localhost:5000/pipeline:latest .
+	docker push localhost:5000/pipeline:latest
 
 compile-only:
 	docker run -it \
