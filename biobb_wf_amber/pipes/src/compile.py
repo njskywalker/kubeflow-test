@@ -6,7 +6,7 @@ from kfp.compiler import Compiler
 from stages.fetch import fetch_pdb_protein
 
 @dsl.pipeline(
-    name='Isomorphic MD Pipeline',
+    name='Test Kubeflow Pipeline',
     description='General pipeline for MD setup given PDB ID.'
 )
 def pipeline(pdb_code: str):

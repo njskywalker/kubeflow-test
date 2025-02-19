@@ -66,9 +66,9 @@ mc config host add minio http://localhost:9000 minio minio123
 ## Frustrations
 
 1. Had to install `kfp` through `pip` instead of `conda`
-as otherwise internal imports failed (`requests_toolbox` appengine)
+as otherwise internal imports failed (`requests_toolbox.appengine`)
 2. O God. Never use WSL. Just invest in a Mac
-3. 
+3. "When you're going through Dependency Hell, keep going" -- Winston Churchill
 
 ## Choices
 

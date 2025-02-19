@@ -20,13 +20,9 @@ RUN conda env create -f /tmp/conda_env.yml && rm /tmp/conda_env.yml
 RUN echo "source activate biobb_wf_amber" > ~/.bashrc
 
 # copy the pipeline code
-COPY ./stages /src/stages
+COPY ./src /src
 WORKDIR /src
 
 FROM base AS final
-
-# copy main code (multistage build to avoid dep installation all the time?)
-COPY compile.py /src/compile.py
-
-# entrypoint so I can check the conda environment
-ENTRYPOINT [ "/bin/bash" ]
+COPY ./src/compile.py compile.py
+ENTRYPOINT [ "/bin/bash", "-c", "source activate biobb_wf_amber && exec python compile.py" ]

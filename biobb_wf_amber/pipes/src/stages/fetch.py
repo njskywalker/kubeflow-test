@@ -1,25 +1,24 @@
 from kfp import dsl
+from pipes.artifacts import PDBFile
 
 @dsl.component(
         packages_to_install=['biobb_io']
 )
-def fetch_pdb_protein(pdb_code: str) -> str:
+def fetch_pdb_protein(pdb_code: str, output_path: dsl.Output[PDBFile]) -> None:
     """Fetches a PDB protein using its code.
     
     Returns path to downloaded PDB file."""
     
-    # Import module
+    import os
     from biobb_io.api.pdb import pdb
-
-    # Create properties dict and inputs/outputs
-    downloaded_pdb_filename = '/src/outputs/' + pdb_code + '.pdb'
 
     prop = {
         'pdb_code': pdb_code
     }
 
-    # Create and launch bb
-    pdb(output_pdb_path=downloaded_pdb_filename,
-        properties=prop)
+    # if not output_path.endswith('.pdb'):
+    #     output_path = output_path + '.pdb'
 
-    return downloaded_pdb_filename
+    # Create and launch bb
+    pdb(output_pdb_path=output_path,
+        properties=prop)
