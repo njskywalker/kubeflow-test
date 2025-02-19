@@ -2,10 +2,6 @@
 FROM --platform=linux/amd64 condaforge/mambaforge:latest AS base
 SHELL ["/bin/bash", "-c"]
 
-# # Run as root to make sure we can install everything
-# # NB not for production use! :)
-# USER root
-
 # install conda
 RUN apt-get update
 # RUN mkdir -p ~/miniconda3 && \
@@ -19,17 +15,17 @@ COPY env/conda_env.yml /tmp/conda_env.yml
 RUN conda env create -f /tmp/conda_env.yml && rm /tmp/conda_env.yml
 RUN echo "source activate biobb_wf_amber" > ~/.bashrc
 
+FROM base AS final
+SHELL ["/bin/bash", "-c"]
+
 # copy the pipeline code
 COPY ./src /src
 WORKDIR /src
 
-FROM base AS final
-
 # copy custom package
 # need classes so Kubeflow can find them
-COPY dist/ /src/dist/
-SHELL ["/bin/bash", "-c"]
-RUN source activate biobb_wf_amber && pip install /src/dist/pipelinelib-1.0.0-py3-none-any.whl
+# COPY dist/ /src/dist/
+# RUN source activate biobb_wf_amber && pip install /src/dist/pipelinelib-1.0.0-py3-none-any.whl
 
 COPY ./src/compile.py compile.py
 ENTRYPOINT [ "/bin/bash", "-c", "source activate biobb_wf_amber && exec python compile.py" ]

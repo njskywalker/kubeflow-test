@@ -69,6 +69,15 @@ mc config host add minio http://localhost:9000 minio minio123
 as otherwise internal imports failed (`requests_toolbox.appengine`)
 2. O God. Never use WSL. Just invest in a Mac
 3. "When you're going through Dependency Hell, keep going" -- Winston Churchill
+4. `OutputPath`: took me a while to use `Directory` type as thought it 
+was filepaths only -> was defining a custom `dsl.Artifact` subclass for `.pdb`
+files (which had to be imported into pipe image as a package) and all sorts of 
+other crazy things!
+5. Compiler can also technically be run locally as `biobb` deps not necessary,
+they don't get imported until `import` is invoked (and compiler doesn't run
+functions only trawls them to make the YAML)
+6. Kubeflow idiosyncracies - can't specify `InputPath` as kwargs in Component
+invocations, etc.
 
 ## Choices
 

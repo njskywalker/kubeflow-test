@@ -18,8 +18,8 @@ package:
 	pip install dist/pipelinelib-1.0.0.tar.gz
 
 build:
-	docker build -f docker/base.Dockerfile -t localhost:49206/pipeline:latest .
-	docker push localhost:49206/pipeline:latest
+	docker build -f docker/base.Dockerfile -t pipeline:latest .
+	# docker push localhost:51064/pipeline:latest
 
 compile-only:
 	docker run -it \

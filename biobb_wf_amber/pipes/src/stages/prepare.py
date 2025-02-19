@@ -1,8 +1,17 @@
 """PDB -> AMBER preparation pipe stage."""
 
 from typing import Dict
+from kfp import dsl
 
-def prep_pdb_for_amber(downloaded_pdb: str) -> str:
+
+@dsl.component(
+        # packages_to_install=['biobb_amber'],
+        base_image="quay.io/biocontainers/biobb_amber:5.0.4--pyhdfd78af_0"
+)
+def prep_pdb_for_amber(
+    input_pdb_dir_path: dsl.InputPath('Directory'),
+    output_amber_dir_path: dsl.OutputPath('Directory')
+) -> None:
     """Prepares (cleans) fetched PDB files for AMBER analysis.
 
     For instance, relabels PDB codes for cysteines forming
@@ -10,68 +19,70 @@ def prep_pdb_for_amber(downloaded_pdb: str) -> str:
     
     Returns path to processed PDB file."""
 
-    # Import module
+    # Import modules
+    import os
     from biobb_amber.pdb4amber.pdb4amber_run import pdb4amber_run
 
-    # Create prop dict and inputs/outputs
-    output_pdb4amber_path = 'structure.pdb4amber.pdb'
+    # Create input/output paths
+    input_pdb_path = input_pdb_dir_path + '/protein.pdb'
+    os.makedirs(output_amber_dir_path, exist_ok=True)
+    output_pdb_path = output_amber_dir_path + '/structure.pdb4amber.pdb'
 
     # Create and launch bb
-    pdb4amber_run(input_pdb_path=downloaded_pdb,
-                output_pdb_path=output_pdb4amber_path)
+    pdb4amber_run(input_pdb_path=input_pdb_path,
+                output_pdb_path=output_pdb_path)
+
+
+# def prep_amber_topology(input_pdb_path: str) -> Dict[str, str]:
+#     """Builds AMBER topology for a given PDB protein file path.
     
-    return output_pdb4amber_path
+#     Returns a dictionary of three filepaths for output PDB, 
+#     AMBER topology (top) and coordinate (crd) files."""
 
-def prep_amber_topology(input_pdb_path: str) -> Dict[str, str]:
-    """Builds AMBER topology for a given PDB protein file path.
+#     # Import module
+#     from biobb_amber.leap.leap_gen_top import leap_gen_top
+
+#     # Create prop dict and inputs/outputs
+#     output_pdb_path = 'structure.leap.pdb'
+#     output_top_path = 'structure.leap.top'
+#     output_crd_path = 'structure.leap.crd'
+
+#     prop = {
+#         "forcefield" : ["protein.ff14SB"]
+#     }
+
+#     # Create and launch bb
+#     leap_gen_top(input_pdb_path=input_pdb_path,
+#             output_pdb_path=output_pdb_path,
+#             output_top_path=output_top_path,
+#             output_crd_path=output_crd_path,
+#             properties=prop)
     
-    Returns a dictionary of three filepaths for output PDB, 
-    AMBER topology (top) and coordinate (crd) files."""
+#     # TODO: Improve legibility - NamedTuple/Dict or basic data class?
+#     return {
+#         "output_pb_path": output_pdb_path, 
+#         "output_top_path": output_top_path, 
+#         "output_crd_path": output_crd_path
+#     }
 
-    # Import module
-    from biobb_amber.leap.leap_gen_top import leap_gen_top
-
-    # Create prop dict and inputs/outputs
-    output_pdb_path = 'structure.leap.pdb'
-    output_top_path = 'structure.leap.top'
-    output_crd_path = 'structure.leap.crd'
-
-    prop = {
-        "forcefield" : ["protein.ff14SB"]
-    }
-
-    # Create and launch bb
-    leap_gen_top(input_pdb_path=input_pdb_path,
-            output_pdb_path=output_pdb_path,
-            output_top_path=output_top_path,
-            output_crd_path=output_crd_path,
-            properties=prop)
+# def prep_amber_to_pdb(
+#     input_top_path: str,
+#     input_crd_path: str,
+# ) -> str:
+#     """Converts AMBER protein representation to PDB.
     
-    # TODO: Improve legibility - NamedTuple/Dict or basic data class?
-    return {
-        "output_pb_path": output_pdb_path, 
-        "output_top_path": output_top_path, 
-        "output_crd_path": output_crd_path
-    }
+#     Returns filepath to """
 
-def prep_amber_to_pdb(
-    input_top_path: str,
-    input_crd_path: str,
-) -> str:
-    """Converts AMBER protein representation to PDB.
+#     # Import module
+#     from biobb_amber.ambpdb.amber_to_pdb import amber_to_pdb
+
+#     # Create prop dict and inputs/outputs
+#     output_ambpdb_path = 'structure.ambpdb.pdb'
+
+#     # Create and launch bb
+#     amber_to_pdb(input_top_path=input_top_path,
+#                 input_crd_path=input_crd_path,
+#                 output_pdb_path=output_ambpdb_path
+#                 )
     
-    Returns filepath to """
-
-    # Import module
-    from biobb_amber.ambpdb.amber_to_pdb import amber_to_pdb
-
-    # Create prop dict and inputs/outputs
-    output_ambpdb_path = 'structure.ambpdb.pdb'
-
-    # Create and launch bb
-    amber_to_pdb(input_top_path=input_top_path,
-                input_crd_path=input_crd_path,
-                output_pdb_path=output_ambpdb_path
-                )
-    
-    return output_ambpdb_path
+#     return output_ambpdb_path
