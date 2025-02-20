@@ -10,6 +10,7 @@ if __name__ == '__main__':
         arguments={
             'pdb_code': '1aki',
         },
+        enable_caching=False  # for debugging (deleting artefacts from time to time)
     )
 
     print("What")

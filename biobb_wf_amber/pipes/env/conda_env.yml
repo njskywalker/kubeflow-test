@@ -4,17 +4,19 @@ channels:
   - bioconda
 dependencies:
   - python>=3.10
+  # Downloading all these just for testing future stages
+  # Not required for compiling
   # - biobb_analysis==4.2.0
   # - biobb_io==4.2.0
   # - biobb_structure_utils==4.2.0
   # - biobb_chemistry==4.2.0
-  # - biobb_amber==4.2.0
+  - biobb_amber==4.2.0
   # - jupyter  # takes off 600MB
-  # - gfortran==11.3.0
-  # - libgfortran5==11.3.0
-  # - plotly
-  # - nglview
-  # - simpletraj
+  - gfortran==11.3.0
+  - libgfortran5==11.3.0
+  - plotly
+  - nglview
+  - simpletraj
   - pip
   - pip:
     - kfp

@@ -72,12 +72,20 @@ as otherwise internal imports failed (`requests_toolbox.appengine`)
 4. `OutputPath`: took me a while to use `Directory` type as thought it 
 was filepaths only -> was defining a custom `dsl.Artifact` subclass for `.pdb`
 files (which had to be imported into pipe image as a package) and all sorts of 
-other crazy things!
+other crazy things! **Ideally would have specific filepaths as opposed to dirs** 
+to reduce coupling and provide cleaner boundaries for Components.
 5. Compiler can also technically be run locally as `biobb` deps not necessary,
 they don't get imported until `import` is invoked (and compiler doesn't run
 functions only trawls them to make the YAML)
 6. Kubeflow idiosyncracies - can't specify `InputPath` as kwargs in Component
 invocations, etc.
+7. Silent fails of dependencies. E.g. `biobb_amber` force field process requires
+`AMBERHOME` env var, presumably set by AmberTools? But has nonexistent error
+handling, so have to debug inside pods...
+8. Provided images not working (e.g. for AMBER topology work) -> had to write,
+build, and publish own (nebjovanovic/amber_bio:latest). Related to #7
+
+![alt text](image.png)
 
 ## Choices
 
@@ -95,3 +103,5 @@ Options considered:
 2. Volumes
 3. Direct input / output passing
 
+## Todo
+1. 
