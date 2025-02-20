@@ -19,6 +19,4 @@ FROM base AS final
 RUN conda init bash
 ENV PATH=/opt/conda/bin:$PATH
 
-# ENTRYPOINT [ "/bin/bash", "--login", "-c", "conda activate biobb_wf_amber" ]
 ENTRYPOINT [ "/bin/bash", "--login", "-c", "conda init bash && . ~/.bashrc && conda activate biobb_wf_amber"]
-# ENTRYPOINT ["conda", "run", "-n", "biobb_wf_amber", "python3"]

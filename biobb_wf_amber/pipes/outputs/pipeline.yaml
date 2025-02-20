@@ -1,0 +1,519 @@
+# PIPELINE DEFINITION
+# Name: test-kubeflow-pipeline
+# Description: General pipeline for MD setup given PDB ID.
+# Inputs:
+#    pdb_code: str
+components:
+  comp-fetch-pdb-protein:
+    executorLabel: exec-fetch-pdb-protein
+    inputDefinitions:
+      parameters:
+        pdb_code:
+          parameterType: STRING
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-prep-amber-to-pdb:
+    executorLabel: exec-prep-amber-to-pdb
+    inputDefinitions:
+      artifacts:
+        input_minimization_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+        input_topology_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-prep-amber-topology:
+    executorLabel: exec-prep-amber-topology
+    inputDefinitions:
+      artifacts:
+        input_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-prep-pdb-for-amber:
+    executorLabel: exec-prep-pdb-for-amber
+    inputDefinitions:
+      artifacts:
+        input_pdb_dir_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+    outputDefinitions:
+      artifacts:
+        output_amber_dir_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-simulate:
+    executorLabel: exec-simulate
+    inputDefinitions:
+      artifacts:
+        input_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        output_log_filename:
+          parameterType: STRING
+        output_rst_filename:
+          parameterType: STRING
+        output_traj_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-simulate-2:
+    executorLabel: exec-simulate-2
+    inputDefinitions:
+      artifacts:
+        input_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        output_log_filename:
+          parameterType: STRING
+        output_rst_filename:
+          parameterType: STRING
+        output_traj_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+deploymentSpec:
+  executors:
+    exec-fetch-pdb-protein:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - fetch_pdb_protein
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_io' &&\
+          \ \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef fetch_pdb_protein(pdb_code: str, output_path: dsl.OutputPath('Directory'))\
+          \ -> None:\n    \"\"\"Fetches a PDB protein using its code.\n\n    Returns\
+          \ path to downloaded PDB file.\"\"\"\n\n    import os\n    from biobb_io.api.pdb\
+          \ import pdb\n\n    prop = {\n        'pdb_code': pdb_code\n    }\n\n  \
+          \  os.makedirs(output_path, exist_ok=True)\n    output_pdb_path = output_path\
+          \ + '/protein.pdb'\n\n    # Create and launch bb\n    pdb(output_pdb_path=output_pdb_path,\n\
+          \        properties=prop)\n\n"
+        image: python:3.9
+    exec-prep-amber-to-pdb:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - prep_amber_to_pdb
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef prep_amber_to_pdb(\n    input_topology_path: dsl.InputPath('Directory'),\n\
+          \    input_minimization_path: dsl.InputPath('Directory'),\n    output_path:\
+          \ dsl.OutputPath('Directory'),\n):\n    \"\"\"Converts AMBER protein representation\
+          \ to PDB.\n\n    Returns filepath to \"\"\"\n\n    # Import modules\n  \
+          \  import os\n    from biobb_amber.ambpdb.amber_to_pdb import amber_to_pdb\n\
+          \n    # Create input/output paths\n    input_top_path = input_topology_path\
+          \ + \"/structure.leap.top\"\n    input_crd_path = input_minimization_path\
+          \ + \"/sander.n_min.rst\"\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    output_ambpdb_path = output_path + '/structure.ambpdb.pdb'\n\n    #\
+          \ Create and launch bb\n    amber_to_pdb(\n        input_top_path=input_top_path,\n\
+          \        input_crd_path=input_crd_path,\n        output_pdb_path=output_ambpdb_path\n\
+          \    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+    exec-prep-amber-topology:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - prep_amber_topology
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef prep_amber_topology(\n    properties: Dict[str, Any],\n    input_path:\
+          \ dsl.InputPath('Directory'),\n    output_path: dsl.OutputPath('Directory'),\n\
+          ) -> None:\n    \"\"\"Builds AMBER topology for a given PDB protein file\
+          \ path.\n\n    Returns a dictionary of three filepaths for output PDB, \n\
+          \    AMBER topology (top) and coordinate (crd) files.\"\"\"\n\n    # Import\
+          \ module\n    import os\n    from biobb_amber.leap.leap_gen_top import leap_gen_top\n\
+          \n    # Paths\n    os.makedirs(output_path, exist_ok=True)\n    input_pdb_path\
+          \ = input_path + '/structure.pdb4amber.pdb'\n    output_pdb_path = output_path\
+          \ + '/structure.leap.pdb'\n    output_top_path = output_path + '/structure.leap.top'\n\
+          \    output_crd_path = output_path + '/structure.leap.crd'\n\n    # Create\
+          \ and launch bb\n    leap_gen_top(\n        input_pdb_path=input_pdb_path,\
+          \ \n        output_pdb_path=output_pdb_path, \n        output_top_path=output_top_path,\
+          \ \n        output_crd_path=output_crd_path, \n        properties=properties\n\
+          \    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+    exec-prep-pdb-for-amber:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - prep_pdb_for_amber
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' && \"\
+          $0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef prep_pdb_for_amber(\n    input_pdb_dir_path: dsl.InputPath('Directory'),\n\
+          \    output_amber_dir_path: dsl.OutputPath('Directory')\n) -> None:\n  \
+          \  \"\"\"Prepares (cleans) fetched PDB files for AMBER analysis.\n\n   \
+          \ For instance, relabels PDB codes for cysteines forming\n    disulphide\
+          \ bridges for proper AMBER recognition.\"\"\"\n\n    # Import modules\n\
+          \    import os\n    from biobb_amber.pdb4amber.pdb4amber_run import pdb4amber_run\n\
+          \n    # Create input/output paths\n    input_pdb_path = input_pdb_dir_path\
+          \ + '/protein.pdb'\n    os.makedirs(output_amber_dir_path, exist_ok=True)\n\
+          \    output_pdb_path = output_amber_dir_path + '/structure.pdb4amber.pdb'\n\
+          \n    # Create and launch bb\n    pdb4amber_run(input_pdb_path=input_pdb_path,\n\
+          \                output_pdb_path=output_pdb_path)\n\n"
+        image: quay.io/biocontainers/biobb_amber:5.0.4--pyhdfd78af_0
+    exec-simulate:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - simulate
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
+          \   input_path: dsl.InputPath('Directory'),\n    output_path: dsl.OutputPath('Directory'),\n\
+          ):\n    \"\"\"\n    Run a simulation with given parameters with AmberTools\
+          \ Sander.\n\n    Inputs:\n    - properties: Dict containing simulation parameters.\n\
+          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
+          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
+          \    - output_log_filename: Desired name of log file.\n    - input_path:\
+          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
+          \ = input_path + \"/structure.leap.top\"\n    input_crd_path = input_path\
+          \ + \"/structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path,\
+          \ exist_ok=True)\n    # NB doesn't actually create a trajectory file output\n\
+          \    # we don't need this file but can use `ntwx` param\n    # should you\
+          \ want it\n    output_h_min_traj_path = output_path + output_traj_filename\n\
+          \    output_h_min_rst_path = output_path + output_rst_filename\n    output_h_min_log_path\
+          \ = output_path + output_log_filename\n\n\n    # Create and launch bb\n\
+          \    sander_mdrun(\n        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
+          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
+          \        properties=properties\n    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+    exec-simulate-2:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - simulate
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
+          \   input_path: dsl.InputPath('Directory'),\n    output_path: dsl.OutputPath('Directory'),\n\
+          ):\n    \"\"\"\n    Run a simulation with given parameters with AmberTools\
+          \ Sander.\n\n    Inputs:\n    - properties: Dict containing simulation parameters.\n\
+          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
+          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
+          \    - output_log_filename: Desired name of log file.\n    - input_path:\
+          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
+          \ = input_path + \"/structure.leap.top\"\n    input_crd_path = input_path\
+          \ + \"/structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path,\
+          \ exist_ok=True)\n    # NB doesn't actually create a trajectory file output\n\
+          \    # we don't need this file but can use `ntwx` param\n    # should you\
+          \ want it\n    output_h_min_traj_path = output_path + output_traj_filename\n\
+          \    output_h_min_rst_path = output_path + output_rst_filename\n    output_h_min_log_path\
+          \ = output_path + output_log_filename\n\n\n    # Create and launch bb\n\
+          \    sander_mdrun(\n        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
+          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
+          \        properties=properties\n    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+pipelineInfo:
+  description: General pipeline for MD setup given PDB ID.
+  name: test-kubeflow-pipeline
+root:
+  dag:
+    tasks:
+      fetch-pdb-protein:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-fetch-pdb-protein
+        inputs:
+          parameters:
+            pdb_code:
+              componentInputParameter: pdb_code
+        taskInfo:
+          name: fetch-pdb-protein
+      prep-amber-to-pdb:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-prep-amber-to-pdb
+        dependentTasks:
+        - prep-amber-topology
+        - simulate-2
+        inputs:
+          artifacts:
+            input_minimization_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: simulate-2
+            input_topology_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: prep-amber-topology
+        taskInfo:
+          name: prep-amber-to-pdb
+      prep-amber-topology:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-prep-amber-topology
+        dependentTasks:
+        - prep-pdb-for-amber
+        inputs:
+          artifacts:
+            input_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_amber_dir_path
+                producerTask: prep-pdb-for-amber
+          parameters:
+            properties:
+              runtimeValue:
+                constant:
+                  forcefield:
+                  - protein.ff14SB
+        taskInfo:
+          name: prep-amber-topology
+      prep-pdb-for-amber:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-prep-pdb-for-amber
+        dependentTasks:
+        - fetch-pdb-protein
+        inputs:
+          artifacts:
+            input_pdb_dir_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: fetch-pdb-protein
+        taskInfo:
+          name: prep-pdb-for-amber
+      simulate:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-simulate
+        dependentTasks:
+        - prep-amber-topology
+        inputs:
+          artifacts:
+            input_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: prep-amber-topology
+          parameters:
+            output_log_filename:
+              runtimeValue:
+                constant: /sander.h_min.log
+            output_rst_filename:
+              runtimeValue:
+                constant: /sander.h_min.rst
+            output_traj_filename:
+              runtimeValue:
+                constant: /sander.h_min.x
+            properties:
+              runtimeValue:
+                constant:
+                  mdin:
+                    maxcyc: 500.0
+                    ntpr: 5.0
+                    ntr: 1.0
+                    restraint_wt: 50.0
+                    restraintmask: '":*&!@H="'
+                  simulation_type: min_vacuo
+        taskInfo:
+          name: simulate
+      simulate-2:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-simulate-2
+        dependentTasks:
+        - prep-amber-topology
+        inputs:
+          artifacts:
+            input_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: prep-amber-topology
+          parameters:
+            output_log_filename:
+              runtimeValue:
+                constant: /sander.n_min.log
+            output_rst_filename:
+              runtimeValue:
+                constant: /sander.n_min.rst
+            output_traj_filename:
+              runtimeValue:
+                constant: /sander.n_min.x
+            properties:
+              runtimeValue:
+                constant:
+                  mdin:
+                    maxcyc: 500.0
+                    ntpr: 5.0
+                    ntr: 1.0
+                    restraint_wt: 50.0
+                    restraintmask: '":*&!@H="'
+                  simulation_type: min_vacuo
+        taskInfo:
+          name: simulate-2
+  inputDefinitions:
+    parameters:
+      pdb_code:
+        parameterType: STRING
+schemaVersion: 2.1.0
+sdkVersion: kfp-2.11.0

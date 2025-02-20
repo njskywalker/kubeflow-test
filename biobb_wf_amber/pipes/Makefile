@@ -37,3 +37,8 @@ pf-kf:
 
 pf-minio:
 	kubectl port-forward -n kubeflow svc/minio-service 9000:9000
+
+debug-mount-amber:
+	docker run -it \
+		-v /Users/neb.jovanovic/Documents/projects/kubeflow-test/biobb_wf_amber/pipes/docker/mount:/mount \
+		--entrypoint /bin/bash nebjovanovic/amber_bio:latest

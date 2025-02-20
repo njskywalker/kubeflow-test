@@ -27,5 +27,5 @@ WORKDIR /src
 # COPY dist/ /src/dist/
 # RUN source activate biobb_wf_amber && pip install /src/dist/pipelinelib-1.0.0-py3-none-any.whl
 
-COPY ./src/compile.py compile.py
-ENTRYPOINT [ "/bin/bash", "-c", "source activate biobb_wf_amber && exec python compile.py" ]
+COPY ./src/pipeline.py pipeline.py
+ENTRYPOINT [ "/bin/bash", "-c", "source activate biobb_wf_amber && exec python pipeline.py" ]

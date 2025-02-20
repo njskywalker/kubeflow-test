@@ -1,88 +1,64 @@
 """Energy minimisation pipe functions."""
 
-from typing import Dict, Union
+from typing import Dict, Union, Any
+from kfp import dsl
 
-def minimize_hydrogen(
-    input_top_path: str,
-    input_crd_path: str,
-    prop: Dict[str, Union[str, Dict]]
-) -> Dict[str, str]:
-    """Optimize hydrogen positions of given AMBER protein representation.
-    
-    Takes in AMBER topology and coordinate (top and crd) filepaths.
-    Returns dictionary with output filepaths.
+@dsl.component(
+        packages_to_install=['biobb_amber'],
+        base_image="nebjovanovic/amber_bio:latest"
+)
+def simulate(
+    properties: Dict[str, Any],
+    output_traj_filename: str,
+    output_rst_filename: str,
+    output_log_filename: str,
+    input_path: dsl.InputPath('Directory'),
+    output_path: dsl.OutputPath('Directory'),
+):
+    """
+    Run a simulation with given parameters with AmberTools Sander.
+
+    Inputs:
+    - properties: Dict containing simulation parameters.
+    - output_traj_filename: Desired name of trajectory file. (NB May not be created)
+    - output_rst_filename: Desired name of restart file.
+    - output_log_filename: Desired name of log file.
+    - input_path: Path to input files from previous stage.
+
+    Creates folder with outputs.
     """
 
     # Import module
+    import os
     from biobb_amber.sander.sander_mdrun import sander_mdrun
 
-    # Create prop dict and inputs/outputs
-    output_h_min_traj_path = 'sander.h_min.x'
-    output_h_min_rst_path = 'sander.h_min.rst'
-    output_h_min_log_path = 'sander.h_min.log'
+    # Modify inputs/outputs
+    input_top_path = input_path + "/structure.leap.top"
+    input_crd_path = input_path + "/structure.leap.crd"
 
-    # prop = {
-    #     'simulation_type' : "min_vacuo",
-    #     "mdin" : { 
-    #         'maxcyc' : 500,
-    #         'ntpr' : 5,
-    #         'ntr' : 1,
-    #         'restraintmask' : '\":*&!@H=\"',
-    #         'restraint_wt' : 50.0
-    #     }
-    # }
+    import os
+    os.makedirs(output_path, exist_ok=True)
+    # NB doesn't actually create a trajectory file output
+    # we don't need this file but can use `ntwx` param
+    # should you want it
+
+    # TODO: look into using os.path.join - but struggles with slashes?
+    # or just add a `/` here...
+    output_h_min_traj_path = output_path + output_traj_filename
+    output_h_min_rst_path = output_path + output_rst_filename
+    output_h_min_log_path = output_path + output_log_filename
+
 
     # Create and launch bb
-    sander_mdrun(input_top_path=input_top_path,
-                input_crd_path=input_crd_path,
-                input_ref_path=input_crd_path,
-                output_traj_path=output_h_min_traj_path,
-                output_rst_path=output_h_min_rst_path,
-                output_log_path=output_h_min_log_path,
-                properties=prop)
-
-    return {
-        "output_traj_path": output_h_min_traj_path,
-        "output_rst_path": output_h_min_rst_path,
-        "output_log_path": output_h_min_log_path,
-    }
-
-
-def minimize_system(
-        input_top_path: str,
-        input_h_min_rst_path: str,
-        prop: Dict[str, Union[str, Dict]]
-):
-    # TODO: Protein-heavy atom minimization seems the same as 
-    # hydrogen atom minimization? Speak to data scientist
-    
-    # Import module
-    from biobb_amber.sander.sander_mdrun import sander_mdrun
-
-    # Create prop dict and inputs/outputs
-    output_n_min_traj_path = 'sander.n_min.x'
-    output_n_min_rst_path = 'sander.n_min.rst'
-    output_n_min_log_path = 'sander.n_min.log'
-
-    # prop = {
-    #     'simulation_type' : "min_vacuo",
-    #     "mdin" : { 
-    #         'maxcyc' : 500,
-    #         'ntpr' : 5,
-    #         'ntr' : 1,
-    #         'restraintmask' : '\":*&!@H=\"',
-    #         'restraint_wt' : 50.0
-    #     }
-    # }
-
-    # Create and launch bb
-    sander_mdrun(input_top_path=input_top_path,  # output_top_path
-                input_crd_path=input_h_min_rst_path,  # output_h_min_rst_path
-                input_ref_path=input_h_min_rst_path,
-                output_traj_path=output_n_min_traj_path,
-                output_rst_path=output_n_min_rst_path,
-                output_log_path=output_n_min_log_path,
-                properties=prop)
+    sander_mdrun(
+        input_top_path=input_top_path,
+        input_crd_path=input_crd_path,
+        input_ref_path=input_crd_path,
+        output_traj_path=output_h_min_traj_path,
+        output_rst_path=output_h_min_rst_path,
+        output_log_path=output_h_min_log_path,
+        properties=properties
+    )
 
 
 def minimize_steepest_descent(
@@ -230,7 +206,7 @@ def equilibrate_npt():
     # TODO: Clean up function with returns etc.
 
 
-def simulate():
+def simulate_md():
     """Runs a simulation."""
 
     # Import module

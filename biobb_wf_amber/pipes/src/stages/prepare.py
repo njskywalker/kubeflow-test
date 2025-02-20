@@ -36,7 +36,8 @@ def prep_pdb_for_amber(
 @dsl.component(
         packages_to_install=['biobb_amber'],
         # base_image="quay.io/biocontainers/biobb_amber:5.0.4--pyhdfd78af_0",
-        # above also doesn't work
+        # above also doesn't work, but combining with own image
+        # installs `tleap` ctl which is needed for `leap_gen_top`
         base_image="nebjovanovic/amber_bio:latest"
 )
 def prep_amber_topology(
@@ -53,44 +54,49 @@ def prep_amber_topology(
     import os
     from biobb_amber.leap.leap_gen_top import leap_gen_top
 
-    print("Printing inside container func")
-
     # Paths
     os.makedirs(output_path, exist_ok=True)
-    input_pdb_path = '/structure.pdb4amber.pdb'
-    output_pdb_path = '/structure.leap.pdb'
-    output_top_path = '/structure.leap.top'
-    output_crd_path = '/structure.leap.crd'
-    properties={"forcefield" : ["protein.ff14SB"]}
+    input_pdb_path = input_path + '/structure.pdb4amber.pdb'
+    output_pdb_path = output_path + '/structure.leap.pdb'
+    output_top_path = output_path + '/structure.leap.top'
+    output_crd_path = output_path + '/structure.leap.crd'
 
     # Create and launch bb
-    leap_gen_top(input_pdb_path="/proteinamb.pdb", output_pdb_path=output_pdb_path, output_top_path=output_top_path, output_crd_path=output_crd_path, properties={"forcefield" : ["protein.ff14SB"]})
+    leap_gen_top(
+        input_pdb_path=input_pdb_path, 
+        output_pdb_path=output_pdb_path, 
+        output_top_path=output_top_path, 
+        output_crd_path=output_crd_path, 
+        properties=properties
+    )
     
-    # # TODO: Improve legibility - NamedTuple/Dict or basic data class?
-    # return {
-    #     "output_pb_path": output_pdb_path, 
-    #     "output_top_path": output_top_path, 
-    #     "output_crd_path": output_crd_path
-    # }
 
-# def prep_amber_to_pdb(
-#     input_top_path: str,
-#     input_crd_path: str,
-# ) -> str:
-#     """Converts AMBER protein representation to PDB.
+@dsl.component(
+        packages_to_install=['biobb_amber'],
+        base_image="nebjovanovic/amber_bio:latest"
+)
+def prep_amber_to_pdb(
+    input_topology_path: dsl.InputPath('Directory'),
+    input_minimization_path: dsl.InputPath('Directory'),
+    output_path: dsl.OutputPath('Directory'),
+):
+    """Converts AMBER protein representation to PDB.
     
-#     Returns filepath to """
+    Returns filepath to """
 
-#     # Import module
-#     from biobb_amber.ambpdb.amber_to_pdb import amber_to_pdb
+    # Import modules
+    import os
+    from biobb_amber.ambpdb.amber_to_pdb import amber_to_pdb
 
-#     # Create prop dict and inputs/outputs
-#     output_ambpdb_path = 'structure.ambpdb.pdb'
+    # Create input/output paths
+    input_top_path = input_topology_path + "/structure.leap.top"
+    input_crd_path = input_minimization_path + "/sander.n_min.rst"
+    os.makedirs(output_path, exist_ok=True)
+    output_ambpdb_path = output_path + '/structure.ambpdb.pdb'
 
-#     # Create and launch bb
-#     amber_to_pdb(input_top_path=input_top_path,
-#                 input_crd_path=input_crd_path,
-#                 output_pdb_path=output_ambpdb_path
-#                 )
-    
-#     return output_ambpdb_path
+    # Create and launch bb
+    amber_to_pdb(
+        input_top_path=input_top_path,
+        input_crd_path=input_crd_path,
+        output_pdb_path=output_ambpdb_path
+    )

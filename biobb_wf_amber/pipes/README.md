@@ -77,13 +77,14 @@ to reduce coupling and provide cleaner boundaries for Components.
 5. Compiler can also technically be run locally as `biobb` deps not necessary,
 they don't get imported until `import` is invoked (and compiler doesn't run
 functions only trawls them to make the YAML)
-6. Kubeflow idiosyncracies - can't specify `InputPath` as kwargs in Component
-invocations, etc.
-7. Silent fails of dependencies. E.g. `biobb_amber` force field process requires
+6. Kubeflow idiosyncracies - e.g. typehinted returns in functions create an
+`Output` file expectation, and if you don't have this, pod fails (was a red
+herring for a while)
+7. Silent fails and opaque deps. E.g. `biobb_amber` force field process requires
 `AMBERHOME` env var, presumably set by AmberTools? But has nonexistent error
 handling, so have to debug inside pods...
 8. Provided images not working (e.g. for AMBER topology work) -> had to write,
-build, and publish own (nebjovanovic/amber_bio:latest). Related to #7
+build, and publish own (nebjovanovic/amber_bio:latest) but chunky! Related to #7
 
 ![alt text](image.png)
 

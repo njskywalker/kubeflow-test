@@ -1,4 +1,8 @@
-outputs/*
 __pycache__
+
+# In case want to create local lib
 build/*
 dist/*
+
+# For local testing of functionality
+docker/mount/*
