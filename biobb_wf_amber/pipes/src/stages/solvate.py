@@ -1,20 +1,34 @@
 """Solvation pipeline step logic."""
 
+from kfp import dsl
+
+@dsl.component(
+        packages_to_install=['biobb_amber'],
+        base_image="nebjovanovic/amber_bio:latest"
+)
 def create_water_box(
-        input_pdb_path: str,
-) -> str:
+        output_solv_pdb_filename: str,
+        output_solv_top_filename: str,
+        output_solv_crd_filename: str,
+        properties: dict,
+        input_path: dsl.InputPath('Directory'),
+        output_path: dsl.OutputPath('Directory'),
+):
     """Creates a unit cell around protein (PBD input filepath)
     and solvates with water."""
 
-    # Import module
+    # Import modules
+    import os
     from biobb_amber.leap.leap_solvate import leap_solvate
 
-    # Create prop dict and inputs/outputs
-    output_solv_pdb_path = 'structure.solv.pdb'
-    output_solv_top_path = 'structure.solv.parmtop'
-    output_solv_crd_path = 'structure.solv.crd'
+    # Inputs and outputs
+    input_pdb_path = input_path + "/" + 'structure.ambpdb.pdb'
+    os.makedirs(output_path, exist_ok=True)
+    output_solv_pdb_path = output_path + "/" + output_solv_pdb_filename
+    output_solv_top_path = output_path + "/" + output_solv_top_filename
+    output_solv_crd_path = output_path + "/" + output_solv_crd_filename
 
-    prop = {
+    {
         "forcefield" : ["protein.ff14SB"],
         "water_type": "TIP3PBOX",
         "distance_to_molecule": "9.0",   
@@ -22,51 +36,43 @@ def create_water_box(
     }
 
     # Create and launch bb
-    leap_solvate(input_pdb_path=input_pdb_path,
-            output_pdb_path=output_solv_pdb_path,
-            output_top_path=output_solv_top_path,
-            output_crd_path=output_solv_crd_path,
-            properties=prop)
-    
-    return {
-        "output_solv_pdb_path": output_solv_pdb_path,
-        "output_solv_top_path": output_solv_top_path,
-        "output_solv_crd_path": output_solv_crd_path,
-    }
+    leap_solvate(
+        input_pdb_path=input_pdb_path,
+        output_pdb_path=output_solv_pdb_path,
+        output_top_path=output_solv_top_path,
+        output_crd_path=output_solv_crd_path,
+        properties=properties
+    )
 
+
+@dsl.component(
+        packages_to_install=['biobb_amber'],
+        base_image="nebjovanovic/amber_bio:latest"
+)
 def add_ions(
-        pdb_path: str,
-        positive_ions_type: str = "Na+",
-        negative_ions_type: str = "Cl-",
-) -> str:
+        properties: dict,
+        output_ions_pdb_filename: str,
+        output_ions_top_filename: str,
+        output_ions_crd_filename: str,
+        input_path: dsl.InputPath('Directory'),
+        output_path: dsl.OutputPath('Directory'),
+):
     """Adds ions in solvated water box."""
 
-    # Import module
+    # Import modules
+    import os
     from biobb_amber.leap.leap_add_ions import leap_add_ions
 
     # Create prop dict and inputs/outputs
-    output_ions_pdb_path = 'structure.ions.pdb'
-    output_ions_top_path = 'structure.ions.parmtop'
-    output_ions_crd_path = 'structure.ions.crd'
-
-    prop = {
-        "forcefield" : ["protein.ff14SB"],
-        "neutralise" : True,
-        "positive_ions_type": positive_ions_type, # "Na+",
-        "negative_ions_type": negative_ions_type, # "Cl-",
-        "ionic_concentration" : 150, # 150mM
-        "box_type": "truncated_octahedron"
-    }
+    input_pdb_path = input_path + "/" + "structure.solv.pdb"
+    os.makedirs(output_path, exist_ok=True)
+    output_ions_pdb_path = output_path + "/" + output_ions_pdb_filename
+    output_ions_top_path = output_path + "/" + output_ions_top_filename
+    output_ions_crd_path = output_path + "/" + output_ions_crd_filename
 
     # Create and launch bb
-    leap_add_ions(input_pdb_path=pdb_path,
+    leap_add_ions(input_pdb_path=input_pdb_path,
             output_pdb_path=output_ions_pdb_path,
             output_top_path=output_ions_top_path,
             output_crd_path=output_ions_crd_path,
-            properties=prop)
-    
-    return {
-        "output_ions_pdb_path": output_ions_pdb_path, 
-        "output_ions_top_path": output_ions_top_path, 
-        "output_ions_crd_path": output_ions_crd_path, 
-    }
+            properties=properties)

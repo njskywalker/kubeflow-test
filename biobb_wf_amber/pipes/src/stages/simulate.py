@@ -1,6 +1,6 @@
 """Energy minimisation pipe functions."""
 
-from typing import Dict, Union, Any
+from typing import Dict, Any
 from kfp import dsl
 
 @dsl.component(
@@ -12,7 +12,10 @@ def simulate(
     output_traj_filename: str,
     output_rst_filename: str,
     output_log_filename: str,
-    input_path: dsl.InputPath('Directory'),
+    input_top_path: dsl.InputPath('Directory'),
+    input_top_filename: str,
+    input_crd_path: dsl.InputPath('Directory'),
+    input_crd_filename: str,
     output_path: dsl.OutputPath('Directory'),
 ):
     """
@@ -33,8 +36,8 @@ def simulate(
     from biobb_amber.sander.sander_mdrun import sander_mdrun
 
     # Modify inputs/outputs
-    input_top_path = input_path + "/structure.leap.top"
-    input_crd_path = input_path + "/structure.leap.crd"
+    input_top_path = input_top_path + "/" + input_top_filename # "structure.leap.top"
+    input_crd_path = input_crd_path + "/" + input_crd_filename # "structure.leap.crd"
 
     import os
     os.makedirs(output_path, exist_ok=True)
@@ -44,9 +47,9 @@ def simulate(
 
     # TODO: look into using os.path.join - but struggles with slashes?
     # or just add a `/` here...
-    output_h_min_traj_path = output_path + output_traj_filename
-    output_h_min_rst_path = output_path + output_rst_filename
-    output_h_min_log_path = output_path + output_log_filename
+    output_h_min_traj_path = output_path + "/" + output_traj_filename
+    output_h_min_rst_path = output_path + "/" + output_rst_filename
+    output_h_min_log_path = output_path + "/" + output_log_filename
 
 
     # Create and launch bb

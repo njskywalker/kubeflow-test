@@ -4,6 +4,52 @@
 # Inputs:
 #    pdb_code: str
 components:
+  comp-add-ions:
+    executorLabel: exec-add-ions
+    inputDefinitions:
+      artifacts:
+        input_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        output_ions_crd_filename:
+          parameterType: STRING
+        output_ions_pdb_filename:
+          parameterType: STRING
+        output_ions_top_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-create-water-box:
+    executorLabel: exec-create-water-box
+    inputDefinitions:
+      artifacts:
+        input_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        output_solv_crd_filename:
+          parameterType: STRING
+        output_solv_pdb_filename:
+          parameterType: STRING
+        output_solv_top_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
   comp-fetch-pdb-protein:
     executorLabel: exec-fetch-pdb-protein
     inputDefinitions:
@@ -69,11 +115,19 @@ components:
     executorLabel: exec-simulate
     inputDefinitions:
       artifacts:
-        input_path:
+        input_crd_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+        input_top_path:
           artifactType:
             schemaTitle: system.Artifact
             schemaVersion: 0.0.1
       parameters:
+        input_crd_filename:
+          parameterType: STRING
+        input_top_filename:
+          parameterType: STRING
         output_log_filename:
           parameterType: STRING
         output_rst_filename:
@@ -92,11 +146,174 @@ components:
     executorLabel: exec-simulate-2
     inputDefinitions:
       artifacts:
-        input_path:
+        input_crd_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+        input_top_path:
           artifactType:
             schemaTitle: system.Artifact
             schemaVersion: 0.0.1
       parameters:
+        input_crd_filename:
+          parameterType: STRING
+        input_top_filename:
+          parameterType: STRING
+        output_log_filename:
+          parameterType: STRING
+        output_rst_filename:
+          parameterType: STRING
+        output_traj_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-simulate-3:
+    executorLabel: exec-simulate-3
+    inputDefinitions:
+      artifacts:
+        input_crd_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+        input_top_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_crd_filename:
+          parameterType: STRING
+        input_top_filename:
+          parameterType: STRING
+        output_log_filename:
+          parameterType: STRING
+        output_rst_filename:
+          parameterType: STRING
+        output_traj_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-simulate-4:
+    executorLabel: exec-simulate-4
+    inputDefinitions:
+      artifacts:
+        input_crd_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+        input_top_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_crd_filename:
+          parameterType: STRING
+        input_top_filename:
+          parameterType: STRING
+        output_log_filename:
+          parameterType: STRING
+        output_rst_filename:
+          parameterType: STRING
+        output_traj_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-simulate-5:
+    executorLabel: exec-simulate-5
+    inputDefinitions:
+      artifacts:
+        input_crd_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+        input_top_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_crd_filename:
+          parameterType: STRING
+        input_top_filename:
+          parameterType: STRING
+        output_log_filename:
+          parameterType: STRING
+        output_rst_filename:
+          parameterType: STRING
+        output_traj_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-simulate-6:
+    executorLabel: exec-simulate-6
+    inputDefinitions:
+      artifacts:
+        input_crd_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+        input_top_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_crd_filename:
+          parameterType: STRING
+        input_top_filename:
+          parameterType: STRING
+        output_log_filename:
+          parameterType: STRING
+        output_rst_filename:
+          parameterType: STRING
+        output_traj_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-simulate-7:
+    executorLabel: exec-simulate-7
+    inputDefinitions:
+      artifacts:
+        input_crd_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+        input_top_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_crd_filename:
+          parameterType: STRING
+        input_top_filename:
+          parameterType: STRING
         output_log_filename:
           parameterType: STRING
         output_rst_filename:
@@ -113,6 +330,94 @@ components:
             schemaVersion: 0.0.1
 deploymentSpec:
   executors:
+    exec-add-ions:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - add_ions
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef add_ions(\n        properties: dict,\n        output_ions_pdb_filename:\
+          \ str,\n        output_ions_top_filename: str,\n        output_ions_crd_filename:\
+          \ str,\n        input_path: dsl.InputPath('Directory'),\n        output_path:\
+          \ dsl.OutputPath('Directory'),\n):\n    \"\"\"Adds ions in solvated water\
+          \ box.\"\"\"\n\n    # Import modules\n    import os\n    from biobb_amber.leap.leap_add_ions\
+          \ import leap_add_ions\n\n    # Create prop dict and inputs/outputs\n  \
+          \  input_pdb_path = input_path + \"/\" + \"structure.solv.pdb\"\n    os.makedirs(output_path,\
+          \ exist_ok=True)\n    output_ions_pdb_path = output_path + \"/\" + output_ions_pdb_filename\n\
+          \    output_ions_top_path = output_path + \"/\" + output_ions_top_filename\n\
+          \    output_ions_crd_path = output_path + \"/\" + output_ions_crd_filename\n\
+          \n    # Create and launch bb\n    leap_add_ions(input_pdb_path=input_pdb_path,\n\
+          \            output_pdb_path=output_ions_pdb_path,\n            output_top_path=output_ions_top_path,\n\
+          \            output_crd_path=output_ions_crd_path,\n            properties=properties)\n\
+          \n"
+        image: nebjovanovic/amber_bio:latest
+    exec-create-water-box:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - create_water_box
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef create_water_box(\n        output_solv_pdb_filename: str,\n \
+          \       output_solv_top_filename: str,\n        output_solv_crd_filename:\
+          \ str,\n        properties: dict,\n        input_path: dsl.InputPath('Directory'),\n\
+          \        output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"Creates\
+          \ a unit cell around protein (PBD input filepath)\n    and solvates with\
+          \ water.\"\"\"\n\n    # Import modules\n    import os\n    from biobb_amber.leap.leap_solvate\
+          \ import leap_solvate\n\n    # Inputs and outputs\n    input_pdb_path =\
+          \ input_path + \"/\" + 'structure.ambpdb.pdb'\n    os.makedirs(output_path,\
+          \ exist_ok=True)\n    output_solv_pdb_path = output_path + \"/\" + output_solv_pdb_filename\n\
+          \    output_solv_top_path = output_path + \"/\" + output_solv_top_filename\n\
+          \    output_solv_crd_path = output_path + \"/\" + output_solv_crd_filename\n\
+          \n    {\n        \"forcefield\" : [\"protein.ff14SB\"],\n        \"water_type\"\
+          : \"TIP3PBOX\",\n        \"distance_to_molecule\": \"9.0\",   \n       \
+          \ \"box_type\": \"truncated_octahedron\"\n    }\n\n    # Create and launch\
+          \ bb\n    leap_solvate(\n        input_pdb_path=input_pdb_path,\n      \
+          \  output_pdb_path=output_solv_pdb_path,\n        output_top_path=output_solv_top_path,\n\
+          \        output_crd_path=output_solv_crd_path,\n        properties=properties\n\
+          \    )\n\n"
+        image: nebjovanovic/amber_bio:latest
     exec-fetch-pdb-protein:
       container:
         args:
@@ -297,23 +602,28 @@ deploymentSpec:
         - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
           \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
           \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
-          \   input_path: dsl.InputPath('Directory'),\n    output_path: dsl.OutputPath('Directory'),\n\
-          ):\n    \"\"\"\n    Run a simulation with given parameters with AmberTools\
-          \ Sander.\n\n    Inputs:\n    - properties: Dict containing simulation parameters.\n\
+          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
+          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
+          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
+          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
+          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
           \    - output_traj_filename: Desired name of trajectory file. (NB May not\
           \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
           \    - output_log_filename: Desired name of log file.\n    - input_path:\
           \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
           \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
           \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
-          \ = input_path + \"/structure.leap.top\"\n    input_crd_path = input_path\
-          \ + \"/structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path,\
-          \ exist_ok=True)\n    # NB doesn't actually create a trajectory file output\n\
-          \    # we don't need this file but can use `ntwx` param\n    # should you\
-          \ want it\n    output_h_min_traj_path = output_path + output_traj_filename\n\
-          \    output_h_min_rst_path = output_path + output_rst_filename\n    output_h_min_log_path\
-          \ = output_path + output_log_filename\n\n\n    # Create and launch bb\n\
-          \    sander_mdrun(\n        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
+          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
+          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
+          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    # NB doesn't actually create a trajectory file output\n    # we don't\
+          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
+          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
+          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
+          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
+          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
+          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
           \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
@@ -347,23 +657,303 @@ deploymentSpec:
         - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
           \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
           \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
-          \   input_path: dsl.InputPath('Directory'),\n    output_path: dsl.OutputPath('Directory'),\n\
-          ):\n    \"\"\"\n    Run a simulation with given parameters with AmberTools\
-          \ Sander.\n\n    Inputs:\n    - properties: Dict containing simulation parameters.\n\
+          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
+          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
+          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
+          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
+          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
           \    - output_traj_filename: Desired name of trajectory file. (NB May not\
           \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
           \    - output_log_filename: Desired name of log file.\n    - input_path:\
           \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
           \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
           \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
-          \ = input_path + \"/structure.leap.top\"\n    input_crd_path = input_path\
-          \ + \"/structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path,\
-          \ exist_ok=True)\n    # NB doesn't actually create a trajectory file output\n\
-          \    # we don't need this file but can use `ntwx` param\n    # should you\
-          \ want it\n    output_h_min_traj_path = output_path + output_traj_filename\n\
-          \    output_h_min_rst_path = output_path + output_rst_filename\n    output_h_min_log_path\
-          \ = output_path + output_log_filename\n\n\n    # Create and launch bb\n\
-          \    sander_mdrun(\n        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
+          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
+          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
+          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    # NB doesn't actually create a trajectory file output\n    # we don't\
+          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
+          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
+          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
+          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
+          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
+          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
+          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
+          \        properties=properties\n    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+    exec-simulate-3:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - simulate
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
+          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
+          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
+          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
+          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
+          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
+          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
+          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
+          \    - output_log_filename: Desired name of log file.\n    - input_path:\
+          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
+          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
+          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
+          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    # NB doesn't actually create a trajectory file output\n    # we don't\
+          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
+          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
+          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
+          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
+          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
+          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
+          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
+          \        properties=properties\n    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+    exec-simulate-4:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - simulate
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
+          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
+          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
+          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
+          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
+          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
+          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
+          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
+          \    - output_log_filename: Desired name of log file.\n    - input_path:\
+          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
+          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
+          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
+          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    # NB doesn't actually create a trajectory file output\n    # we don't\
+          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
+          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
+          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
+          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
+          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
+          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
+          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
+          \        properties=properties\n    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+    exec-simulate-5:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - simulate
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
+          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
+          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
+          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
+          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
+          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
+          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
+          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
+          \    - output_log_filename: Desired name of log file.\n    - input_path:\
+          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
+          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
+          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
+          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    # NB doesn't actually create a trajectory file output\n    # we don't\
+          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
+          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
+          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
+          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
+          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
+          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
+          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
+          \        properties=properties\n    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+    exec-simulate-6:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - simulate
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
+          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
+          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
+          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
+          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
+          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
+          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
+          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
+          \    - output_log_filename: Desired name of log file.\n    - input_path:\
+          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
+          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
+          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
+          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    # NB doesn't actually create a trajectory file output\n    # we don't\
+          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
+          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
+          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
+          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
+          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
+          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
+          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
+          \        properties=properties\n    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+    exec-simulate-7:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - simulate
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
+          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
+          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
+          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
+          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
+          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
+          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
+          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
+          \    - output_log_filename: Desired name of log file.\n    - input_path:\
+          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
+          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
+          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
+          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    # NB doesn't actually create a trajectory file output\n    # we don't\
+          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
+          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
+          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
+          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
+          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
+          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
           \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
@@ -374,6 +964,74 @@ pipelineInfo:
 root:
   dag:
     tasks:
+      add-ions:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-add-ions
+        dependentTasks:
+        - create-water-box
+        inputs:
+          artifacts:
+            input_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: create-water-box
+          parameters:
+            output_ions_crd_filename:
+              runtimeValue:
+                constant: structure.ions.crd
+            output_ions_pdb_filename:
+              runtimeValue:
+                constant: structure.ions.pdb
+            output_ions_top_filename:
+              runtimeValue:
+                constant: structure.ions.parmtop
+            properties:
+              runtimeValue:
+                constant:
+                  box_type: truncated_octahedron
+                  forcefield:
+                  - protein.ff14SB
+                  ionic_concentration: 150.0
+                  negative_ions_type: Cl-
+                  neutralise: true
+                  positive_ions_type: Na+
+        taskInfo:
+          name: add-ions
+      create-water-box:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-create-water-box
+        dependentTasks:
+        - prep-amber-to-pdb
+        inputs:
+          artifacts:
+            input_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: prep-amber-to-pdb
+          parameters:
+            output_solv_crd_filename:
+              runtimeValue:
+                constant: structure.solv.crd
+            output_solv_pdb_filename:
+              runtimeValue:
+                constant: structure.solv.pdb
+            output_solv_top_filename:
+              runtimeValue:
+                constant: structure.solv.parmtop
+            properties:
+              runtimeValue:
+                constant:
+                  box_type: truncated_octahedron
+                  distance_to_molecule: '9.0'
+                  forcefield:
+                  - protein.ff14SB
+                  water_type: TIP3PBOX
+        taskInfo:
+          name: create-water-box
       fetch-pdb-protein:
         cachingOptions:
           enableCache: true
@@ -450,20 +1108,30 @@ root:
         - prep-amber-topology
         inputs:
           artifacts:
-            input_path:
+            input_crd_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: prep-amber-topology
+            input_top_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
                 producerTask: prep-amber-topology
           parameters:
+            input_crd_filename:
+              runtimeValue:
+                constant: structure.leap.crd
+            input_top_filename:
+              runtimeValue:
+                constant: structure.leap.top
             output_log_filename:
               runtimeValue:
-                constant: /sander.h_min.log
+                constant: sander.h_min.log
             output_rst_filename:
               runtimeValue:
-                constant: /sander.h_min.rst
+                constant: sander.h_min.rst
             output_traj_filename:
               runtimeValue:
-                constant: /sander.h_min.x
+                constant: sander.h_min.x
             properties:
               runtimeValue:
                 constant:
@@ -485,20 +1153,30 @@ root:
         - prep-amber-topology
         inputs:
           artifacts:
-            input_path:
+            input_crd_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: prep-amber-topology
+            input_top_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
                 producerTask: prep-amber-topology
           parameters:
+            input_crd_filename:
+              runtimeValue:
+                constant: structure.leap.crd
+            input_top_filename:
+              runtimeValue:
+                constant: structure.leap.top
             output_log_filename:
               runtimeValue:
-                constant: /sander.n_min.log
+                constant: sander.n_min.log
             output_rst_filename:
               runtimeValue:
-                constant: /sander.n_min.rst
+                constant: sander.n_min.rst
             output_traj_filename:
               runtimeValue:
-                constant: /sander.n_min.x
+                constant: sander.n_min.x
             properties:
               runtimeValue:
                 constant:
@@ -511,6 +1189,228 @@ root:
                   simulation_type: min_vacuo
         taskInfo:
           name: simulate-2
+      simulate-3:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-simulate-3
+        dependentTasks:
+        - add-ions
+        inputs:
+          artifacts:
+            input_crd_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: add-ions
+            input_top_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: add-ions
+          parameters:
+            input_crd_filename:
+              runtimeValue:
+                constant: structure.ions.crd
+            input_top_filename:
+              runtimeValue:
+                constant: structure.ions.parmtop
+            output_log_filename:
+              runtimeValue:
+                constant: sander.min.log
+            output_rst_filename:
+              runtimeValue:
+                constant: sander.min.rst
+            output_traj_filename:
+              runtimeValue:
+                constant: sander.min.x
+            properties:
+              runtimeValue:
+                constant:
+                  mdin:
+                    maxcyc: 300.0
+                    ntr: 1.0
+                    restraint_wt: 50.0
+                    restraintmask: '"!:WAT,Cl-,Na+"'
+                  simulation_type: minimization
+        taskInfo:
+          name: simulate-3
+      simulate-4:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-simulate-4
+        dependentTasks:
+        - add-ions
+        - simulate-3
+        inputs:
+          artifacts:
+            input_crd_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: simulate-3
+            input_top_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: add-ions
+          parameters:
+            input_crd_filename:
+              runtimeValue:
+                constant: sander.min.rst
+            input_top_filename:
+              runtimeValue:
+                constant: structure.ions.parmtop
+            output_log_filename:
+              runtimeValue:
+                constant: sander.heat.log
+            output_rst_filename:
+              runtimeValue:
+                constant: sander.heat.rst
+            output_traj_filename:
+              runtimeValue:
+                constant: sander.heat.netcdf
+            properties:
+              runtimeValue:
+                constant:
+                  mdin:
+                    nstlim: 2500.0
+                    ntr: 1.0
+                    restraint_wt: 10.0
+                    restraintmask: '"!:WAT,Cl-,Na+"'
+                  simulation_type: heat
+        taskInfo:
+          name: simulate-4
+      simulate-5:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-simulate-5
+        dependentTasks:
+        - add-ions
+        - simulate-4
+        inputs:
+          artifacts:
+            input_crd_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: simulate-4
+            input_top_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: add-ions
+          parameters:
+            input_crd_filename:
+              runtimeValue:
+                constant: sander.heat.rst
+            input_top_filename:
+              runtimeValue:
+                constant: structure.ions.parmtop
+            output_log_filename:
+              runtimeValue:
+                constant: sander.nvt.log
+            output_rst_filename:
+              runtimeValue:
+                constant: sander.nvt.rst
+            output_traj_filename:
+              runtimeValue:
+                constant: sander.nvt.netcdf
+            properties:
+              runtimeValue:
+                constant:
+                  mdin:
+                    nstlim: 500.0
+                    ntr: 1.0
+                    restraint_wt: 5.0
+                    restraintmask: '"!:WAT,Cl-,Na+ & !@H="'
+                  simulation_type: nvt
+        taskInfo:
+          name: simulate-5
+      simulate-6:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-simulate-6
+        dependentTasks:
+        - add-ions
+        - simulate-5
+        inputs:
+          artifacts:
+            input_crd_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: simulate-5
+            input_top_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: add-ions
+          parameters:
+            input_crd_filename:
+              runtimeValue:
+                constant: sander.nvt.rst
+            input_top_filename:
+              runtimeValue:
+                constant: structure.ions.parmtop
+            output_log_filename:
+              runtimeValue:
+                constant: sander.npt.log
+            output_rst_filename:
+              runtimeValue:
+                constant: sander.npt.rst
+            output_traj_filename:
+              runtimeValue:
+                constant: sander.npt.netcdf
+            properties:
+              runtimeValue:
+                constant:
+                  mdin:
+                    nstlim: 500.0
+                    ntr: 1.0
+                    restraint_wt: 2.5
+                    restraintmask: '"!:WAT,Cl-,Na+ & !@H="'
+                  simulation_type: npt
+        taskInfo:
+          name: simulate-6
+      simulate-7:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-simulate-7
+        dependentTasks:
+        - add-ions
+        - simulate-6
+        inputs:
+          artifacts:
+            input_crd_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: simulate-6
+            input_top_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: add-ions
+          parameters:
+            input_crd_filename:
+              runtimeValue:
+                constant: sander.npt.rst
+            input_top_filename:
+              runtimeValue:
+                constant: structure.ions.parmtop
+            output_log_filename:
+              runtimeValue:
+                constant: sander.free.log
+            output_rst_filename:
+              runtimeValue:
+                constant: sander.free.rst
+            output_traj_filename:
+              runtimeValue:
+                constant: sander.free.netcdf
+            properties:
+              runtimeValue:
+                constant:
+                  mdin:
+                    nstlim: 2500.0
+                    ntwx: 500.0
+                  simulation_type: free
+        taskInfo:
+          name: simulate-7
   inputDefinitions:
     parameters:
       pdb_code:
