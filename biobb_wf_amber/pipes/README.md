@@ -1,7 +1,5 @@
 ## Setup
 
-Testing commit.
-
 ```bash
 # Install Docker, minikube, kubectx
 sudo snap install kubectx --classic
@@ -105,4 +103,22 @@ Options considered:
 3. Direct input / output passing
 
 ## Todo
-1. 
+
+### More technical
+1. Download and explore Kubeflow Pipeline manifests, edit and modify to
+desired spec and deploy from there
+2. Trim fat of custom AMBER + `biobb` Docker image (don't need to download
+all dependencies) to minimise build time, memory usage etc. **or** debug 
+already provided images (from `biobb` repos) to find why they don't work.
+3. AMBER seems really clunky and delicate, could we explore moving away
+from it or at least developing better knowledge of it and its requirements?
+4. (Domain specific) What tracking / metrics do we exactly care about?
+
+### More business / (internal) customer-focused
+1. Why are we making this (or a similar) pipeline, e.g. will the model 
+output be used for "serving" (think internal API to do things with free molecular 
+dynamics sims) or is it a component in future pipelines (e.g. protein:ligand
+interactions simulations)
+2. What infrastructure do we already have?
+3. What similar pipelines / workflows do we have? What can we refactor and abstract?
+4. How much of this process can be automate? E.g. 

@@ -111,8 +111,89 @@ components:
           artifactType:
             schemaTitle: system.Artifact
             schemaVersion: 0.0.1
-  comp-simulate:
-    executorLabel: exec-simulate
+  comp-simulate-one-input:
+    executorLabel: exec-simulate-one-input
+    inputDefinitions:
+      artifacts:
+        input_top_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_crd_filename:
+          parameterType: STRING
+        input_top_filename:
+          parameterType: STRING
+        output_log_filename:
+          parameterType: STRING
+        output_rst_filename:
+          parameterType: STRING
+        output_traj_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-simulate-one-input-2:
+    executorLabel: exec-simulate-one-input-2
+    inputDefinitions:
+      artifacts:
+        input_top_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_crd_filename:
+          parameterType: STRING
+        input_top_filename:
+          parameterType: STRING
+        output_log_filename:
+          parameterType: STRING
+        output_rst_filename:
+          parameterType: STRING
+        output_traj_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-simulate-one-input-3:
+    executorLabel: exec-simulate-one-input-3
+    inputDefinitions:
+      artifacts:
+        input_top_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_crd_filename:
+          parameterType: STRING
+        input_top_filename:
+          parameterType: STRING
+        output_log_filename:
+          parameterType: STRING
+        output_rst_filename:
+          parameterType: STRING
+        output_traj_filename:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-simulate-two-inputs:
+    executorLabel: exec-simulate-two-inputs
     inputDefinitions:
       artifacts:
         input_crd_path:
@@ -142,8 +223,8 @@ components:
           artifactType:
             schemaTitle: system.Artifact
             schemaVersion: 0.0.1
-  comp-simulate-2:
-    executorLabel: exec-simulate-2
+  comp-simulate-two-inputs-2:
+    executorLabel: exec-simulate-two-inputs-2
     inputDefinitions:
       artifacts:
         input_crd_path:
@@ -173,8 +254,8 @@ components:
           artifactType:
             schemaTitle: system.Artifact
             schemaVersion: 0.0.1
-  comp-simulate-3:
-    executorLabel: exec-simulate-3
+  comp-simulate-two-inputs-3:
+    executorLabel: exec-simulate-two-inputs-3
     inputDefinitions:
       artifacts:
         input_crd_path:
@@ -204,101 +285,8 @@ components:
           artifactType:
             schemaTitle: system.Artifact
             schemaVersion: 0.0.1
-  comp-simulate-4:
-    executorLabel: exec-simulate-4
-    inputDefinitions:
-      artifacts:
-        input_crd_path:
-          artifactType:
-            schemaTitle: system.Artifact
-            schemaVersion: 0.0.1
-        input_top_path:
-          artifactType:
-            schemaTitle: system.Artifact
-            schemaVersion: 0.0.1
-      parameters:
-        input_crd_filename:
-          parameterType: STRING
-        input_top_filename:
-          parameterType: STRING
-        output_log_filename:
-          parameterType: STRING
-        output_rst_filename:
-          parameterType: STRING
-        output_traj_filename:
-          parameterType: STRING
-        properties:
-          parameterType: STRUCT
-    outputDefinitions:
-      artifacts:
-        output_path:
-          artifactType:
-            schemaTitle: system.Artifact
-            schemaVersion: 0.0.1
-  comp-simulate-5:
-    executorLabel: exec-simulate-5
-    inputDefinitions:
-      artifacts:
-        input_crd_path:
-          artifactType:
-            schemaTitle: system.Artifact
-            schemaVersion: 0.0.1
-        input_top_path:
-          artifactType:
-            schemaTitle: system.Artifact
-            schemaVersion: 0.0.1
-      parameters:
-        input_crd_filename:
-          parameterType: STRING
-        input_top_filename:
-          parameterType: STRING
-        output_log_filename:
-          parameterType: STRING
-        output_rst_filename:
-          parameterType: STRING
-        output_traj_filename:
-          parameterType: STRING
-        properties:
-          parameterType: STRUCT
-    outputDefinitions:
-      artifacts:
-        output_path:
-          artifactType:
-            schemaTitle: system.Artifact
-            schemaVersion: 0.0.1
-  comp-simulate-6:
-    executorLabel: exec-simulate-6
-    inputDefinitions:
-      artifacts:
-        input_crd_path:
-          artifactType:
-            schemaTitle: system.Artifact
-            schemaVersion: 0.0.1
-        input_top_path:
-          artifactType:
-            schemaTitle: system.Artifact
-            schemaVersion: 0.0.1
-      parameters:
-        input_crd_filename:
-          parameterType: STRING
-        input_top_filename:
-          parameterType: STRING
-        output_log_filename:
-          parameterType: STRING
-        output_rst_filename:
-          parameterType: STRING
-        output_traj_filename:
-          parameterType: STRING
-        properties:
-          parameterType: STRUCT
-    outputDefinitions:
-      artifacts:
-        output_path:
-          artifactType:
-            schemaTitle: system.Artifact
-            schemaVersion: 0.0.1
-  comp-simulate-7:
-    executorLabel: exec-simulate-7
+  comp-simulate-two-inputs-4:
+    executorLabel: exec-simulate-two-inputs-4
     inputDefinitions:
       artifacts:
         input_crd_path:
@@ -573,13 +561,13 @@ deploymentSpec:
           \n    # Create and launch bb\n    pdb4amber_run(input_pdb_path=input_pdb_path,\n\
           \                output_pdb_path=output_pdb_path)\n\n"
         image: quay.io/biocontainers/biobb_amber:5.0.4--pyhdfd78af_0
-    exec-simulate:
+    exec-simulate-one-input:
       container:
         args:
         - --executor_input
         - '{{$}}'
         - --function_to_execute
-        - simulate
+        - simulate_one_input
         command:
         - sh
         - -c
@@ -600,10 +588,10 @@ deploymentSpec:
 
           '
         - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
-          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ *\n\ndef simulate_one_input(\n    properties: Dict[str, Any],\n    output_traj_filename:\
           \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
           \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
-          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
+          \ str,\n    # input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
           \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
           \    Run a simulation with given parameters with AmberTools Sander.\n\n\
           \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
@@ -611,6 +599,189 @@ deploymentSpec:
           \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
           \    - output_log_filename: Desired name of log file.\n    - input_path:\
           \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    \"\"\"\n\n    # NB Cannot have multiple InputPaths which are the same,\
+          \ this error appears:\n    # KFP driver: driver.Container(\n    #     pipelineName=test-kubeflow-pipeline,\
+          \ runID=24e1e2c6-e639-4f87-97ab-953608807c2e, \n    #     task=\"simulate\"\
+          , component=\"comp-simulate\", dagExecutionID=44, componentSpec) \n    #\
+          \     failed: rpc error: code = AlreadyExists desc = Given event already\
+          \ exists: \n    #     artifact_id: 28\n    # execution_id: 48\n    # path\
+          \ {\n    #     steps {\n    #         key: \"input_top_path_x\"\n    # \
+          \    }\n    # }\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path_file\
+          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
+          \n    input_crd_path = input_top_path + \"/\" + input_crd_filename # \"\
+          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    # NB doesn't actually create a trajectory file output\n    # we don't\
+          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
+          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
+          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
+          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
+          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
+          \        input_top_path=input_top_path_file,\n        input_crd_path=input_crd_path,\n\
+          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
+          \        properties=properties\n    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+    exec-simulate-one-input-2:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - simulate_one_input
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef simulate_one_input(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
+          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
+          \ str,\n    # input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
+          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
+          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
+          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
+          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
+          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
+          \    - output_log_filename: Desired name of log file.\n    - input_path:\
+          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    \"\"\"\n\n    # NB Cannot have multiple InputPaths which are the same,\
+          \ this error appears:\n    # KFP driver: driver.Container(\n    #     pipelineName=test-kubeflow-pipeline,\
+          \ runID=24e1e2c6-e639-4f87-97ab-953608807c2e, \n    #     task=\"simulate\"\
+          , component=\"comp-simulate\", dagExecutionID=44, componentSpec) \n    #\
+          \     failed: rpc error: code = AlreadyExists desc = Given event already\
+          \ exists: \n    #     artifact_id: 28\n    # execution_id: 48\n    # path\
+          \ {\n    #     steps {\n    #         key: \"input_top_path_x\"\n    # \
+          \    }\n    # }\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path_file\
+          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
+          \n    input_crd_path = input_top_path + \"/\" + input_crd_filename # \"\
+          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    # NB doesn't actually create a trajectory file output\n    # we don't\
+          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
+          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
+          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
+          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
+          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
+          \        input_top_path=input_top_path_file,\n        input_crd_path=input_crd_path,\n\
+          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
+          \        properties=properties\n    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+    exec-simulate-one-input-3:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - simulate_one_input
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef simulate_one_input(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
+          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
+          \ str,\n    # input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
+          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
+          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
+          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
+          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
+          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
+          \    - output_log_filename: Desired name of log file.\n    - input_path:\
+          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    \"\"\"\n\n    # NB Cannot have multiple InputPaths which are the same,\
+          \ this error appears:\n    # KFP driver: driver.Container(\n    #     pipelineName=test-kubeflow-pipeline,\
+          \ runID=24e1e2c6-e639-4f87-97ab-953608807c2e, \n    #     task=\"simulate\"\
+          , component=\"comp-simulate\", dagExecutionID=44, componentSpec) \n    #\
+          \     failed: rpc error: code = AlreadyExists desc = Given event already\
+          \ exists: \n    #     artifact_id: 28\n    # execution_id: 48\n    # path\
+          \ {\n    #     steps {\n    #         key: \"input_top_path_x\"\n    # \
+          \    }\n    # }\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path_file\
+          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
+          \n    input_crd_path = input_top_path + \"/\" + input_crd_filename # \"\
+          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    # NB doesn't actually create a trajectory file output\n    # we don't\
+          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
+          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
+          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
+          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
+          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
+          \        input_top_path=input_top_path_file,\n        input_crd_path=input_crd_path,\n\
+          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
+          \        properties=properties\n    )\n\n"
+        image: nebjovanovic/amber_bio:latest
+    exec-simulate-two-inputs:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - simulate_two_inputs
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef simulate_two_inputs(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
+          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
+          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
+          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
+          \    The same as simulate_one_input, but with two input paths which\n  \
+          \  must be different.\n\n    Required as Kubeflow throws an error if the\
+          \ same InputPath is passed\n    to two different function InputPath parameters.\n\
           \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
           \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
@@ -628,13 +799,13 @@ deploymentSpec:
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
         image: nebjovanovic/amber_bio:latest
-    exec-simulate-2:
+    exec-simulate-two-inputs-2:
       container:
         args:
         - --executor_input
         - '{{$}}'
         - --function_to_execute
-        - simulate
+        - simulate_two_inputs
         command:
         - sh
         - -c
@@ -655,17 +826,14 @@ deploymentSpec:
 
           '
         - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
-          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ *\n\ndef simulate_two_inputs(\n    properties: Dict[str, Any],\n    output_traj_filename:\
           \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
           \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
           \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
           \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
-          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
-          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
-          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
-          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
-          \    - output_log_filename: Desired name of log file.\n    - input_path:\
-          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    The same as simulate_one_input, but with two input paths which\n  \
+          \  must be different.\n\n    Required as Kubeflow throws an error if the\
+          \ same InputPath is passed\n    to two different function InputPath parameters.\n\
           \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
           \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
@@ -683,13 +851,13 @@ deploymentSpec:
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
         image: nebjovanovic/amber_bio:latest
-    exec-simulate-3:
+    exec-simulate-two-inputs-3:
       container:
         args:
         - --executor_input
         - '{{$}}'
         - --function_to_execute
-        - simulate
+        - simulate_two_inputs
         command:
         - sh
         - -c
@@ -710,17 +878,14 @@ deploymentSpec:
 
           '
         - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
-          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ *\n\ndef simulate_two_inputs(\n    properties: Dict[str, Any],\n    output_traj_filename:\
           \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
           \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
           \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
           \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
-          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
-          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
-          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
-          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
-          \    - output_log_filename: Desired name of log file.\n    - input_path:\
-          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    The same as simulate_one_input, but with two input paths which\n  \
+          \  must be different.\n\n    Required as Kubeflow throws an error if the\
+          \ same InputPath is passed\n    to two different function InputPath parameters.\n\
           \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
           \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
@@ -738,13 +903,13 @@ deploymentSpec:
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
         image: nebjovanovic/amber_bio:latest
-    exec-simulate-4:
+    exec-simulate-two-inputs-4:
       container:
         args:
         - --executor_input
         - '{{$}}'
         - --function_to_execute
-        - simulate
+        - simulate_two_inputs
         command:
         - sh
         - -c
@@ -765,182 +930,14 @@ deploymentSpec:
 
           '
         - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
-          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
+          \ *\n\ndef simulate_two_inputs(\n    properties: Dict[str, Any],\n    output_traj_filename:\
           \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
           \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
           \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
           \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
-          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
-          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
-          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
-          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
-          \    - output_log_filename: Desired name of log file.\n    - input_path:\
-          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
-          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
-          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
-          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
-          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
-          \    # NB doesn't actually create a trajectory file output\n    # we don't\
-          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
-          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
-          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
-          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
-          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
-          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
-          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
-          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
-          \        properties=properties\n    )\n\n"
-        image: nebjovanovic/amber_bio:latest
-    exec-simulate-5:
-      container:
-        args:
-        - --executor_input
-        - '{{$}}'
-        - --function_to_execute
-        - simulate
-        command:
-        - sh
-        - -c
-        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
-          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
-          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
-        - sh
-        - -ec
-        - 'program_path=$(mktemp -d)
-
-
-          printf "%s" "$0" > "$program_path/ephemeral_component.py"
-
-          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
-
-          '
-        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
-          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
-          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
-          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
-          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
-          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
-          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
-          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
-          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
-          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
-          \    - output_log_filename: Desired name of log file.\n    - input_path:\
-          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
-          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
-          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
-          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
-          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
-          \    # NB doesn't actually create a trajectory file output\n    # we don't\
-          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
-          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
-          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
-          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
-          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
-          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
-          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
-          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
-          \        properties=properties\n    )\n\n"
-        image: nebjovanovic/amber_bio:latest
-    exec-simulate-6:
-      container:
-        args:
-        - --executor_input
-        - '{{$}}'
-        - --function_to_execute
-        - simulate
-        command:
-        - sh
-        - -c
-        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
-          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
-          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
-        - sh
-        - -ec
-        - 'program_path=$(mktemp -d)
-
-
-          printf "%s" "$0" > "$program_path/ephemeral_component.py"
-
-          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
-
-          '
-        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
-          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
-          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
-          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
-          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
-          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
-          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
-          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
-          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
-          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
-          \    - output_log_filename: Desired name of log file.\n    - input_path:\
-          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
-          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
-          \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
-          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
-          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
-          \    # NB doesn't actually create a trajectory file output\n    # we don't\
-          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
-          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
-          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
-          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
-          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
-          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
-          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
-          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
-          \        properties=properties\n    )\n\n"
-        image: nebjovanovic/amber_bio:latest
-    exec-simulate-7:
-      container:
-        args:
-        - --executor_input
-        - '{{$}}'
-        - --function_to_execute
-        - simulate
-        command:
-        - sh
-        - -c
-        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
-          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
-          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
-        - sh
-        - -ec
-        - 'program_path=$(mktemp -d)
-
-
-          printf "%s" "$0" > "$program_path/ephemeral_component.py"
-
-          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
-
-          '
-        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
-          \ *\n\ndef simulate(\n    properties: Dict[str, Any],\n    output_traj_filename:\
-          \ str,\n    output_rst_filename: str,\n    output_log_filename: str,\n \
-          \   input_top_path: dsl.InputPath('Directory'),\n    input_top_filename:\
-          \ str,\n    input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
-          \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
-          \    Run a simulation with given parameters with AmberTools Sander.\n\n\
-          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
-          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
-          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
-          \    - output_log_filename: Desired name of log file.\n    - input_path:\
-          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
+          \    The same as simulate_one_input, but with two input paths which\n  \
+          \  must be different.\n\n    Required as Kubeflow throws an error if the\
+          \ same InputPath is passed\n    to two different function InputPath parameters.\n\
           \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
           \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
@@ -1050,13 +1047,13 @@ root:
           name: comp-prep-amber-to-pdb
         dependentTasks:
         - prep-amber-topology
-        - simulate-2
+        - simulate-one-input-2
         inputs:
           artifacts:
             input_minimization_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
-                producerTask: simulate-2
+                producerTask: simulate-one-input-2
             input_topology_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
@@ -1099,19 +1096,15 @@ root:
                 producerTask: fetch-pdb-protein
         taskInfo:
           name: prep-pdb-for-amber
-      simulate:
+      simulate-one-input:
         cachingOptions:
           enableCache: true
         componentRef:
-          name: comp-simulate
+          name: comp-simulate-one-input
         dependentTasks:
         - prep-amber-topology
         inputs:
           artifacts:
-            input_crd_path:
-              taskOutputArtifact:
-                outputArtifactKey: output_path
-                producerTask: prep-amber-topology
             input_top_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
@@ -1143,20 +1136,16 @@ root:
                     restraintmask: '":*&!@H="'
                   simulation_type: min_vacuo
         taskInfo:
-          name: simulate
-      simulate-2:
+          name: simulate-one-input
+      simulate-one-input-2:
         cachingOptions:
           enableCache: true
         componentRef:
-          name: comp-simulate-2
+          name: comp-simulate-one-input-2
         dependentTasks:
         - prep-amber-topology
         inputs:
           artifacts:
-            input_crd_path:
-              taskOutputArtifact:
-                outputArtifactKey: output_path
-                producerTask: prep-amber-topology
             input_top_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
@@ -1188,20 +1177,16 @@ root:
                     restraintmask: '":*&!@H="'
                   simulation_type: min_vacuo
         taskInfo:
-          name: simulate-2
-      simulate-3:
+          name: simulate-one-input-2
+      simulate-one-input-3:
         cachingOptions:
           enableCache: true
         componentRef:
-          name: comp-simulate-3
+          name: comp-simulate-one-input-3
         dependentTasks:
         - add-ions
         inputs:
           artifacts:
-            input_crd_path:
-              taskOutputArtifact:
-                outputArtifactKey: output_path
-                producerTask: add-ions
             input_top_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
@@ -1232,21 +1217,21 @@ root:
                     restraintmask: '"!:WAT,Cl-,Na+"'
                   simulation_type: minimization
         taskInfo:
-          name: simulate-3
-      simulate-4:
+          name: simulate-one-input-3
+      simulate-two-inputs:
         cachingOptions:
           enableCache: true
         componentRef:
-          name: comp-simulate-4
+          name: comp-simulate-two-inputs
         dependentTasks:
         - add-ions
-        - simulate-3
+        - simulate-one-input-3
         inputs:
           artifacts:
             input_crd_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
-                producerTask: simulate-3
+                producerTask: simulate-one-input-3
             input_top_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
@@ -1277,21 +1262,21 @@ root:
                     restraintmask: '"!:WAT,Cl-,Na+"'
                   simulation_type: heat
         taskInfo:
-          name: simulate-4
-      simulate-5:
+          name: simulate-two-inputs
+      simulate-two-inputs-2:
         cachingOptions:
           enableCache: true
         componentRef:
-          name: comp-simulate-5
+          name: comp-simulate-two-inputs-2
         dependentTasks:
         - add-ions
-        - simulate-4
+        - simulate-two-inputs
         inputs:
           artifacts:
             input_crd_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
-                producerTask: simulate-4
+                producerTask: simulate-two-inputs
             input_top_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
@@ -1322,21 +1307,21 @@ root:
                     restraintmask: '"!:WAT,Cl-,Na+ & !@H="'
                   simulation_type: nvt
         taskInfo:
-          name: simulate-5
-      simulate-6:
+          name: simulate-two-inputs-2
+      simulate-two-inputs-3:
         cachingOptions:
           enableCache: true
         componentRef:
-          name: comp-simulate-6
+          name: comp-simulate-two-inputs-3
         dependentTasks:
         - add-ions
-        - simulate-5
+        - simulate-two-inputs-2
         inputs:
           artifacts:
             input_crd_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
-                producerTask: simulate-5
+                producerTask: simulate-two-inputs-2
             input_top_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
@@ -1367,21 +1352,21 @@ root:
                     restraintmask: '"!:WAT,Cl-,Na+ & !@H="'
                   simulation_type: npt
         taskInfo:
-          name: simulate-6
-      simulate-7:
+          name: simulate-two-inputs-3
+      simulate-two-inputs-4:
         cachingOptions:
           enableCache: true
         componentRef:
-          name: comp-simulate-7
+          name: comp-simulate-two-inputs-4
         dependentTasks:
         - add-ions
-        - simulate-6
+        - simulate-two-inputs-3
         inputs:
           artifacts:
             input_crd_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
-                producerTask: simulate-6
+                producerTask: simulate-two-inputs-3
             input_top_path:
               taskOutputArtifact:
                 outputArtifactKey: output_path
@@ -1410,7 +1395,7 @@ root:
                     ntwx: 500.0
                   simulation_type: free
         taskInfo:
-          name: simulate-7
+          name: simulate-two-inputs-4
   inputDefinitions:
     parameters:
       pdb_code:

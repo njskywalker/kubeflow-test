@@ -7,14 +7,14 @@ from kfp import dsl
         packages_to_install=['biobb_amber'],
         base_image="nebjovanovic/amber_bio:latest"
 )
-def simulate(
+def simulate_one_input(
     properties: Dict[str, Any],
     output_traj_filename: str,
     output_rst_filename: str,
     output_log_filename: str,
     input_top_path: dsl.InputPath('Directory'),
     input_top_filename: str,
-    input_crd_path: dsl.InputPath('Directory'),
+    # input_crd_path: dsl.InputPath('Directory'),
     input_crd_filename: str,
     output_path: dsl.OutputPath('Directory'),
 ):
@@ -29,6 +29,75 @@ def simulate(
     - input_path: Path to input files from previous stage.
 
     Creates folder with outputs.
+    """
+
+    # NB Cannot have multiple InputPaths which are the same, this error appears:
+    # KFP driver: driver.Container(
+    #     pipelineName=test-kubeflow-pipeline, runID=24e1e2c6-e639-4f87-97ab-953608807c2e, 
+    #     task="simulate", component="comp-simulate", dagExecutionID=44, componentSpec) 
+    #     failed: rpc error: code = AlreadyExists desc = Given event already exists: 
+    #     artifact_id: 28
+    # execution_id: 48
+    # path {
+    #     steps {
+    #         key: "input_top_path_x"
+    #     }
+    # }
+
+    # Import module
+    import os
+    from biobb_amber.sander.sander_mdrun import sander_mdrun
+
+    # Modify inputs/outputs
+    input_top_path_file = input_top_path + "/" + input_top_filename # "structure.leap.top"
+    input_crd_path = input_top_path + "/" + input_crd_filename # "structure.leap.crd"
+
+    import os
+    os.makedirs(output_path, exist_ok=True)
+    # NB doesn't actually create a trajectory file output
+    # we don't need this file but can use `ntwx` param
+    # should you want it
+
+    # TODO: look into using os.path.join - but struggles with slashes?
+    # or just add a `/` here...
+    output_h_min_traj_path = output_path + "/" + output_traj_filename
+    output_h_min_rst_path = output_path + "/" + output_rst_filename
+    output_h_min_log_path = output_path + "/" + output_log_filename
+
+
+    # Create and launch bb
+    sander_mdrun(
+        input_top_path=input_top_path_file,
+        input_crd_path=input_crd_path,
+        input_ref_path=input_crd_path,
+        output_traj_path=output_h_min_traj_path,
+        output_rst_path=output_h_min_rst_path,
+        output_log_path=output_h_min_log_path,
+        properties=properties
+    )
+
+
+@dsl.component(
+        packages_to_install=['biobb_amber'],
+        base_image="nebjovanovic/amber_bio:latest"
+)
+def simulate_two_inputs(
+    properties: Dict[str, Any],
+    output_traj_filename: str,
+    output_rst_filename: str,
+    output_log_filename: str,
+    input_top_path: dsl.InputPath('Directory'),
+    input_top_filename: str,
+    input_crd_path: dsl.InputPath('Directory'),
+    input_crd_filename: str,
+    output_path: dsl.OutputPath('Directory'),
+):
+    """
+    The same as simulate_one_input, but with two input paths which
+    must be different.
+
+    Required as Kubeflow throws an error if the same InputPath is passed
+    to two different function InputPath parameters.
     """
 
     # Import module
