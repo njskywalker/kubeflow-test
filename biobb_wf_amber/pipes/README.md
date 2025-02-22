@@ -27,7 +27,6 @@ local (minikube-based) KFlow Pipelines UI.
 
 First, build and run the compiler:
 ```bash
-make build
 make compile
 ```
 
@@ -53,14 +52,6 @@ with the `minio/minio123` default credentials:
 make port-forward-minio
 ```
 
-Optionally, install the CLI to access MinIO directly from terminal, instead of
-port forwarding  (Brew or Snap for macOS / Linux respectively). Then, configure
-to talk to KFlow's instance:
-
-```bash
-mc config host add minio http://localhost:9000 minio minio123
-```
-
 ## Frustrations
 
 1. Had to install `kfp` through `pip` instead of `conda`
@@ -77,7 +68,9 @@ they don't get imported until `import` is invoked (and compiler doesn't run
 functions only trawls them to make the YAML)
 6. Kubeflow idiosyncracies - e.g. typehinted returns in functions create an
 `Output` file expectation, and if you don't have this, pod fails (was a red
-herring for a while)
+herring for a while); or `workflow-controller` default listening on :9090
+(just like `metadata-envoy`) which makes it `CrashLoopBackOff` unless you
+kill it and hope it binds first / change Deployment manifest, etc.
 7. Silent fails and opaque deps. E.g. `biobb_amber` force field process requires
 `AMBERHOME` env var, presumably set by AmberTools? But has nonexistent error
 handling, so have to debug inside pods...
@@ -104,15 +97,25 @@ Options considered:
 
 ## Todo
 
+1. Create a config `yaml` to load into `pipeline.py` for each function
+(making code more readable)
+
 ### More technical
 1. Download and explore Kubeflow Pipeline manifests, edit and modify to
-desired spec and deploy from there
+desired spec and deploy from there to trim unused resources
 2. Trim fat of custom AMBER + `biobb` Docker image (don't need to download
 all dependencies) to minimise build time, memory usage etc. **or** debug 
 already provided images (from `biobb` repos) to find why they don't work.
 3. AMBER seems really clunky and delicate, could we explore moving away
 from it or at least developing better knowledge of it and its requirements?
-4. (Domain specific) What tracking / metrics do we exactly care about?
+4. Create a custom package to import to all containers with common code
+(e.g. having a `_simulate()` method to promote DRY, instead of having both
+`simulate_one_input` and `simulate_two_inputs`)
+5. Investigate custom file extensions for `InputPath` and `OutputPath`
+type hints. Seems possible but may need subclassing `Artifact` and
+importing that logic into Docker images / forking or contributing to KFP
+X. (Domain specific) What tracking / metrics do we exactly care about?
+
 
 ### More business / (internal) customer-focused
 1. Why are we making this (or a similar) pipeline, e.g. will the model 
@@ -121,4 +124,10 @@ dynamics sims) or is it a component in future pipelines (e.g. protein:ligand
 interactions simulations)
 2. What infrastructure do we already have?
 3. What similar pipelines / workflows do we have? What can we refactor and abstract?
-4. How much of this process can be automate? E.g. 
+4. How much of this process can we automate?
+
+### Nitpicks
+1. Use a better package manager like `uv` over `pip`/`conda` :)
+2. Linting, formatting, import checks etc. in Make / Taskfile (e.g. ruff, black, flake8)
+3. 
+

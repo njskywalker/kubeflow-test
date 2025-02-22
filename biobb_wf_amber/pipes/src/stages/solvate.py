@@ -3,8 +3,8 @@
 from kfp import dsl
 
 @dsl.component(
-        packages_to_install=['biobb_amber'],
-        base_image="nebjovanovic/amber_bio:latest"
+        # packages_to_install=['biobb_amber'],
+        base_image="amber_bio:latest"
 )
 def create_water_box(
         output_solv_pdb_filename: str,
@@ -20,6 +20,9 @@ def create_water_box(
     # Import modules
     import os
     from biobb_amber.leap.leap_solvate import leap_solvate
+
+    if os.getenv("AMBERHOME") is None:
+        os.environ["AMBERHOME"] = "/opt/conda"
 
     # Inputs and outputs
     input_pdb_path = input_path + "/" + 'structure.ambpdb.pdb'
@@ -47,7 +50,7 @@ def create_water_box(
 
 @dsl.component(
         packages_to_install=['biobb_amber'],
-        base_image="nebjovanovic/amber_bio:latest"
+        base_image="amber_bio:latest"
 )
 def add_ions(
         properties: dict,
@@ -62,6 +65,9 @@ def add_ions(
     # Import modules
     import os
     from biobb_amber.leap.leap_add_ions import leap_add_ions
+
+    if os.getenv("AMBERHOME") is None:
+        os.environ["AMBERHOME"] = "/opt/conda"
 
     # Create prop dict and inputs/outputs
     input_pdb_path = input_path + "/" + "structure.solv.pdb"

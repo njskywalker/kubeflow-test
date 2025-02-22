@@ -5,4 +5,4 @@ build/*
 dist/*
 
 # For local testing of functionality
-docker/mount/*
+# docker/mount/*

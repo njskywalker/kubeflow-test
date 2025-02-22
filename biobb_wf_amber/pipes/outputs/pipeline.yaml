@@ -350,16 +350,17 @@ deploymentSpec:
           \ str,\n        input_path: dsl.InputPath('Directory'),\n        output_path:\
           \ dsl.OutputPath('Directory'),\n):\n    \"\"\"Adds ions in solvated water\
           \ box.\"\"\"\n\n    # Import modules\n    import os\n    from biobb_amber.leap.leap_add_ions\
-          \ import leap_add_ions\n\n    # Create prop dict and inputs/outputs\n  \
-          \  input_pdb_path = input_path + \"/\" + \"structure.solv.pdb\"\n    os.makedirs(output_path,\
-          \ exist_ok=True)\n    output_ions_pdb_path = output_path + \"/\" + output_ions_pdb_filename\n\
-          \    output_ions_top_path = output_path + \"/\" + output_ions_top_filename\n\
-          \    output_ions_crd_path = output_path + \"/\" + output_ions_crd_filename\n\
-          \n    # Create and launch bb\n    leap_add_ions(input_pdb_path=input_pdb_path,\n\
-          \            output_pdb_path=output_ions_pdb_path,\n            output_top_path=output_ions_top_path,\n\
-          \            output_crd_path=output_ions_crd_path,\n            properties=properties)\n\
-          \n"
-        image: nebjovanovic/amber_bio:latest
+          \ import leap_add_ions\n\n    if os.getenv(\"AMBERHOME\") is None:\n   \
+          \     os.environ[\"AMBERHOME\"] = \"/opt/conda\"\n\n    # Create prop dict\
+          \ and inputs/outputs\n    input_pdb_path = input_path + \"/\" + \"structure.solv.pdb\"\
+          \n    os.makedirs(output_path, exist_ok=True)\n    output_ions_pdb_path\
+          \ = output_path + \"/\" + output_ions_pdb_filename\n    output_ions_top_path\
+          \ = output_path + \"/\" + output_ions_top_filename\n    output_ions_crd_path\
+          \ = output_path + \"/\" + output_ions_crd_filename\n\n    # Create and launch\
+          \ bb\n    leap_add_ions(input_pdb_path=input_pdb_path,\n            output_pdb_path=output_ions_pdb_path,\n\
+          \            output_top_path=output_ions_top_path,\n            output_crd_path=output_ions_crd_path,\n\
+          \            properties=properties)\n\n"
+        image: amber_bio:latest
     exec-create-water-box:
       container:
         args:
@@ -373,9 +374,8 @@ deploymentSpec:
         - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' && \"\
+          $0\" \"$@\"\n"
         - sh
         - -ec
         - 'program_path=$(mktemp -d)
@@ -393,8 +393,9 @@ deploymentSpec:
           \        output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"Creates\
           \ a unit cell around protein (PBD input filepath)\n    and solvates with\
           \ water.\"\"\"\n\n    # Import modules\n    import os\n    from biobb_amber.leap.leap_solvate\
-          \ import leap_solvate\n\n    # Inputs and outputs\n    input_pdb_path =\
-          \ input_path + \"/\" + 'structure.ambpdb.pdb'\n    os.makedirs(output_path,\
+          \ import leap_solvate\n\n    if os.getenv(\"AMBERHOME\") is None:\n    \
+          \    os.environ[\"AMBERHOME\"] = \"/opt/conda\"\n\n    # Inputs and outputs\n\
+          \    input_pdb_path = input_path + \"/\" + 'structure.ambpdb.pdb'\n    os.makedirs(output_path,\
           \ exist_ok=True)\n    output_solv_pdb_path = output_path + \"/\" + output_solv_pdb_filename\n\
           \    output_solv_top_path = output_path + \"/\" + output_solv_top_filename\n\
           \    output_solv_crd_path = output_path + \"/\" + output_solv_crd_filename\n\
@@ -405,7 +406,7 @@ deploymentSpec:
           \  output_pdb_path=output_solv_pdb_path,\n        output_top_path=output_solv_top_path,\n\
           \        output_crd_path=output_solv_crd_path,\n        properties=properties\n\
           \    )\n\n"
-        image: nebjovanovic/amber_bio:latest
+        image: amber_bio:latest
     exec-fetch-pdb-protein:
       container:
         args:
@@ -454,9 +455,8 @@ deploymentSpec:
         - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' && \"\
+          $0\" \"$@\"\n"
         - sh
         - -ec
         - 'program_path=$(mktemp -d)
@@ -480,7 +480,7 @@ deploymentSpec:
           \ Create and launch bb\n    amber_to_pdb(\n        input_top_path=input_top_path,\n\
           \        input_crd_path=input_crd_path,\n        output_pdb_path=output_ambpdb_path\n\
           \    )\n\n"
-        image: nebjovanovic/amber_bio:latest
+        image: amber_bio:latest
     exec-prep-amber-topology:
       container:
         args:
@@ -494,9 +494,8 @@ deploymentSpec:
         - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' && \"\
+          $0\" \"$@\"\n"
         - sh
         - -ec
         - 'program_path=$(mktemp -d)
@@ -514,15 +513,18 @@ deploymentSpec:
           \ path.\n\n    Returns a dictionary of three filepaths for output PDB, \n\
           \    AMBER topology (top) and coordinate (crd) files.\"\"\"\n\n    # Import\
           \ module\n    import os\n    from biobb_amber.leap.leap_gen_top import leap_gen_top\n\
-          \n    # Paths\n    os.makedirs(output_path, exist_ok=True)\n    input_pdb_path\
-          \ = input_path + '/structure.pdb4amber.pdb'\n    output_pdb_path = output_path\
-          \ + '/structure.leap.pdb'\n    output_top_path = output_path + '/structure.leap.top'\n\
-          \    output_crd_path = output_path + '/structure.leap.crd'\n\n    # Create\
-          \ and launch bb\n    leap_gen_top(\n        input_pdb_path=input_pdb_path,\
+          \n    # Workaround because image is buggy\n    # Doesn't recognise AMBERHOME\
+          \ for some reason\n    # Even though running image in terminal works...\n\
+          \    if os.getenv(\"AMBERHOME\") is None:\n        os.environ[\"AMBERHOME\"\
+          ] = \"/opt/conda\"\n\n    # Paths\n    os.makedirs(output_path, exist_ok=True)\n\
+          \    input_pdb_path = input_path + '/structure.pdb4amber.pdb'\n    output_pdb_path\
+          \ = output_path + '/structure.leap.pdb'\n    output_top_path = output_path\
+          \ + '/structure.leap.top'\n    output_crd_path = output_path + '/structure.leap.crd'\n\
+          \n    # Create and launch bb\n    leap_gen_top(\n        input_pdb_path=input_pdb_path,\
           \ \n        output_pdb_path=output_pdb_path, \n        output_top_path=output_top_path,\
           \ \n        output_crd_path=output_crd_path, \n        properties=properties\n\
           \    )\n\n"
-        image: nebjovanovic/amber_bio:latest
+        image: amber_bio:latest
     exec-prep-pdb-for-amber:
       container:
         args:
@@ -574,9 +576,8 @@ deploymentSpec:
         - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' && \"\
+          $0\" \"$@\"\n"
         - sh
         - -ec
         - 'program_path=$(mktemp -d)
@@ -594,35 +595,35 @@ deploymentSpec:
           \ str,\n    # input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
           \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
           \    Run a simulation with given parameters with AmberTools Sander.\n\n\
-          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
-          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
-          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
-          \    - output_log_filename: Desired name of log file.\n    - input_path:\
-          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
-          \    \"\"\"\n\n    # NB Cannot have multiple InputPaths which are the same,\
-          \ this error appears:\n    # KFP driver: driver.Container(\n    #     pipelineName=test-kubeflow-pipeline,\
-          \ runID=24e1e2c6-e639-4f87-97ab-953608807c2e, \n    #     task=\"simulate\"\
-          , component=\"comp-simulate\", dagExecutionID=44, componentSpec) \n    #\
-          \     failed: rpc error: code = AlreadyExists desc = Given event already\
-          \ exists: \n    #     artifact_id: 28\n    # execution_id: 48\n    # path\
-          \ {\n    #     steps {\n    #         key: \"input_top_path_x\"\n    # \
-          \    }\n    # }\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path_file\
+          \    Accepts only one input path, as a Kubeflow Go component throws an error\
+          \ \n    if the same InputPath is passed to two different function InputPath\
+          \ parameters.\n    Example:\n\n    # KFP driver: driver.Container(\n   \
+          \ #     pipelineName=test-kubeflow-pipeline, runID=24e1e2c6-e639-4f87-97ab-953608807c2e,\
+          \ \n    #     task=\"simulate\", component=\"comp-simulate\", dagExecutionID=44,\
+          \ componentSpec) \n    #     failed: rpc error: code = AlreadyExists desc\
+          \ = Given event already exists: \n    #     artifact_id: 28\n    # execution_id:\
+          \ 48\n    # path {\n    #     steps {\n    #         key: \"input_top_path_x\"\
+          \n    #     }\n    # }\n\n    Inputs:\n    - properties: Dict containing\
+          \ simulation parameters.\n    - output_traj_filename: Desired name of trajectory\
+          \ file. (NB May not be created)\n    - output_rst_filename: Desired name\
+          \ of restart file.\n    - output_log_filename: Desired name of log file.\n\
+          \    - input_path: Path to input files from previous stage.\n\n    Creates\
+          \ folder with outputs.\n    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
-          \n    input_crd_path = input_top_path + \"/\" + input_crd_filename # \"\
-          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
-          \    # NB doesn't actually create a trajectory file output\n    # we don't\
-          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \n    input_crd_path_complete = input_top_path + \"/\" + input_crd_filename\
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
+          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
           \    # TODO: look into using os.path.join - but struggles with slashes?\n\
           \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
           \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
           \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
           \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path_file,\n        input_crd_path=input_crd_path,\n\
-          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
+          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
-        image: nebjovanovic/amber_bio:latest
+        image: amber_bio:latest
     exec-simulate-one-input-2:
       container:
         args:
@@ -636,9 +637,8 @@ deploymentSpec:
         - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' && \"\
+          $0\" \"$@\"\n"
         - sh
         - -ec
         - 'program_path=$(mktemp -d)
@@ -656,35 +656,35 @@ deploymentSpec:
           \ str,\n    # input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
           \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
           \    Run a simulation with given parameters with AmberTools Sander.\n\n\
-          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
-          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
-          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
-          \    - output_log_filename: Desired name of log file.\n    - input_path:\
-          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
-          \    \"\"\"\n\n    # NB Cannot have multiple InputPaths which are the same,\
-          \ this error appears:\n    # KFP driver: driver.Container(\n    #     pipelineName=test-kubeflow-pipeline,\
-          \ runID=24e1e2c6-e639-4f87-97ab-953608807c2e, \n    #     task=\"simulate\"\
-          , component=\"comp-simulate\", dagExecutionID=44, componentSpec) \n    #\
-          \     failed: rpc error: code = AlreadyExists desc = Given event already\
-          \ exists: \n    #     artifact_id: 28\n    # execution_id: 48\n    # path\
-          \ {\n    #     steps {\n    #         key: \"input_top_path_x\"\n    # \
-          \    }\n    # }\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path_file\
+          \    Accepts only one input path, as a Kubeflow Go component throws an error\
+          \ \n    if the same InputPath is passed to two different function InputPath\
+          \ parameters.\n    Example:\n\n    # KFP driver: driver.Container(\n   \
+          \ #     pipelineName=test-kubeflow-pipeline, runID=24e1e2c6-e639-4f87-97ab-953608807c2e,\
+          \ \n    #     task=\"simulate\", component=\"comp-simulate\", dagExecutionID=44,\
+          \ componentSpec) \n    #     failed: rpc error: code = AlreadyExists desc\
+          \ = Given event already exists: \n    #     artifact_id: 28\n    # execution_id:\
+          \ 48\n    # path {\n    #     steps {\n    #         key: \"input_top_path_x\"\
+          \n    #     }\n    # }\n\n    Inputs:\n    - properties: Dict containing\
+          \ simulation parameters.\n    - output_traj_filename: Desired name of trajectory\
+          \ file. (NB May not be created)\n    - output_rst_filename: Desired name\
+          \ of restart file.\n    - output_log_filename: Desired name of log file.\n\
+          \    - input_path: Path to input files from previous stage.\n\n    Creates\
+          \ folder with outputs.\n    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
-          \n    input_crd_path = input_top_path + \"/\" + input_crd_filename # \"\
-          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
-          \    # NB doesn't actually create a trajectory file output\n    # we don't\
-          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \n    input_crd_path_complete = input_top_path + \"/\" + input_crd_filename\
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
+          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
           \    # TODO: look into using os.path.join - but struggles with slashes?\n\
           \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
           \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
           \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
           \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path_file,\n        input_crd_path=input_crd_path,\n\
-          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
+          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
-        image: nebjovanovic/amber_bio:latest
+        image: amber_bio:latest
     exec-simulate-one-input-3:
       container:
         args:
@@ -698,9 +698,8 @@ deploymentSpec:
         - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' && \"\
+          $0\" \"$@\"\n"
         - sh
         - -ec
         - 'program_path=$(mktemp -d)
@@ -718,35 +717,35 @@ deploymentSpec:
           \ str,\n    # input_crd_path: dsl.InputPath('Directory'),\n    input_crd_filename:\
           \ str,\n    output_path: dsl.OutputPath('Directory'),\n):\n    \"\"\"\n\
           \    Run a simulation with given parameters with AmberTools Sander.\n\n\
-          \    Inputs:\n    - properties: Dict containing simulation parameters.\n\
-          \    - output_traj_filename: Desired name of trajectory file. (NB May not\
-          \ be created)\n    - output_rst_filename: Desired name of restart file.\n\
-          \    - output_log_filename: Desired name of log file.\n    - input_path:\
-          \ Path to input files from previous stage.\n\n    Creates folder with outputs.\n\
-          \    \"\"\"\n\n    # NB Cannot have multiple InputPaths which are the same,\
-          \ this error appears:\n    # KFP driver: driver.Container(\n    #     pipelineName=test-kubeflow-pipeline,\
-          \ runID=24e1e2c6-e639-4f87-97ab-953608807c2e, \n    #     task=\"simulate\"\
-          , component=\"comp-simulate\", dagExecutionID=44, componentSpec) \n    #\
-          \     failed: rpc error: code = AlreadyExists desc = Given event already\
-          \ exists: \n    #     artifact_id: 28\n    # execution_id: 48\n    # path\
-          \ {\n    #     steps {\n    #         key: \"input_top_path_x\"\n    # \
-          \    }\n    # }\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path_file\
+          \    Accepts only one input path, as a Kubeflow Go component throws an error\
+          \ \n    if the same InputPath is passed to two different function InputPath\
+          \ parameters.\n    Example:\n\n    # KFP driver: driver.Container(\n   \
+          \ #     pipelineName=test-kubeflow-pipeline, runID=24e1e2c6-e639-4f87-97ab-953608807c2e,\
+          \ \n    #     task=\"simulate\", component=\"comp-simulate\", dagExecutionID=44,\
+          \ componentSpec) \n    #     failed: rpc error: code = AlreadyExists desc\
+          \ = Given event already exists: \n    #     artifact_id: 28\n    # execution_id:\
+          \ 48\n    # path {\n    #     steps {\n    #         key: \"input_top_path_x\"\
+          \n    #     }\n    # }\n\n    Inputs:\n    - properties: Dict containing\
+          \ simulation parameters.\n    - output_traj_filename: Desired name of trajectory\
+          \ file. (NB May not be created)\n    - output_rst_filename: Desired name\
+          \ of restart file.\n    - output_log_filename: Desired name of log file.\n\
+          \    - input_path: Path to input files from previous stage.\n\n    Creates\
+          \ folder with outputs.\n    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
-          \n    input_crd_path = input_top_path + \"/\" + input_crd_filename # \"\
-          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
-          \    # NB doesn't actually create a trajectory file output\n    # we don't\
-          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \n    input_crd_path_complete = input_top_path + \"/\" + input_crd_filename\
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
+          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
           \    # TODO: look into using os.path.join - but struggles with slashes?\n\
           \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
           \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
           \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
           \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path_file,\n        input_crd_path=input_crd_path,\n\
-          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
+          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
-        image: nebjovanovic/amber_bio:latest
+        image: amber_bio:latest
     exec-simulate-two-inputs:
       container:
         args:
@@ -760,9 +759,8 @@ deploymentSpec:
         - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' && \"\
+          $0\" \"$@\"\n"
         - sh
         - -ec
         - 'program_path=$(mktemp -d)
@@ -782,23 +780,22 @@ deploymentSpec:
           \    The same as simulate_one_input, but with two input paths which\n  \
           \  must be different.\n\n    Required as Kubeflow throws an error if the\
           \ same InputPath is passed\n    to two different function InputPath parameters.\n\
-          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
+          \    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
-          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
-          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
-          \    # NB doesn't actually create a trajectory file output\n    # we don't\
-          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \n    input_crd_path_complete = input_crd_path + \"/\" + input_crd_filename\
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
+          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
           \    # TODO: look into using os.path.join - but struggles with slashes?\n\
           \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
           \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
           \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
           \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
-          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
+          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
-        image: nebjovanovic/amber_bio:latest
+        image: amber_bio:latest
     exec-simulate-two-inputs-2:
       container:
         args:
@@ -812,9 +809,8 @@ deploymentSpec:
         - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' && \"\
+          $0\" \"$@\"\n"
         - sh
         - -ec
         - 'program_path=$(mktemp -d)
@@ -834,23 +830,22 @@ deploymentSpec:
           \    The same as simulate_one_input, but with two input paths which\n  \
           \  must be different.\n\n    Required as Kubeflow throws an error if the\
           \ same InputPath is passed\n    to two different function InputPath parameters.\n\
-          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
+          \    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
-          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
-          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
-          \    # NB doesn't actually create a trajectory file output\n    # we don't\
-          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \n    input_crd_path_complete = input_crd_path + \"/\" + input_crd_filename\
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
+          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
           \    # TODO: look into using os.path.join - but struggles with slashes?\n\
           \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
           \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
           \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
           \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
-          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
+          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
-        image: nebjovanovic/amber_bio:latest
+        image: amber_bio:latest
     exec-simulate-two-inputs-3:
       container:
         args:
@@ -864,9 +859,8 @@ deploymentSpec:
         - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' && \"\
+          $0\" \"$@\"\n"
         - sh
         - -ec
         - 'program_path=$(mktemp -d)
@@ -886,23 +880,22 @@ deploymentSpec:
           \    The same as simulate_one_input, but with two input paths which\n  \
           \  must be different.\n\n    Required as Kubeflow throws an error if the\
           \ same InputPath is passed\n    to two different function InputPath parameters.\n\
-          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
+          \    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
-          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
-          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
-          \    # NB doesn't actually create a trajectory file output\n    # we don't\
-          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \n    input_crd_path_complete = input_crd_path + \"/\" + input_crd_filename\
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
+          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
           \    # TODO: look into using os.path.join - but struggles with slashes?\n\
           \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
           \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
           \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
           \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
-          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
+          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
-        image: nebjovanovic/amber_bio:latest
+        image: amber_bio:latest
     exec-simulate-two-inputs-4:
       container:
         args:
@@ -916,9 +909,8 @@ deploymentSpec:
         - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
-          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'biobb_amber'\
-          \ && \"$0\" \"$@\"\n"
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' && \"\
+          $0\" \"$@\"\n"
         - sh
         - -ec
         - 'program_path=$(mktemp -d)
@@ -938,23 +930,22 @@ deploymentSpec:
           \    The same as simulate_one_input, but with two input paths which\n  \
           \  must be different.\n\n    Required as Kubeflow throws an error if the\
           \ same InputPath is passed\n    to two different function InputPath parameters.\n\
-          \    \"\"\"\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    # Modify inputs/outputs\n    input_top_path\
+          \    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
-          \n    input_crd_path = input_crd_path + \"/\" + input_crd_filename # \"\
-          structure.leap.crd\"\n\n    import os\n    os.makedirs(output_path, exist_ok=True)\n\
-          \    # NB doesn't actually create a trajectory file output\n    # we don't\
-          \ need this file but can use `ntwx` param\n    # should you want it\n\n\
+          \n    input_crd_path_complete = input_crd_path + \"/\" + input_crd_filename\
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
+          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
+          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
           \    # TODO: look into using os.path.join - but struggles with slashes?\n\
           \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
           \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
           \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
           \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path,\n        input_crd_path=input_crd_path,\n\
-          \        input_ref_path=input_crd_path,\n        output_traj_path=output_h_min_traj_path,\n\
+          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
+          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
           \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
           \        properties=properties\n    )\n\n"
-        image: nebjovanovic/amber_bio:latest
+        image: amber_bio:latest
 pipelineInfo:
   description: General pipeline for MD setup given PDB ID.
   name: test-kubeflow-pipeline
@@ -1402,3 +1393,30 @@ root:
         parameterType: STRING
 schemaVersion: 2.1.0
 sdkVersion: kfp-2.11.0
+---
+platforms:
+  kubernetes:
+    deploymentSpec:
+      executors:
+        exec-add-ions:
+          imagePullPolicy: Never
+        exec-create-water-box:
+          imagePullPolicy: Never
+        exec-prep-amber-to-pdb:
+          imagePullPolicy: Never
+        exec-prep-amber-topology:
+          imagePullPolicy: Never
+        exec-simulate-one-input:
+          imagePullPolicy: Never
+        exec-simulate-one-input-2:
+          imagePullPolicy: Never
+        exec-simulate-one-input-3:
+          imagePullPolicy: Never
+        exec-simulate-two-inputs:
+          imagePullPolicy: Never
+        exec-simulate-two-inputs-2:
+          imagePullPolicy: Never
+        exec-simulate-two-inputs-3:
+          imagePullPolicy: Never
+        exec-simulate-two-inputs-4:
+          imagePullPolicy: Never

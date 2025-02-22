@@ -2,6 +2,7 @@ import os
 import kfp.dsl as dsl
 # from kfp import Client
 from kfp.compiler import Compiler
+from kfp import kubernetes
 
 from stages.fetch import fetch_pdb_protein
 from stages.prepare import prep_pdb_for_amber, prep_amber_topology, prep_amber_to_pdb
@@ -20,10 +21,12 @@ def pipeline(pdb_code: str):
 
     # Data preparation
     prepare_task = prep_pdb_for_amber(input_pdb_dir_path=fetch_pdb_protein_task.outputs['output_path'])
+
     topology_task = prep_amber_topology(
         input_path=prepare_task.outputs['output_amber_dir_path'],
-        properties={"forcefield" : ["protein.ff14SB"]}
+        properties={"forcefield" : ["protein.ff14SB"]},
     )
+    kubernetes.set_image_pull_policy(task=topology_task, policy="Never")
 
     # Minimization / simulation steps
     # Brings system closer to "feasible" "realistic" starting point
@@ -46,6 +49,7 @@ def pipeline(pdb_code: str):
         output_rst_filename='sander.h_min.rst',
         output_log_filename='sander.h_min.log',
     )
+    kubernetes.set_image_pull_policy(task=hydrogen_minimization_task, policy="Never")
     # TODO: parallelisable analysis steps (to create graphs, pngs etc.)
 
     # TODO: This is exactly the same task as above, is this just
@@ -69,11 +73,13 @@ def pipeline(pdb_code: str):
         input_top_filename="structure.leap.top",
         input_crd_filename="structure.leap.crd",
     )
+    kubernetes.set_image_pull_policy(task=system_minimization_task, policy="Never")
 
     amber_to_pdb_task = prep_amber_to_pdb(
         input_topology_path=topology_task.outputs['output_path'],
         input_minimization_path=system_minimization_task.outputs['output_path'],
     )
+    kubernetes.set_image_pull_policy(task=amber_to_pdb_task, policy="Never")
     
     # solvate
     water_box_task = create_water_box(
@@ -88,6 +94,7 @@ def pipeline(pdb_code: str):
         output_solv_top_filename='structure.solv.parmtop',
         output_solv_crd_filename='structure.solv.crd',
     )
+    kubernetes.set_image_pull_policy(task=water_box_task, policy="Never")
 
     # ionate
     add_ions_task = add_ions(
@@ -104,8 +111,7 @@ def pipeline(pdb_code: str):
         output_ions_top_filename='structure.ions.parmtop',
         output_ions_crd_filename='structure.ions.crd',
     )
-
-
+    kubernetes.set_image_pull_policy(task=add_ions_task, policy="Never")
 
     # minimize
     steepest_descent_task = simulate_one_input(
@@ -126,6 +132,7 @@ def pipeline(pdb_code: str):
         input_top_filename="structure.ions.parmtop",
         input_crd_filename="structure.ions.crd",
     )
+    kubernetes.set_image_pull_policy(task=steepest_descent_task, policy="Never")
 
     # heat
     heating_task = simulate_two_inputs(
@@ -146,6 +153,7 @@ def pipeline(pdb_code: str):
         input_crd_path=steepest_descent_task.outputs['output_path'],
         input_crd_filename="sander.min.rst",
     )
+    kubernetes.set_image_pull_policy(task=heating_task, policy="Never")
 
     # nvt
     nvt_simulation_task = simulate_two_inputs(
@@ -166,6 +174,7 @@ def pipeline(pdb_code: str):
         input_crd_path=heating_task.outputs['output_path'],
         input_crd_filename="sander.heat.rst",
     )
+    kubernetes.set_image_pull_policy(task=nvt_simulation_task, policy="Never")
 
     # npt
     npt_simulation_task = simulate_two_inputs(
@@ -186,6 +195,7 @@ def pipeline(pdb_code: str):
         input_crd_path=nvt_simulation_task.outputs['output_path'],
         input_crd_filename="sander.nvt.rst",
     )
+    kubernetes.set_image_pull_policy(task=npt_simulation_task, policy="Never")
 
     # simulate (Free MD)
     free_simulation_task = simulate_two_inputs(
@@ -204,6 +214,7 @@ def pipeline(pdb_code: str):
         input_crd_path=npt_simulation_task.outputs['output_path'],
         input_crd_filename="sander.npt.rst",
     )
+    kubernetes.set_image_pull_policy(task=free_simulation_task, policy="Never")
 
 
 

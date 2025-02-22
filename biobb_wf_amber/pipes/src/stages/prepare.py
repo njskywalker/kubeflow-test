@@ -34,11 +34,11 @@ def prep_pdb_for_amber(
 
 
 @dsl.component(
-        packages_to_install=['biobb_amber'],
+        # packages_to_install=['biobb_amber'],
         # base_image="quay.io/biocontainers/biobb_amber:5.0.4--pyhdfd78af_0",
         # above also doesn't work, but combining with own image
         # installs `tleap` ctl which is needed for `leap_gen_top`
-        base_image="nebjovanovic/amber_bio:latest"
+        base_image="amber_bio:latest"
 )
 def prep_amber_topology(
     properties: Dict[str, Any],
@@ -53,6 +53,12 @@ def prep_amber_topology(
     # Import module
     import os
     from biobb_amber.leap.leap_gen_top import leap_gen_top
+
+    # Workaround because image is buggy
+    # Doesn't recognise AMBERHOME for some reason
+    # Even though running image in terminal works...
+    if os.getenv("AMBERHOME") is None:
+        os.environ["AMBERHOME"] = "/opt/conda"
 
     # Paths
     os.makedirs(output_path, exist_ok=True)
@@ -72,8 +78,8 @@ def prep_amber_topology(
     
 
 @dsl.component(
-        packages_to_install=['biobb_amber'],
-        base_image="nebjovanovic/amber_bio:latest"
+        # packages_to_install=['biobb_amber'],
+        base_image="amber_bio:latest"
 )
 def prep_amber_to_pdb(
     input_topology_path: dsl.InputPath('Directory'),

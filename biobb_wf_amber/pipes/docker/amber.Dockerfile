@@ -7,16 +7,21 @@ RUN mkdir -p ~/miniconda3 && \
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh && \
     bash ~/miniconda3/miniconda.sh -b -u -p /opt/conda && \
     rm ~/miniconda3/miniconda.sh
-ENV PATH=/opt/conda/bin:$PATH
+RUN echo "export PATH=/opt/conda/bin:$PATH" > ~/.bashrc
 
 # create & activate conda environment
 COPY env/conda_env.yml /tmp/conda_env.yml
-RUN conda env create -f /tmp/conda_env.yml && rm /tmp/conda_env.yml
-RUN echo "conda activate biobb_wf_amber" > ~/.bashrc
+RUN conda env update -f /tmp/conda_env.yml && rm /tmp/conda_env.yml
 
 FROM base AS final
 
+RUN echo "export PATH=/opt/conda/bin:$PATH" > ~/.bashrc
 RUN conda init bash
-ENV PATH=/opt/conda/bin:$PATH
 
-ENTRYPOINT [ "/bin/bash", "--login", "-c", "conda init bash && . ~/.bashrc && conda activate biobb_wf_amber"]
+COPY src/stages/simulate.py /simulate.py
+
+# in case we need to debug the container
+COPY docker/mount/debug /mount/debug
+
+# ENTRYPOINT [ "/bin/bash", "--login", "-c", "conda init bash && . ~/.bashrc && source activate biobb_wf_amber && conda info --envs"]
+ENTRYPOINT [ "/bin/bash", "--login", "-c"]
