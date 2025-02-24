@@ -8,7 +8,7 @@ export KFP_PLATFORM:=platform-agnostic-emissary
 
 setup-minikube:
 	# Start minikube
-	minikube start --insecure-registry "localhost:5000" --cpus=4 --memory=8192
+	minikube start --cpus=4 --memory=8192
 	minikube addons enable registry
 
 	# Install kubeflow pipelines

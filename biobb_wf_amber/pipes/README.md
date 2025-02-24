@@ -58,6 +58,8 @@ make port-forward-minio
 as otherwise internal imports failed (`requests_toolbox.appengine`)
 2. O God. Never use WSL. Just invest in a Mac
 3. "When you're going through Dependency Hell, keep going" -- Winston Churchill
+3B. Conda environment activation within Docker images is probably harder
+to solve than quantum gravity
 4. `OutputPath`: took me a while to use `Directory` type as thought it 
 was filepaths only -> was defining a custom `dsl.Artifact` subclass for `.pdb`
 files (which had to be imported into pipe image as a package) and all sorts of 
@@ -70,7 +72,9 @@ functions only trawls them to make the YAML)
 `Output` file expectation, and if you don't have this, pod fails (was a red
 herring for a while); or `workflow-controller` default listening on :9090
 (just like `metadata-envoy`) which makes it `CrashLoopBackOff` unless you
-kill it and hope it binds first / change Deployment manifest, etc.
+kill it and hope it binds first / change Deployment manifest, etc.;
+kubeflow pipelines failing to start (didn't debug this, restarting minikube
+cluster works)
 7. Silent fails and opaque deps. E.g. `biobb_amber` force field process requires
 `AMBERHOME` env var, presumably set by AmberTools? But has nonexistent error
 handling, so have to debug inside pods...

@@ -53,10 +53,12 @@ def prep_amber_topology(
     # Import module
     import os
     from biobb_amber.leap.leap_gen_top import leap_gen_top
+    import subprocess
 
     # Workaround because image is buggy
-    # Doesn't recognise AMBERHOME for some reason
-    # Even though running image in terminal works...
+    # Not sure how it loads conda venv (or doesn't)
+    # Perhaps custom entrypoint used? Flushing env?
+    # Need more debugging
     if os.getenv("AMBERHOME") is None:
         os.environ["AMBERHOME"] = "/opt/conda"
 

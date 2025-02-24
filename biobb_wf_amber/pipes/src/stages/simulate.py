@@ -3,17 +3,6 @@
 from typing import Dict, Any
 from kfp import dsl
 
-# def _simulate(
-#     input_top_path_complete: str,
-#     input_crd_path_complete: str,
-#     output_path: str,
-#     output_traj_filename: str,
-#     output_rst_filename: str,
-#     output_log_filename: str,
-#     properties: Dict[str, Any]
-# ):
-    
-
 
 @dsl.component(
         # packages_to_install=['biobb_amber'],
@@ -63,7 +52,7 @@ def simulate_one_input(
     input_top_path_complete = input_top_path + "/" + input_top_filename # "structure.leap.top"
     input_crd_path_complete = input_top_path + "/" + input_crd_filename # "structure.leap.crd"
 
-    # Import shenanigans
+    # Import shenanigans - if packaged could refactor!
     # from simulate import _simulate
 
     # Import module
@@ -118,7 +107,7 @@ def simulate_two_inputs(
     input_top_path_complete = input_top_path + "/" + input_top_filename # "structure.leap.top"
     input_crd_path_complete = input_crd_path + "/" + input_crd_filename # "structure.leap.crd"
 
-    # Import shenanigans
+    # Import shenanigans - if packaged could refactor!
     # from simulate import _simulate
 
     # Import module

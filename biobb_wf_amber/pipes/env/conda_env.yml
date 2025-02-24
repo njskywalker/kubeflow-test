@@ -1,4 +1,4 @@
-name: base  # change to base so don't have to activate venv
+name: base
 channels:
   - conda-forge
   - bioconda
@@ -10,9 +10,10 @@ dependencies:
   # - biobb_chemistry==4.2.0
   - biobb_amber==4.2.0
   # - jupyter  # takes off 600MB
-  # - gfortran==11.3.0
-  # - libgfortran5==11.3.0
-  # - plotly
+  - gfortran==11.3.0
+  - libgfortran5==11.3.0
+  # install in separate image once done checking
+  - plotly
   # - nglview
   # - simpletraj
   - pip

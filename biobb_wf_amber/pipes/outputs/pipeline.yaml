@@ -62,6 +62,161 @@ components:
           artifactType:
             schemaTitle: system.Artifact
             schemaVersion: 0.0.1
+  comp-plot-simulation-scatter:
+    executorLabel: exec-plot-simulation-scatter
+    inputDefinitions:
+      artifacts:
+        input_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_log_filename:
+          parameterType: STRING
+        output_dat_filename:
+          parameterType: STRING
+        plot_height:
+          parameterType: NUMBER_INTEGER
+        plot_title:
+          parameterType: STRING
+        process_type:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+        x_axis_title:
+          parameterType: STRING
+        y_axis_title:
+          parameterType: STRING
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-plot-simulation-scatter-2:
+    executorLabel: exec-plot-simulation-scatter-2
+    inputDefinitions:
+      artifacts:
+        input_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_log_filename:
+          parameterType: STRING
+        output_dat_filename:
+          parameterType: STRING
+        plot_height:
+          parameterType: NUMBER_INTEGER
+        plot_title:
+          parameterType: STRING
+        process_type:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+        x_axis_title:
+          parameterType: STRING
+        y_axis_title:
+          parameterType: STRING
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-plot-simulation-scatter-3:
+    executorLabel: exec-plot-simulation-scatter-3
+    inputDefinitions:
+      artifacts:
+        input_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_log_filename:
+          parameterType: STRING
+        output_dat_filename:
+          parameterType: STRING
+        plot_height:
+          parameterType: NUMBER_INTEGER
+        plot_title:
+          parameterType: STRING
+        process_type:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+        x_axis_title:
+          parameterType: STRING
+        y_axis_title:
+          parameterType: STRING
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-plot-simulation-scatter-4:
+    executorLabel: exec-plot-simulation-scatter-4
+    inputDefinitions:
+      artifacts:
+        input_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_log_filename:
+          parameterType: STRING
+        output_dat_filename:
+          parameterType: STRING
+        plot_height:
+          parameterType: NUMBER_INTEGER
+        plot_title:
+          parameterType: STRING
+        process_type:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+        x_axis_title:
+          parameterType: STRING
+        y_axis_title:
+          parameterType: STRING
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+  comp-plot-simulation-scatter-5:
+    executorLabel: exec-plot-simulation-scatter-5
+    inputDefinitions:
+      artifacts:
+        input_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
+      parameters:
+        input_log_filename:
+          parameterType: STRING
+        output_dat_filename:
+          parameterType: STRING
+        plot_height:
+          parameterType: NUMBER_INTEGER
+        plot_title:
+          parameterType: STRING
+        process_type:
+          parameterType: STRING
+        properties:
+          parameterType: STRUCT
+        x_axis_title:
+          parameterType: STRING
+        y_axis_title:
+          parameterType: STRING
+    outputDefinitions:
+      artifacts:
+        output_path:
+          artifactType:
+            schemaTitle: system.Artifact
+            schemaVersion: 0.0.1
   comp-prep-amber-to-pdb:
     executorLabel: exec-prep-amber-to-pdb
     inputDefinitions:
@@ -442,6 +597,266 @@ deploymentSpec:
           \ + '/protein.pdb'\n\n    # Create and launch bb\n    pdb(output_pdb_path=output_pdb_path,\n\
           \        properties=prop)\n\n"
         image: python:3.9
+    exec-plot-simulation-scatter:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - plot_simulation_scatter
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'plotly' &&\
+          \ \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef plot_simulation_scatter(\n    properties: dict,\n    process_type:\
+          \ str,\n    plot_title: str,\n    x_axis_title: str,\n    y_axis_title:\
+          \ str,\n    plot_height: int,\n    # kubeflow \n    input_path: dsl.InputPath('Directory'),\n\
+          \    input_log_filename: str,\n    output_path: dsl.OutputPath('Directory'),\n\
+          \    output_dat_filename: str,\n):\n    \"\"\"Process simulation log files\
+          \ to generate and save \n    a scatter plot.\"\"\"\n\n    # Import modules\n\
+          \    import os\n    import plotly.graph_objs as go\n    if process_type\
+          \ == \"minout\":\n        from biobb_amber.process.process_minout import\
+          \ process_minout\n        process_func = process_minout\n    else:\n   \
+          \     from biobb_amber.process.process_mdout import process_mdout\n    \
+          \    process_func = process_mdout\n\n    # Process log files, creating stats\n\
+          \    os.makedirs(output_path, exist_ok=True)\n    input_log_path = input_path\
+          \ + \"/\" + input_log_filename\n    output_dat_path = output_path + \"/\"\
+          \ + output_dat_filename\n\n\n    # Create and launch bb\n    process_func(input_log_path=input_log_path,\n\
+          \                output_dat_path=output_dat_path,\n                properties=properties)\
+          \  \n\n    with open(output_dat_path, 'r') as energy_file:\n        x, y\
+          \ = zip(*[\n            (float(line.split()[0]), float(line.split()[1]))\n\
+          \            for line in energy_file\n            if not line.startswith((\"\
+          #\", \"@\"))\n            if float(line.split()[1]) < 1000\n        ])\n\
+          \n    # Create a scatter plot\n    fig = go.Figure(data=go.Scatter(x=x,\
+          \ y=y, mode='lines'))\n\n    # Update layout\n    fig.update_layout(title=plot_title,\n\
+          \                    xaxis_title=x_axis_title,\n                    yaxis_title=y_axis_title,\n\
+          \                    height=plot_height)\n\n    # Save the plot\n    fig.write_html(output_path\
+          \ + \"/simulation_scatter_plot.html\")\n\n"
+        image: amber_bio:latest
+    exec-plot-simulation-scatter-2:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - plot_simulation_scatter
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'plotly' &&\
+          \ \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef plot_simulation_scatter(\n    properties: dict,\n    process_type:\
+          \ str,\n    plot_title: str,\n    x_axis_title: str,\n    y_axis_title:\
+          \ str,\n    plot_height: int,\n    # kubeflow \n    input_path: dsl.InputPath('Directory'),\n\
+          \    input_log_filename: str,\n    output_path: dsl.OutputPath('Directory'),\n\
+          \    output_dat_filename: str,\n):\n    \"\"\"Process simulation log files\
+          \ to generate and save \n    a scatter plot.\"\"\"\n\n    # Import modules\n\
+          \    import os\n    import plotly.graph_objs as go\n    if process_type\
+          \ == \"minout\":\n        from biobb_amber.process.process_minout import\
+          \ process_minout\n        process_func = process_minout\n    else:\n   \
+          \     from biobb_amber.process.process_mdout import process_mdout\n    \
+          \    process_func = process_mdout\n\n    # Process log files, creating stats\n\
+          \    os.makedirs(output_path, exist_ok=True)\n    input_log_path = input_path\
+          \ + \"/\" + input_log_filename\n    output_dat_path = output_path + \"/\"\
+          \ + output_dat_filename\n\n\n    # Create and launch bb\n    process_func(input_log_path=input_log_path,\n\
+          \                output_dat_path=output_dat_path,\n                properties=properties)\
+          \  \n\n    with open(output_dat_path, 'r') as energy_file:\n        x, y\
+          \ = zip(*[\n            (float(line.split()[0]), float(line.split()[1]))\n\
+          \            for line in energy_file\n            if not line.startswith((\"\
+          #\", \"@\"))\n            if float(line.split()[1]) < 1000\n        ])\n\
+          \n    # Create a scatter plot\n    fig = go.Figure(data=go.Scatter(x=x,\
+          \ y=y, mode='lines'))\n\n    # Update layout\n    fig.update_layout(title=plot_title,\n\
+          \                    xaxis_title=x_axis_title,\n                    yaxis_title=y_axis_title,\n\
+          \                    height=plot_height)\n\n    # Save the plot\n    fig.write_html(output_path\
+          \ + \"/simulation_scatter_plot.html\")\n\n"
+        image: amber_bio:latest
+    exec-plot-simulation-scatter-3:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - plot_simulation_scatter
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'plotly' &&\
+          \ \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef plot_simulation_scatter(\n    properties: dict,\n    process_type:\
+          \ str,\n    plot_title: str,\n    x_axis_title: str,\n    y_axis_title:\
+          \ str,\n    plot_height: int,\n    # kubeflow \n    input_path: dsl.InputPath('Directory'),\n\
+          \    input_log_filename: str,\n    output_path: dsl.OutputPath('Directory'),\n\
+          \    output_dat_filename: str,\n):\n    \"\"\"Process simulation log files\
+          \ to generate and save \n    a scatter plot.\"\"\"\n\n    # Import modules\n\
+          \    import os\n    import plotly.graph_objs as go\n    if process_type\
+          \ == \"minout\":\n        from biobb_amber.process.process_minout import\
+          \ process_minout\n        process_func = process_minout\n    else:\n   \
+          \     from biobb_amber.process.process_mdout import process_mdout\n    \
+          \    process_func = process_mdout\n\n    # Process log files, creating stats\n\
+          \    os.makedirs(output_path, exist_ok=True)\n    input_log_path = input_path\
+          \ + \"/\" + input_log_filename\n    output_dat_path = output_path + \"/\"\
+          \ + output_dat_filename\n\n\n    # Create and launch bb\n    process_func(input_log_path=input_log_path,\n\
+          \                output_dat_path=output_dat_path,\n                properties=properties)\
+          \  \n\n    with open(output_dat_path, 'r') as energy_file:\n        x, y\
+          \ = zip(*[\n            (float(line.split()[0]), float(line.split()[1]))\n\
+          \            for line in energy_file\n            if not line.startswith((\"\
+          #\", \"@\"))\n            if float(line.split()[1]) < 1000\n        ])\n\
+          \n    # Create a scatter plot\n    fig = go.Figure(data=go.Scatter(x=x,\
+          \ y=y, mode='lines'))\n\n    # Update layout\n    fig.update_layout(title=plot_title,\n\
+          \                    xaxis_title=x_axis_title,\n                    yaxis_title=y_axis_title,\n\
+          \                    height=plot_height)\n\n    # Save the plot\n    fig.write_html(output_path\
+          \ + \"/simulation_scatter_plot.html\")\n\n"
+        image: amber_bio:latest
+    exec-plot-simulation-scatter-4:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - plot_simulation_scatter
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'plotly' &&\
+          \ \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef plot_simulation_scatter(\n    properties: dict,\n    process_type:\
+          \ str,\n    plot_title: str,\n    x_axis_title: str,\n    y_axis_title:\
+          \ str,\n    plot_height: int,\n    # kubeflow \n    input_path: dsl.InputPath('Directory'),\n\
+          \    input_log_filename: str,\n    output_path: dsl.OutputPath('Directory'),\n\
+          \    output_dat_filename: str,\n):\n    \"\"\"Process simulation log files\
+          \ to generate and save \n    a scatter plot.\"\"\"\n\n    # Import modules\n\
+          \    import os\n    import plotly.graph_objs as go\n    if process_type\
+          \ == \"minout\":\n        from biobb_amber.process.process_minout import\
+          \ process_minout\n        process_func = process_minout\n    else:\n   \
+          \     from biobb_amber.process.process_mdout import process_mdout\n    \
+          \    process_func = process_mdout\n\n    # Process log files, creating stats\n\
+          \    os.makedirs(output_path, exist_ok=True)\n    input_log_path = input_path\
+          \ + \"/\" + input_log_filename\n    output_dat_path = output_path + \"/\"\
+          \ + output_dat_filename\n\n\n    # Create and launch bb\n    process_func(input_log_path=input_log_path,\n\
+          \                output_dat_path=output_dat_path,\n                properties=properties)\
+          \  \n\n    with open(output_dat_path, 'r') as energy_file:\n        x, y\
+          \ = zip(*[\n            (float(line.split()[0]), float(line.split()[1]))\n\
+          \            for line in energy_file\n            if not line.startswith((\"\
+          #\", \"@\"))\n            if float(line.split()[1]) < 1000\n        ])\n\
+          \n    # Create a scatter plot\n    fig = go.Figure(data=go.Scatter(x=x,\
+          \ y=y, mode='lines'))\n\n    # Update layout\n    fig.update_layout(title=plot_title,\n\
+          \                    xaxis_title=x_axis_title,\n                    yaxis_title=y_axis_title,\n\
+          \                    height=plot_height)\n\n    # Save the plot\n    fig.write_html(output_path\
+          \ + \"/simulation_scatter_plot.html\")\n\n"
+        image: amber_bio:latest
+    exec-plot-simulation-scatter-5:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - plot_simulation_scatter
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.11.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'plotly' &&\
+          \ \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef plot_simulation_scatter(\n    properties: dict,\n    process_type:\
+          \ str,\n    plot_title: str,\n    x_axis_title: str,\n    y_axis_title:\
+          \ str,\n    plot_height: int,\n    # kubeflow \n    input_path: dsl.InputPath('Directory'),\n\
+          \    input_log_filename: str,\n    output_path: dsl.OutputPath('Directory'),\n\
+          \    output_dat_filename: str,\n):\n    \"\"\"Process simulation log files\
+          \ to generate and save \n    a scatter plot.\"\"\"\n\n    # Import modules\n\
+          \    import os\n    import plotly.graph_objs as go\n    if process_type\
+          \ == \"minout\":\n        from biobb_amber.process.process_minout import\
+          \ process_minout\n        process_func = process_minout\n    else:\n   \
+          \     from biobb_amber.process.process_mdout import process_mdout\n    \
+          \    process_func = process_mdout\n\n    # Process log files, creating stats\n\
+          \    os.makedirs(output_path, exist_ok=True)\n    input_log_path = input_path\
+          \ + \"/\" + input_log_filename\n    output_dat_path = output_path + \"/\"\
+          \ + output_dat_filename\n\n\n    # Create and launch bb\n    process_func(input_log_path=input_log_path,\n\
+          \                output_dat_path=output_dat_path,\n                properties=properties)\
+          \  \n\n    with open(output_dat_path, 'r') as energy_file:\n        x, y\
+          \ = zip(*[\n            (float(line.split()[0]), float(line.split()[1]))\n\
+          \            for line in energy_file\n            if not line.startswith((\"\
+          #\", \"@\"))\n            if float(line.split()[1]) < 1000\n        ])\n\
+          \n    # Create a scatter plot\n    fig = go.Figure(data=go.Scatter(x=x,\
+          \ y=y, mode='lines'))\n\n    # Update layout\n    fig.update_layout(title=plot_title,\n\
+          \                    xaxis_title=x_axis_title,\n                    yaxis_title=y_axis_title,\n\
+          \                    height=plot_height)\n\n    # Save the plot\n    fig.write_html(output_path\
+          \ + \"/simulation_scatter_plot.html\")\n\n"
+        image: amber_bio:latest
     exec-prep-amber-to-pdb:
       container:
         args:
@@ -513,14 +928,15 @@ deploymentSpec:
           \ path.\n\n    Returns a dictionary of three filepaths for output PDB, \n\
           \    AMBER topology (top) and coordinate (crd) files.\"\"\"\n\n    # Import\
           \ module\n    import os\n    from biobb_amber.leap.leap_gen_top import leap_gen_top\n\
-          \n    # Workaround because image is buggy\n    # Doesn't recognise AMBERHOME\
-          \ for some reason\n    # Even though running image in terminal works...\n\
-          \    if os.getenv(\"AMBERHOME\") is None:\n        os.environ[\"AMBERHOME\"\
-          ] = \"/opt/conda\"\n\n    # Paths\n    os.makedirs(output_path, exist_ok=True)\n\
-          \    input_pdb_path = input_path + '/structure.pdb4amber.pdb'\n    output_pdb_path\
-          \ = output_path + '/structure.leap.pdb'\n    output_top_path = output_path\
-          \ + '/structure.leap.top'\n    output_crd_path = output_path + '/structure.leap.crd'\n\
-          \n    # Create and launch bb\n    leap_gen_top(\n        input_pdb_path=input_pdb_path,\
+          \    import subprocess\n\n    # Workaround because image is buggy\n    #\
+          \ Not sure how it loads conda venv (or doesn't)\n    # Perhaps custom entrypoint\
+          \ used? Flushing env?\n    # Need more debugging\n    if os.getenv(\"AMBERHOME\"\
+          ) is None:\n        os.environ[\"AMBERHOME\"] = \"/opt/conda\"\n\n    #\
+          \ Paths\n    os.makedirs(output_path, exist_ok=True)\n    input_pdb_path\
+          \ = input_path + '/structure.pdb4amber.pdb'\n    output_pdb_path = output_path\
+          \ + '/structure.leap.pdb'\n    output_top_path = output_path + '/structure.leap.top'\n\
+          \    output_crd_path = output_path + '/structure.leap.crd'\n\n    # Create\
+          \ and launch bb\n    leap_gen_top(\n        input_pdb_path=input_pdb_path,\
           \ \n        output_pdb_path=output_pdb_path, \n        output_top_path=output_top_path,\
           \ \n        output_crd_path=output_crd_path, \n        properties=properties\n\
           \    )\n\n"
@@ -611,18 +1027,19 @@ deploymentSpec:
           \ folder with outputs.\n    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
           \n    input_crd_path_complete = input_top_path + \"/\" + input_crd_filename\
-          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
-          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
-          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
-          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
-          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
-          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
-          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
-          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
-          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
-          \        properties=properties\n    )\n\n"
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans - if packaged could\
+          \ refactor!\n    # from simulate import _simulate\n\n    # Import module\n\
+          \    import os\n    from biobb_amber.sander.sander_mdrun import sander_mdrun\n\
+          \n    os.makedirs(output_path, exist_ok=True)\n\n    # TODO: look into using\
+          \ os.path.join - but struggles with slashes?\n    # or just add a `/` here...\n\
+          \    output_h_min_traj_path = output_path + \"/\" + output_traj_filename\n\
+          \    output_h_min_rst_path = output_path + \"/\" + output_rst_filename\n\
+          \    output_h_min_log_path = output_path + \"/\" + output_log_filename\n\
+          \n\n    # Create and launch bb\n    sander_mdrun(\n        input_top_path=input_top_path_complete,\n\
+          \        input_crd_path=input_crd_path_complete,\n        input_ref_path=input_crd_path_complete,\n\
+          \        output_traj_path=output_h_min_traj_path,\n        output_rst_path=output_h_min_rst_path,\n\
+          \        output_log_path=output_h_min_log_path,\n        properties=properties\n\
+          \    )\n\n"
         image: amber_bio:latest
     exec-simulate-one-input-2:
       container:
@@ -672,18 +1089,19 @@ deploymentSpec:
           \ folder with outputs.\n    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
           \n    input_crd_path_complete = input_top_path + \"/\" + input_crd_filename\
-          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
-          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
-          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
-          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
-          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
-          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
-          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
-          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
-          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
-          \        properties=properties\n    )\n\n"
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans - if packaged could\
+          \ refactor!\n    # from simulate import _simulate\n\n    # Import module\n\
+          \    import os\n    from biobb_amber.sander.sander_mdrun import sander_mdrun\n\
+          \n    os.makedirs(output_path, exist_ok=True)\n\n    # TODO: look into using\
+          \ os.path.join - but struggles with slashes?\n    # or just add a `/` here...\n\
+          \    output_h_min_traj_path = output_path + \"/\" + output_traj_filename\n\
+          \    output_h_min_rst_path = output_path + \"/\" + output_rst_filename\n\
+          \    output_h_min_log_path = output_path + \"/\" + output_log_filename\n\
+          \n\n    # Create and launch bb\n    sander_mdrun(\n        input_top_path=input_top_path_complete,\n\
+          \        input_crd_path=input_crd_path_complete,\n        input_ref_path=input_crd_path_complete,\n\
+          \        output_traj_path=output_h_min_traj_path,\n        output_rst_path=output_h_min_rst_path,\n\
+          \        output_log_path=output_h_min_log_path,\n        properties=properties\n\
+          \    )\n\n"
         image: amber_bio:latest
     exec-simulate-one-input-3:
       container:
@@ -733,18 +1151,19 @@ deploymentSpec:
           \ folder with outputs.\n    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
           \n    input_crd_path_complete = input_top_path + \"/\" + input_crd_filename\
-          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
-          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
-          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
-          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
-          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
-          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
-          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
-          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
-          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
-          \        properties=properties\n    )\n\n"
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans - if packaged could\
+          \ refactor!\n    # from simulate import _simulate\n\n    # Import module\n\
+          \    import os\n    from biobb_amber.sander.sander_mdrun import sander_mdrun\n\
+          \n    os.makedirs(output_path, exist_ok=True)\n\n    # TODO: look into using\
+          \ os.path.join - but struggles with slashes?\n    # or just add a `/` here...\n\
+          \    output_h_min_traj_path = output_path + \"/\" + output_traj_filename\n\
+          \    output_h_min_rst_path = output_path + \"/\" + output_rst_filename\n\
+          \    output_h_min_log_path = output_path + \"/\" + output_log_filename\n\
+          \n\n    # Create and launch bb\n    sander_mdrun(\n        input_top_path=input_top_path_complete,\n\
+          \        input_crd_path=input_crd_path_complete,\n        input_ref_path=input_crd_path_complete,\n\
+          \        output_traj_path=output_h_min_traj_path,\n        output_rst_path=output_h_min_rst_path,\n\
+          \        output_log_path=output_h_min_log_path,\n        properties=properties\n\
+          \    )\n\n"
         image: amber_bio:latest
     exec-simulate-two-inputs:
       container:
@@ -783,18 +1202,19 @@ deploymentSpec:
           \    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
           \n    input_crd_path_complete = input_crd_path + \"/\" + input_crd_filename\
-          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
-          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
-          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
-          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
-          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
-          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
-          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
-          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
-          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
-          \        properties=properties\n    )\n\n"
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans - if packaged could\
+          \ refactor!\n    # from simulate import _simulate\n\n    # Import module\n\
+          \    import os\n    from biobb_amber.sander.sander_mdrun import sander_mdrun\n\
+          \n    os.makedirs(output_path, exist_ok=True)\n\n    # TODO: look into using\
+          \ os.path.join - but struggles with slashes?\n    # or just add a `/` here...\n\
+          \    output_h_min_traj_path = output_path + \"/\" + output_traj_filename\n\
+          \    output_h_min_rst_path = output_path + \"/\" + output_rst_filename\n\
+          \    output_h_min_log_path = output_path + \"/\" + output_log_filename\n\
+          \n\n    # Create and launch bb\n    sander_mdrun(\n        input_top_path=input_top_path_complete,\n\
+          \        input_crd_path=input_crd_path_complete,\n        input_ref_path=input_crd_path_complete,\n\
+          \        output_traj_path=output_h_min_traj_path,\n        output_rst_path=output_h_min_rst_path,\n\
+          \        output_log_path=output_h_min_log_path,\n        properties=properties\n\
+          \    )\n\n"
         image: amber_bio:latest
     exec-simulate-two-inputs-2:
       container:
@@ -833,18 +1253,19 @@ deploymentSpec:
           \    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
           \n    input_crd_path_complete = input_crd_path + \"/\" + input_crd_filename\
-          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
-          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
-          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
-          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
-          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
-          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
-          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
-          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
-          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
-          \        properties=properties\n    )\n\n"
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans - if packaged could\
+          \ refactor!\n    # from simulate import _simulate\n\n    # Import module\n\
+          \    import os\n    from biobb_amber.sander.sander_mdrun import sander_mdrun\n\
+          \n    os.makedirs(output_path, exist_ok=True)\n\n    # TODO: look into using\
+          \ os.path.join - but struggles with slashes?\n    # or just add a `/` here...\n\
+          \    output_h_min_traj_path = output_path + \"/\" + output_traj_filename\n\
+          \    output_h_min_rst_path = output_path + \"/\" + output_rst_filename\n\
+          \    output_h_min_log_path = output_path + \"/\" + output_log_filename\n\
+          \n\n    # Create and launch bb\n    sander_mdrun(\n        input_top_path=input_top_path_complete,\n\
+          \        input_crd_path=input_crd_path_complete,\n        input_ref_path=input_crd_path_complete,\n\
+          \        output_traj_path=output_h_min_traj_path,\n        output_rst_path=output_h_min_rst_path,\n\
+          \        output_log_path=output_h_min_log_path,\n        properties=properties\n\
+          \    )\n\n"
         image: amber_bio:latest
     exec-simulate-two-inputs-3:
       container:
@@ -883,18 +1304,19 @@ deploymentSpec:
           \    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
           \n    input_crd_path_complete = input_crd_path + \"/\" + input_crd_filename\
-          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
-          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
-          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
-          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
-          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
-          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
-          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
-          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
-          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
-          \        properties=properties\n    )\n\n"
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans - if packaged could\
+          \ refactor!\n    # from simulate import _simulate\n\n    # Import module\n\
+          \    import os\n    from biobb_amber.sander.sander_mdrun import sander_mdrun\n\
+          \n    os.makedirs(output_path, exist_ok=True)\n\n    # TODO: look into using\
+          \ os.path.join - but struggles with slashes?\n    # or just add a `/` here...\n\
+          \    output_h_min_traj_path = output_path + \"/\" + output_traj_filename\n\
+          \    output_h_min_rst_path = output_path + \"/\" + output_rst_filename\n\
+          \    output_h_min_log_path = output_path + \"/\" + output_log_filename\n\
+          \n\n    # Create and launch bb\n    sander_mdrun(\n        input_top_path=input_top_path_complete,\n\
+          \        input_crd_path=input_crd_path_complete,\n        input_ref_path=input_crd_path_complete,\n\
+          \        output_traj_path=output_h_min_traj_path,\n        output_rst_path=output_h_min_rst_path,\n\
+          \        output_log_path=output_h_min_log_path,\n        properties=properties\n\
+          \    )\n\n"
         image: amber_bio:latest
     exec-simulate-two-inputs-4:
       container:
@@ -933,18 +1355,19 @@ deploymentSpec:
           \    \"\"\"\n\n    # Modify inputs/outputs\n    input_top_path_complete\
           \ = input_top_path + \"/\" + input_top_filename # \"structure.leap.top\"\
           \n    input_crd_path_complete = input_crd_path + \"/\" + input_crd_filename\
-          \ # \"structure.leap.crd\"\n\n    # Import shenanigans\n    # from simulate\
-          \ import _simulate\n\n    # Import module\n    import os\n    from biobb_amber.sander.sander_mdrun\
-          \ import sander_mdrun\n\n    os.makedirs(output_path, exist_ok=True)\n\n\
-          \    # TODO: look into using os.path.join - but struggles with slashes?\n\
-          \    # or just add a `/` here...\n    output_h_min_traj_path = output_path\
-          \ + \"/\" + output_traj_filename\n    output_h_min_rst_path = output_path\
-          \ + \"/\" + output_rst_filename\n    output_h_min_log_path = output_path\
-          \ + \"/\" + output_log_filename\n\n\n    # Create and launch bb\n    sander_mdrun(\n\
-          \        input_top_path=input_top_path_complete,\n        input_crd_path=input_crd_path_complete,\n\
-          \        input_ref_path=input_crd_path_complete,\n        output_traj_path=output_h_min_traj_path,\n\
-          \        output_rst_path=output_h_min_rst_path,\n        output_log_path=output_h_min_log_path,\n\
-          \        properties=properties\n    )\n\n"
+          \ # \"structure.leap.crd\"\n\n    # Import shenanigans - if packaged could\
+          \ refactor!\n    # from simulate import _simulate\n\n    # Import module\n\
+          \    import os\n    from biobb_amber.sander.sander_mdrun import sander_mdrun\n\
+          \n    os.makedirs(output_path, exist_ok=True)\n\n    # TODO: look into using\
+          \ os.path.join - but struggles with slashes?\n    # or just add a `/` here...\n\
+          \    output_h_min_traj_path = output_path + \"/\" + output_traj_filename\n\
+          \    output_h_min_rst_path = output_path + \"/\" + output_rst_filename\n\
+          \    output_h_min_log_path = output_path + \"/\" + output_log_filename\n\
+          \n\n    # Create and launch bb\n    sander_mdrun(\n        input_top_path=input_top_path_complete,\n\
+          \        input_crd_path=input_crd_path_complete,\n        input_ref_path=input_crd_path_complete,\n\
+          \        output_traj_path=output_h_min_traj_path,\n        output_rst_path=output_h_min_rst_path,\n\
+          \        output_log_path=output_h_min_log_path,\n        properties=properties\n\
+          \    )\n\n"
         image: amber_bio:latest
 pipelineInfo:
   description: General pipeline for MD setup given PDB ID.
@@ -1031,6 +1454,216 @@ root:
               componentInputParameter: pdb_code
         taskInfo:
           name: fetch-pdb-protein
+      plot-simulation-scatter:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-plot-simulation-scatter
+        dependentTasks:
+        - simulate-one-input
+        inputs:
+          artifacts:
+            input_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: simulate-one-input
+          parameters:
+            input_log_filename:
+              runtimeValue:
+                constant: sander.h_min.log
+            output_dat_filename:
+              runtimeValue:
+                constant: sander.h_min.energy.dat
+            plot_height:
+              runtimeValue:
+                constant: 600.0
+            plot_title:
+              runtimeValue:
+                constant: Energy Minimization
+            process_type:
+              runtimeValue:
+                constant: minout
+            properties:
+              runtimeValue:
+                constant:
+                  terms:
+                  - ENERGY
+            x_axis_title:
+              runtimeValue:
+                constant: Energy Minimization Step
+            y_axis_title:
+              runtimeValue:
+                constant: Potential Energy (Kcal/mol)
+        taskInfo:
+          name: plot-simulation-scatter
+      plot-simulation-scatter-2:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-plot-simulation-scatter-2
+        dependentTasks:
+        - simulate-one-input-2
+        inputs:
+          artifacts:
+            input_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: simulate-one-input-2
+          parameters:
+            input_log_filename:
+              runtimeValue:
+                constant: sander.n_min.log
+            output_dat_filename:
+              runtimeValue:
+                constant: sander.n_min.energy.dat
+            plot_height:
+              runtimeValue:
+                constant: 600.0
+            plot_title:
+              runtimeValue:
+                constant: Energy Minimization
+            process_type:
+              runtimeValue:
+                constant: minout
+            properties:
+              runtimeValue:
+                constant:
+                  terms:
+                  - ENERGY
+            x_axis_title:
+              runtimeValue:
+                constant: Energy Minimization Step
+            y_axis_title:
+              runtimeValue:
+                constant: Potential Energy (Kcal/mol)
+        taskInfo:
+          name: plot-simulation-scatter-2
+      plot-simulation-scatter-3:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-plot-simulation-scatter-3
+        dependentTasks:
+        - simulate-one-input-3
+        inputs:
+          artifacts:
+            input_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: simulate-one-input-3
+          parameters:
+            input_log_filename:
+              runtimeValue:
+                constant: sander.min.log
+            output_dat_filename:
+              runtimeValue:
+                constant: sander.min.energy.dat
+            plot_height:
+              runtimeValue:
+                constant: 600.0
+            plot_title:
+              runtimeValue:
+                constant: Energy Minimization
+            process_type:
+              runtimeValue:
+                constant: minout
+            properties:
+              runtimeValue:
+                constant:
+                  terms:
+                  - ENERGY
+            x_axis_title:
+              runtimeValue:
+                constant: Energy Minimization Step
+            y_axis_title:
+              runtimeValue:
+                constant: Potential Energy (Kcal/mol)
+        taskInfo:
+          name: plot-simulation-scatter-3
+      plot-simulation-scatter-4:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-plot-simulation-scatter-4
+        dependentTasks:
+        - simulate-two-inputs
+        inputs:
+          artifacts:
+            input_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: simulate-two-inputs
+          parameters:
+            input_log_filename:
+              runtimeValue:
+                constant: sander.heat.log
+            output_dat_filename:
+              runtimeValue:
+                constant: sander.md.temp.dat
+            plot_height:
+              runtimeValue:
+                constant: 600.0
+            plot_title:
+              runtimeValue:
+                constant: Heating process
+            process_type:
+              runtimeValue:
+                constant: mdout
+            properties:
+              runtimeValue:
+                constant:
+                  terms:
+                  - TEMP
+            x_axis_title:
+              runtimeValue:
+                constant: Heating Step (ps)
+            y_axis_title:
+              runtimeValue:
+                constant: Temperature (K)
+        taskInfo:
+          name: plot-simulation-scatter-4
+      plot-simulation-scatter-5:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-plot-simulation-scatter-5
+        dependentTasks:
+        - simulate-two-inputs-2
+        inputs:
+          artifacts:
+            input_path:
+              taskOutputArtifact:
+                outputArtifactKey: output_path
+                producerTask: simulate-two-inputs-2
+          parameters:
+            input_log_filename:
+              runtimeValue:
+                constant: sander.nvt.log
+            output_dat_filename:
+              runtimeValue:
+                constant: sander.md.nvt.temp.dat
+            plot_height:
+              runtimeValue:
+                constant: 600.0
+            plot_title:
+              runtimeValue:
+                constant: NVT equilibration
+            process_type:
+              runtimeValue:
+                constant: mdout
+            properties:
+              runtimeValue:
+                constant:
+                  terms:
+                  - TEMP
+            x_axis_title:
+              runtimeValue:
+                constant: Equilibration Step (ps)
+            y_axis_title:
+              runtimeValue:
+                constant: Temperature (K)
+        taskInfo:
+          name: plot-simulation-scatter-5
       prep-amber-to-pdb:
         cachingOptions:
           enableCache: true
@@ -1401,6 +2034,16 @@ platforms:
         exec-add-ions:
           imagePullPolicy: Never
         exec-create-water-box:
+          imagePullPolicy: Never
+        exec-plot-simulation-scatter:
+          imagePullPolicy: Never
+        exec-plot-simulation-scatter-2:
+          imagePullPolicy: Never
+        exec-plot-simulation-scatter-3:
+          imagePullPolicy: Never
+        exec-plot-simulation-scatter-4:
+          imagePullPolicy: Never
+        exec-plot-simulation-scatter-5:
           imagePullPolicy: Never
         exec-prep-amber-to-pdb:
           imagePullPolicy: Never
