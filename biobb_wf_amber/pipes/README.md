@@ -125,8 +125,8 @@ Kubeflow Pipelines UI, such as the scatter plots generated. Can also explore
 exporting screenshots of the visualisation to allow sense checking of pipe, but this depends on relative value (compared to having a 3D viewer).
 2. Choice of pipeline stages: effectively have been grouped into "Fetching",
    "Data preparation" (conversion to/from AMBER/PDB) and "Execution" (i.e. like an
-   ML "training" stage but this is not an ML model, so more like "Equilibration").
-   It seems to me that this pipeline is might be preparing the entire protein to
+   ML "training" stage but this is not an ML model, so more like "Transformation").
+   It seems to me that this pipeline might be preparing the entire protein to
    be an input to a larger pipeline / model (e.g. it is effectively a transformer).
    The reasons for my high-resolution break-up of stages is as follows:
     1. **Allow parallelisation**: For some components, such as the NVT and NPT
@@ -155,6 +155,12 @@ exporting screenshots of the visualisation to allow sense checking of pipe, but 
        of Dockerimages (if using those, as I would recommend, instead of 
        `packages_to_install` in components to avoid cumulative runtime slowdowns). 
        See also #3 (Reusability) above
+    5. **Semantics nitpick**: The module names do not correspond to the higher-level
+       grouping from above (e.g. there is no actual "Solvation" stage, that's just
+       effectively a transformation within the "Transformation" stage) 
+       as I would rather organise my namespace according to
+       functionality / output. I have found it's much easier to make sense of
+       them this way! But can adapt to other approaches
 3. Using / not using other components. As stated before, this pipeline looks like
 a transformer to prepare an input to a different model / pipeline, so using 
 components like KServe was not deemed appropriate (what would we be serving? 
