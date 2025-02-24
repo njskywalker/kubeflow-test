@@ -73,51 +73,10 @@ including things like `dag-driver`, `impl` etc.) or use the KF Pipelines UI:
 
 http://localhost:8080/#/runs
 
-## Experience
+Hopefully everything works and you get a *beautiful* output in the UI like this!
+![Top half of pipeline](img/pipe_1.png)
+![Bottom half of pipeline](img/pipe_2.png)
 
-### MinIO
-I chose to use this as a local storage server in between pipeline steps. It
-comes with Kubeflow and is relatively straightforward to set up and use for
-local demonstration.
-
-You can access the MinIO UI by port forwarding to the service and logging in
-with the `minio/minio123` default credentials:
-
-```bash
-make port-forward-minio
-```
-
-## Frustrations
-
-1. Had to install `kfp` through `pip` instead of `conda`
-as otherwise internal imports failed (`requests_toolbox.appengine`)
-2. O God. Never use WSL. Just invest in a Mac
-3. "When you're going through Dependency Hell, keep going" -- Winston Churchill (allegedly)
-3B. Conda environment activation within Docker images is probably harder
-to solve than quantum gravity
-4. `OutputPath`: took me a while to use `Directory` type as thought it 
-was filepaths only -> was defining a custom `dsl.Artifact` subclass for `.pdb`
-files (which had to be imported into pipe image as a package) and all sorts of 
-other crazy things! **Ideally would have specific filepaths as opposed to dirs** 
-to reduce coupling and provide cleaner boundaries for Components.
-5. Compiler can also technically be run locally as `biobb` deps not necessary,
-they don't get imported until `import` is invoked (and compiler doesn't run
-functions only trawls them to make the YAML)
-6. Kubeflow idiosyncracies - e.g. typehinted returns in functions create an
-`Output` file expectation, and if you don't have this, pod fails (was a red
-herring for a while); or `workflow-controller` default listening on :9090 and (somehow? maybe CICD tests failed on the kfp repo?) a Go script raises a panic trying to bind this port to something else (the
-`/metrics` endpoint perhaps?) but it's already bound. My solution was
-to patch the deployment's port, although I have seen it just resolve by
-itself (before my patch) so not sure what was happening... would debug
-with more time, as clashing ports are usually a big issue; kubeflow pipelines failing to start (didn't debug this, restarting minikube
-cluster works)
-7. Silent fails and opaque deps. E.g. `biobb_amber` force field process requires
-`AMBERHOME` env var, presumably set by AmberTools? But has nonexistent error
-handling, so had to debug inside pods. Turns out, it's just the PATH
-to the original (non-Python) packages over which `biobb_amber` wraps
-![alt text](image.png)
-8. Provided images not working (e.g. for AMBER topology work) -> had to write,
-build, and publish own (amber_bio:latest) but chunky! Related to #7
 
 ## Reasoning
 
@@ -143,6 +102,22 @@ Could have also used permanent volumes or direct input / output passing,
 but these options (1) potentially would've taken too much time (relative 
 to the value-add for this project's use-case) and (2) are suboptimal 
 for passing large amounts of data (files) between stages.
+
+You can access the MinIO UI by port forwarding to the service and logging in
+with the `minio/minio123` default credentials:
+
+```bash
+make port-forward-minio
+```
+
+Furthermore, I chose to use Minikube's internal Docker registry as opposed 
+to pushing images to remote registries or developing them on the host
+registry. The former because of privacy / authentication reasons (I don't
+think you would want to just pull random images from a personal Dockerhub
+repo with no security scans etc...) and the latter because integrating a
+locally running container (the Docker registry) with minikube is more complicated
+than just running `$ eval $(minikube docker-env)` and building images on 
+Minikube's own registry!
 
 ### Main ones
 1. Use Google's `ml-metadata` to visualise relevant outputs directly in the
@@ -186,6 +161,43 @@ components like KServe was not deemed appropriate (what would we be serving?
 There is no "model" that's been parametrised and would be waiting on prediction-
 time inputs to give us an output).
 
+## Frustrations
+
+1. Had to install `kfp` through `pip` instead of `conda`
+as otherwise internal imports failed (`requests_toolbox.appengine`)
+2. "When you're going through Dependency Hell, keep going" -- Winston Churchill (allegedly)
+First started development on WSL as I didn't own a Mac, but decided to borrow
+one as it was too convoluted...
+3. Conda environment activation within Docker images clunky from my experience,
+especially when running custom commands like kfp seem to be (i.e. `sh -c`). 
+Took a lot of time attempting to debug this, ended up using a hacky workaround
+4. `OutputPath`: took me a while to use `Directory` type as thought it 
+was filepaths only -> was defining a custom `dsl.Artifact` subclass for `.pdb`
+files (which had to be imported into pipe image as a package) and all sorts of 
+other crazy things! **Ideally would have specific filepaths as opposed to dirs** 
+to reduce coupling and provide cleaner boundaries for Components.
+5. Compiler can also technically be run locally as `biobb` deps not necessary,
+they don't get imported until `import` is invoked (and compiler doesn't run
+functions only trawls them to make the YAML)
+6. Kubeflow idiosyncracies - e.g. typehinted returns in functions create an
+`Output` file expectation, and if you don't have this, pod fails (was a red
+herring for a while); or `workflow-controller` default listening on 
+:9090 and (somehow? maybe CICD tests failed on the kfp repo?) a 
+Go script raises a panic trying to bind this port to something else (the
+`/metrics` endpoint perhaps?) but it's already bound. My solution was
+to patch the deployment's port, although I have seen it just resolve by
+itself (before my patch) so not sure what was happening... would debug
+with more time, as clashing ports are usually a big issue; 
+kubeflow pipelines failing to start (didn't debug this, restarting minikube
+cluster works)
+7. Silent fails and opaque deps. E.g. `biobb_amber` force field process requires
+`AMBERHOME` env var, presumably set by AmberTools? But has nonexistent error
+handling, so had to debug inside pods. Turns out, it's just the PATH
+to the original (non-Python) packages over which `biobb_amber` wraps
+![AMBERHOME error](image.png)
+8. Provided images not working (e.g. for AMBER topology work) -> had to write,
+build, and publish own (amber_bio:latest) but chunkier! Due to #7 mainly
+
 ### More technical todos
 1. Download and explore Kubeflow Pipeline manifests, edit and modify to
 desired spec and deploy from there to trim unused resources
@@ -195,7 +207,8 @@ deps to `base` rather than a custom env, initialising the conda env in `.bashrc`
 and `.bash_profile` (and doing both a login and non-login on the Bash shell),
 setting `ENV` vars in Dockerfile, creating a custom `sh` initialisation script
 (as the commands in `pipeline.yaml` run through `sh` and therefore seem to bypass
-any `CMD`s in the Dockerimage) -- none of these worked. Conda was also an assumed constrait due to AMBER repo README which said it's required
+any `CMD`s in the Dockerimage) -- none of these worked. Conda was also an assumed 
+constrait due to AMBER repo README which said it's required
 to install downstream deps, presumably the AMBER binaries etc.
 3. Create a custom package to import to all containers with common code
 (e.g. having a `_simulate()` method to promote DRY, instead of having both
@@ -203,13 +216,16 @@ to install downstream deps, presumably the AMBER binaries etc.
 better-practice method.
 4. Investigate custom file extensions for `InputPath` and `OutputPath`
 type hints. Seems possible but may need subclassing `Artifact` and
-importing that logic into Docker images / forking or contributing to KFP. Potentially can be part of the custom package from #4. Otherwise, current solution is to just
+importing that logic into Docker images / forking or contributing to KFP. Potentially 
+can be part of the custom package from #4. Otherwise, current solution is to just
 create a common directory and hard-code desired input / output filenames,
-doing joining within functions with is suboptimal due to unnecessary high coupling
+doing joining within functions which is suboptimal due to unnecessary high coupling
 5. If wanting to avoid config / definition in-code, can create another config
 YAML to import parameters for each pipeline stage before compilation. However
 I would recommend against this as the `pipeline.py` file can act as a config
 and leads to less clutter
+6. Actually fininsh outputting all the analysis steps (e.g. from the free MD
+simulation run); ran out of time!
 
 
 ### More business / (internal) customer-focused
@@ -222,6 +238,6 @@ interactions simulations)?
 4. How much of this process can we automate?
 
 ### Nitpicks
-1. Use a better package manager like `uv` over `pip`/`conda` :)
+1. Decided to risk using `uv` over `pip`/`conda` for local dev as it's so much better! :)
 2. Linting, formatting, import checks etc. in Make / Taskfile (e.g. ruff, black, flake8)
-
+   just to clean up git commits!

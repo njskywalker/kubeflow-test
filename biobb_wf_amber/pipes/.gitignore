@@ -6,3 +6,5 @@ dist/*
 
 # For local testing of functionality
 # docker/mount/*
+
+!infra/** */
