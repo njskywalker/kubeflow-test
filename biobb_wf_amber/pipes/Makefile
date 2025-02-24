@@ -2,22 +2,28 @@
 
 SHELL := /bin/bash
 export PIPELINE_VERSION:=2.3.0
-export KUBEFLOW_PIPELINES_UI_ENDPOINT:=http://localhost:8080
+export KUBEFLOW_PIPELINES_UI_ENDPOINT:=http://localhost:8080/pipeline
 export KFP_PLATFORM:=platform-agnostic-emissary
 
 
 setup-minikube:
-	# Start minikube
+	# Start minikube & enable its Docker registry
 	minikube start --cpus=4 --memory=8192
 	minikube addons enable registry
 
-	# Install kubeflow pipelines
+	# Apply kubeflow pipelines manifests
 	kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-scoped-resources?ref=$(PIPELINE_VERSION)"
 	kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
 	kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/env/$(KFP_PLATFORM)?ref=$(PIPELINE_VERSION)"
 
-build:
-	eval $$(minikube docker-env -u) && docker build -f docker/base.Dockerfile -t pipeline:latest .
+	# JSON Patch workflow-controller deployment
+	# Changes metrics port 9090 -> 9091 to avoid Go panic due to already-bound port
+	# Might break downstream dependencies for metrics (e.g. Prometheus) but we don't need that yet...
+	kubectl patch deployment -n kubeflow workflow-controller --patch-file infra/k8s/workflow-controller-patch.json --type=json
+
+build-compiler:
+	eval $$(minikube docker-env -u) && \
+	docker build -f docker/base.Dockerfile -t pipeline:latest .
 
 compile-only:
 	eval $$(minikube docker-env -u) && \
@@ -26,7 +32,7 @@ compile-only:
 		-v ./outputs:/src/outputs \
 		pipeline:latest
 
-compile: build compile-only
+compile: build-compiler compile-only
 
 # TODO Do not use uv
 run:

@@ -1,5 +1,4 @@
-# FROM --platform=linux/amd64 condaforge/mambaforge:latest AS base
-FROM --platform=linux/amd64 quay.io/biocontainers/biobb_amber:5.0.4--pyhdfd78af_0 AS base
+FROM quay.io/biocontainers/biobb_amber:5.0.4--pyhdfd78af_0 AS base
 SHELL ["/bin/bash", "--login", "-c"]
 
 # grab and install conda
@@ -22,14 +21,9 @@ COPY src/stages/simulate.py /simulate.py
 # in case we need to debug the container
 COPY docker/mount/debug /mount/debug
 
-# install pip and plotly (but install in source, not the conda venv)
-# RUN pip install plotly
-
-# RUN echo "conda activate amber_venv" >> ~/.bashrc
-# RUN echo "source activate amber_venv" >> ~/.bashrc
-
 # Kubeflow uses `sh` to run commands, but not through `bash`
 # so `.bashrc` config is not inherited. Must create own init script
+# TODO: alas this also doesn't seem to work
 RUN echo ". /opt/conda/bin/activate" > ~/.init_sh
 ENV ENV=~/.init_sh
 
