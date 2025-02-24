@@ -10,7 +10,7 @@ from analysis.scatter import plot_simulation_scatter
 
 
 @dsl.pipeline(
-    name='Test Kubeflow Pipeline',
+    name='PDB -> AMBER protein processing pipeline.',
     description='General pipeline for MD setup given PDB ID.'
 )
 def pipeline(pdb_code: str):

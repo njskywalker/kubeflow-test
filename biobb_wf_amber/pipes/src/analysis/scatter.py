@@ -28,6 +28,10 @@ def plot_simulation_scatter(
     # Import modules
     import os
     import plotly.graph_objs as go
+
+    # TODO: Better practice to have different images for this
+    # as opposed to this weird conditional? (Kubeflow doesn't
+    # like Literal dtypes or Enum as typehints)
     if process_type == "minout":
         from biobb_amber.process.process_minout import process_minout
         process_func = process_minout

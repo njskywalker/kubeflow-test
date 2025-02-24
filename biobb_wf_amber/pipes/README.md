@@ -42,6 +42,8 @@ make compile
 ```
 
 This should output a `pipeline.yaml` in your local `outputs/` folder.
+(Hopefully - otherwise, you can rename the `pipeline_example.yaml`
+to this and use that.)
 
 ### 2. Execution
 
@@ -76,6 +78,15 @@ http://localhost:8080/#/runs
 Hopefully everything works and you get a *beautiful* output in the UI like this!
 ![Top half of pipeline](img/pipe_1.png)
 ![Bottom half of pipeline](img/pipe_2.png)
+
+### Access
+
+Should you wish to access the artefact files, you can forward to your MinIO UI
+and use the default `minio` / `minio123` user/pass combo to login:
+
+```bash
+make pf-minio
+```
 
 
 ## Reasoning
@@ -200,7 +211,7 @@ cluster works)
 `AMBERHOME` env var, presumably set by AmberTools? But has nonexistent error
 handling, so had to debug inside pods. Turns out, it's just the PATH
 to the original (non-Python) packages over which `biobb_amber` wraps
-![AMBERHOME error](image.png)
+![AMBERHOME error](img/err.png)
 8. Provided images not working (e.g. for AMBER topology work) -> had to write,
 build, and publish own (amber_bio:latest) but chunkier! Due to #7 mainly
 
@@ -232,7 +243,10 @@ I would recommend against this as the `pipeline.py` file can act as a config
 and leads to less clutter
 6. Actually fininsh outputting all the analysis steps (e.g. from the free MD
 simulation run); ran out of time!
-
+7. Refactor string concatenation for paths using `os.path.join` or `pathlib`
+8. Change `src.analysis.scatter` into multiple images instead of doing a weird
+conditional import (as realised Kubeflow only likes specific type hints) +
+helps with coupling!
 
 ### More business / (internal) customer-focused
 1. Why are we making this (or a similar) pipeline, e.g. will the model 

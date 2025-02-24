@@ -1,11 +1,7 @@
-[build-system]
-requires = ["setuptools>=65", "wheel>=0.38"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "pipelinelib"
+name = "kubeflow-setup"
 version = "1.0.0"
-description = "Add your description here"
+description = "Setup for an AMBER notebook -> Kubeflow pipeline."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
